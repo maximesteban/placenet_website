@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos | Placenet, Internet of Places</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Soluciones tecnológicas para gestión inteligente de eventos. Placenet ofrece herramientas avanzadas para organización, control de acceso, interacción con asistentes y análisis en tiempo real.">
+    <meta name="keywords" content="gestión de eventos, eventos inteligentes, tecnología para eventos, control de acceso, interacción digital, análisis de eventos, placenet">
+    <meta name="author" content="Placenet">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://placenet.com/eventos">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://placenet.com/eventos">
+    <meta property="og:title" content="Eventos | Placenet, Internet of Places">
+    <meta property="og:description" content="Soluciones tecnológicas para gestión inteligente de eventos. Placenet ofrece herramientas avanzadas para organización, control de acceso, interacción con asistentes y análisis en tiempo real.">
+    <meta property="og:image" content="https://placenet.com/img/og-eventos.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Placenet">
+    <meta property="og:locale" content="es_ES">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://placenet.com/eventos">
+    <meta property="twitter:title" content="Eventos | Placenet, Internet of Places">
+    <meta property="twitter:description" content="Soluciones tecnológicas para gestión inteligente de eventos. Placenet ofrece herramientas avanzadas para organización, control de acceso, interacción con asistentes y análisis en tiempo real.">
+    <meta property="twitter:image" content="https://placenet.com/img/og-eventos.jpg">
+    <meta name="twitter:creator" content="@placenet">
+    <meta name="twitter:site" content="@placenet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#1a1a1a">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'rethink': ['Rethink Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        'background-first': '#EFE5D7',
+                        'background-third': '#000122',
+                        'dark-color': '#000122',
+                        'light-color': '#EFE5D7',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .logos-slide {
+            animation: slide 30s linear infinite;
+        }
+        
+        .logo-fade-container {
+            position: relative;
+        }
+        
+        .logo-fade-container::before,
+        .logo-fade-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .logo-fade-container::before {
+            left: 0;
+            background: linear-gradient(to right, #EFE5D7, transparent);
+        }
+        
+        .logo-fade-container::after {
+            right: 0;
+            background: linear-gradient(to left, #EFE5D7, transparent);
+        }
+        
+        /* 3D Card Flip Styles */
+        .feature-card {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        
+        .card-inner {
+            transform-style: preserve-3d;
+            transition: transform 0.7s ease-in-out;
+        }
+        
+        .feature-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front,
+        .card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .transform-gpu {
+            transform-style: preserve-3d;
+        }
+        
+        .carousel-card {
+            backface-visibility: hidden;
+        }
+    </style>
+</head>
+
+<body class="font-rethink">
+    <!-- Navigation Header -->
+    <header id="header" class="w-full h-36 bg-background-first fixed top-0 z-50 transform transition-transform duration-300 ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+            <a href="home.html">
+                <img class="w-32 h-8" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-10">
+                <!-- Soluciones -->
+                <div class="relative group">
+                    <a href="#" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Soluciones
+                        <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </a>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <a href="eventos.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Eventos</a>
+                        <a href="buildings.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Smart Buildings</a>
+                        <a href="fincas.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Administración de fincas</a>
+                        <a href="cities.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Smart Cities</a>
+                        <a href="turismo.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Travel y turismo</a>
+                    </div>
+                </div>
+
+                <!-- Recursos -->
+                <div class="relative group">
+                    <a href="#" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Recursos
+                        <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </a>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <a href="tutoriales.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Tutoriales</a>
+                        <a href="blog.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Blog</a>
+                        <a href="casos.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Casos de éxito</a>
+                        <a href="faqs.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">FAQS</a>
+                    </div>
+                </div>
+
+                <!-- Socios -->
+                <div class="relative group">
+                    <a href="#" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Socios
+                        <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </a>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <a href="partner-find.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Buscar un partner</a>
+                        <a href="partner-be.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Convertirme en partner</a>
+                    </div>
+                </div>
+
+                <!-- Precios -->
+                <div class="relative group">
+                    <a href="pricing.html" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Precios
+                    </a>
+                </div>
+
+                <!-- Our App -->
+                <div class="relative group">
+                    <a href="app.html" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Placenet App
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button class="demo-btn bg-background-third text-white px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                    ¡Lo quiero!
+                </button>
+                <button class="bg-background-third text-white px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                    Iniciar sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-background-first pt-36 pb-4 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative">
+            <!-- Main Events Image -->
+            <div class="w-full max-w-[1280px] mx-auto mb-16">
+                <img class="w-full h-auto rounded-3xl aspect-[16/9] object-cover" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1280&q=80" alt="Event Management Technology" />
+            </div>
+            
+            <!-- Central Content Card -->
+            <div class="relative max-w-2xl mx-auto -mt-[22rem] z-10">
+                <div class="bg-background-first/95 backdrop-blur-sm rounded-3xl p-12 text-center">
+                    <h1 class="text-6xl font-black text-dark-color leading-none mb-6">
+                        Gestión de Eventos
+                    </h1>
+                    <p class="text-2xl font-normal text-dark-color leading-7 mb-12">
+                        Eventos inteligentes que conectan automáticamente con cada asistente
+                    </p>
+                    <button class="demo-btn bg-background-third text-white px-16 py-4 rounded-[60px] text-2xl font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                        Solicitar a demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Description Section -->
+    <section class="py-20 bg-background-first">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <!-- Left Side - PC Mockup -->
+                <div class="relative">
+                    <div id="platformMockup" class="w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 cursor-pointer">
+                        <div class="relative bg-background-third rounded-3xl shadow-2xl p-3">
+                            <div class="rounded-2xl overflow-hidden aspect-video relative group">
+                                <img class="w-full h-full object-cover" src="img/home/pc.png" alt="Smart City Platform Interface" />
+                                <!-- Overlay con indicador de clic -->
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                                    <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-4">
+                                        <svg class="w-8 h-8 text-background-third" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Content -->
+                <div class="space-y-10">
+                    <div class="space-y-6">
+                        <h2 class="text-5xl font-medium text-dark-color leading-tight ">
+                            <span class="text-dark-color">Cada asistente </span>
+                            <span class="text-blue-600">recibe información personalizada </span>
+                            <span class="text-dark-color">según su ubicación, intereses y agenda en tiempo real.</span>
+                        </h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="text-xl font-normal text-dark-color leading-7 text-justify">
+                            <span class="text-dark-color">La experiencia del evento se adapta automáticamente: </span>
+                            <span class="text-blue-600">networking inteligente, recomendaciones de sesiones, navegación contextual</span>
+                            <span class="text-dark-color"> y interacciones fluidas.</span>
+                            <br /><br />
+                            <span class="text-dark-color">Desde </span>
+                            <span class="text-blue-600">control de acceso hasta análisis de engagement</span>
+                            <span class="text-dark-color">, todo funciona de manera invisible para los asistentes.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview Section -->
+    <section class="py-20 bg-background-third">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-6xl text-white mb-6">
+                    <span class="font-black text-white tracking-tight">placenet</span> para gestión de eventos
+                </h2>
+                <p class="text-xl text-white max-w-3xl mx-auto">
+                    Transforma la organización y experiencia de eventos con tecnología que conecta automáticamente organizadores, asistentes y contenido.
+                </p>
+            </div>
+            
+            <!-- Features Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card h-80">
+                    <div class="card-inner relative w-full h-full">
+                        <!-- Front Side -->
+                        <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
+                            <div class="w-16 h-16 bg-background-third rounded-xl flex items-center justify-center mb-6">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-dark-color mb-4">Control de Acceso Inteligente</h3>
+                        </div>
+                        
+                        <!-- Back Side -->
+                        <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
+                            <h3 class="text-xl font-bold mb-4 text-dark-color">Control de Acceso Inteligente</h3>
+                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                                Gestión automática de entradas, verificación de identidad y seguimiento de aforo en tiempo real con tecnología contactless.
+                            </p>
+                            <ul class="text-xs space-y-1 text-gray-500">
+                                <li>• Check-in sin contacto</li>
+                                <li>• Verificación automática</li>
+                                <li>• Control de aforo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card h-80">
+                    <div class="card-inner relative w-full h-full">
+                        <!-- Front Side -->
+                        <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
+                            <div class="w-16 h-16 bg-background-third rounded-xl flex items-center justify-center mb-6">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-dark-color mb-4">Networking Inteligente</h3>
+                        </div>
+                        
+                        <!-- Back Side -->
+                        <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
+                            <h3 class="text-xl font-bold mb-4 text-dark-color">Networking Inteligente</h3>
+                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                                Conecta automáticamente asistentes con intereses similares, facilita encuentros programados y sugiere contactos relevantes.
+                            </p>
+                            <ul class="text-xs space-y-1 text-gray-500">
+                                <li>• Matching por intereses</li>
+                                <li>• Encuentros sugeridos</li>
+                                <li>• Intercambio de contactos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card h-80">
+                    <div class="card-inner relative w-full h-full">
+                        <!-- Front Side -->
+                        <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
+                            <div class="w-16 h-16 bg-background-third rounded-xl flex items-center justify-center mb-6">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-dark-color mb-4">Analytics en Tiempo Real</h3>
+                        </div>
+                        
+                        <!-- Back Side -->
+                        <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
+                            <h3 class="text-xl font-bold mb-4 text-dark-color">Analytics en Tiempo Real</h3>
+                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                                Métricas instantáneas de participación, flujos de asistentes, engagement por sesión y feedback inmediato.
+                            </p>
+                            <ul class="text-xs space-y-1 text-gray-500">
+                                <li>• Participación en directo</li>
+                                <li>• Flujos de movimiento</li>
+                                <li>• Métricas de engagement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card h-80">
+                    <div class="card-inner relative w-full h-full">
+                        <!-- Front Side -->
+                        <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
+                            <div class="w-16 h-16 bg-background-third rounded-xl flex items-center justify-center mb-6">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-dark-color mb-4">Agenda Personalizada</h3>
+                        </div>
+                        
+                        <!-- Back Side -->
+                        <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
+                            <h3 class="text-xl font-bold mb-4 text-dark-color">Agenda Personalizada</h3>
+                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                                Recomendaciones automáticas de sesiones, recordatorios inteligentes y optimización de rutas entre actividades.
+                            </p>
+                            <ul class="text-xs space-y-1 text-gray-500">
+                                <li>• Sesiones recomendadas</li>
+                                <li>• Recordatorios automáticos</li>
+                                <li>• Rutas optimizadas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card h-80">
+                    <div class="card-inner relative w-full h-full">
+                        <!-- Front Side -->
+                        <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
+                            <div class="w-16 h-16 bg-background-third rounded-xl flex items-center justify-center mb-6">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-dark-color mb-4">Gestión de Recursos</h3>
+                        </div>
+                        
+                        <!-- Back Side -->
+                        <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
+                            <h3 class="text-xl font-bold mb-4 text-dark-color">Gestión de Recursos</h3>
+                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                                Optimización automática de espacios, equipamiento y personal basada en demanda y patrones de uso en tiempo real.
+                            </p>
+                            <ul class="text-xs space-y-1 text-gray-500">
+                                <li>• Optimización de espacios</li>
+                                <li>• Gestión de equipos</li>
+                                <li>• Asignación de personal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card h-80">
+                    <div class="card-inner relative w-full h-full">
+                        <!-- Front Side -->
+                        <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
+                            <div class="w-16 h-16 bg-background-third rounded-xl flex items-center justify-center mb-6">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-dark-color mb-4">Feedback Instantáneo</h3>
+                        </div>
+                        
+                        <!-- Back Side -->
+                        <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
+                            <h3 class="text-xl font-bold mb-4 text-dark-color">Feedback Instantáneo</h3>
+                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                                Recolección automática de valoraciones, encuestas contextuales y análisis de satisfacción en tiempo real.
+                            </p>
+                            <ul class="text-xs space-y-1 text-gray-500">
+                                <li>• Valoraciones automáticas</li>
+                                <li>• Encuestas contextuales</li>
+                                <li>• Análisis de satisfacción</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Cases Carousel Section -->
+    <section class="py-20 bg-background-first">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <div class="py-20 mx-auto px-4">
+                <!-- Company Logos Section -->  
+                <!-- Logos Carousel Container -->
+                <div class="overflow-hidden relative logo-fade-container">
+                    <div class="logos-slide flex items-center gap-16" style="width: calc(200% + 4rem);">
+                        <!-- First set of logos -->
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-8 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg" alt="Airbnb" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-8 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="Uber" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Tesla_T_symbol.svg" alt="Tesla" />
+                        </a>
+                        
+                        <!-- Duplicate set for seamless loop -->
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-8 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg" alt="Airbnb" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-8 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="Uber" />
+                        </a>
+                        <a href="/casos-de-exito" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
+                            <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Tesla_T_symbol.svg" alt="Tesla" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Carousel Container -->
+            <div class="relative h-[700px] perspective-1000">
+                <!-- Left Arrow -->
+                <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border-2 border-dark-color flex items-center justify-center hover:bg-dark-color hover:text-white hover:scale-110 transition-all duration-300 group">
+                    <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg> 
+                </button>
+                
+                <!-- Right Arrow -->
+                <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border-2 border-dark-color flex items-center justify-center hover:bg-dark-color hover:text-white hover:scale-110 transition-all duration-300 group">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+                
+                <!-- Carousel Cards Container -->
+                <div class="relative w-full h-full flex items-center justify-center">
+                    <!-- Card 1 - Left Side (Behind) -->
+                    <div id="card-0" class="carousel-card absolute w-80 h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(-300px) translateZ(-300px) rotateY(35deg); opacity: 0.3; z-index: 1; pointer-events: none;">
+                        <a href="/casos-de-exito" class="block h-full">
+                            <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
+                                <div class="relative h-full">
+                                    <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Tech Conference Case" />
+                                    <div class="absolute inset-0 bg-gradient-to-t from-background-third/90 via-transparent to-transparent"></div>
+                                    <div class="absolute inset-0 bg-gradient-to-b from-background-third/60 via-transparent to-transparent"></div>
+                                    
+                                    <!-- Categoría en esquina superior izquierda -->
+                                    <div class="absolute top-4 left-4 opacity-0 transition-opacity duration-700">
+                                        <span class="bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full">Conferencia Tech</span>
+                                    </div>
+                                    
+                                    <!-- Logo empresa en esquina superior derecha -->
+                                    <div class="absolute top-4 right-4 opacity-0 transition-opacity duration-700">
+                                        <span class="text-white text-sm font-bold">Barcelona</span>
+                                    </div>
+                                    
+                                    <div class="absolute bottom-0 left-0 right-0 p-6 text-white opacity-0 transition-opacity duration-700">
+                                        <p class="text-sm font-normal leading-tight text-justify">
+                                            Conferencia tecnológica en Barcelona implementó <span class="font-black text-white tracking-tight">placenet</span> para networking automático y agenda personalizada de 5,000 asistentes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Card 2 - Center (Front - Superpuesto) -->
+                    <div id="card-1" class="carousel-card absolute w-96 h-[600px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(0) translateZ(0) rotateY(0deg); opacity: 1; z-index: 20; pointer-events: auto;">
+                        <a href="/casos-de-exito" class="block h-full">
+                            <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
+                                <div class="relative h-full">
+                                    <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Music Festival Case" />
+                                    <div class="absolute inset-0 bg-gradient-to-t from-background-third/90 via-transparent to-transparent"></div>
+                                    <div class="absolute inset-0 bg-gradient-to-b from-background-third/60 via-transparent to-transparent"></div>
+                                    
+                                    <!-- Categoría en esquina superior izquierda -->
+                                    <div class="absolute top-4 left-4 opacity-100 transition-opacity duration-700">
+                                        <span class="bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full">Festival Musical</span>
+                                    </div>
+                                    
+                                    <!-- Logo empresa en esquina superior derecha -->
+                                    <div class="absolute top-4 right-4 opacity-100 transition-opacity duration-700">
+                                        <span class="text-white text-sm font-bold">Madrid</span>
+                                    </div>
+                                    
+                                    <div class="absolute bottom-0 left-0 right-0 p-6 text-white opacity-100 transition-opacity duration-700">
+                                        <p class="text-base font-normal leading-tight text-justify">
+                                            Festival de música de Madrid utilizó <span class="font-black text-white tracking-tight">placenet</span> para control de acceso inteligente, networking automático y gestión de recursos para 80,000 asistentes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Card 3 - Right Side (Behind) -->
+                    <div id="card-2" class="carousel-card absolute w-80 h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(300px) translateZ(-300px) rotateY(-35deg); opacity: 0.3; z-index: 1; pointer-events: none;">
+                        <a href="/casos-de-exito" class="block h-full">
+                            <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
+                                <div class="relative h-full">
+                                    <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Corporate Event Case" />
+                                    <div class="absolute inset-0 bg-gradient-to-t from-background-third/90 via-transparent to-transparent"></div>
+                                    <div class="absolute inset-0 bg-gradient-to-b from-background-third/60 via-transparent to-transparent"></div>
+                                    
+                                    <!-- Categoría en esquina superior izquierda -->
+                                    <div class="absolute top-4 left-4 opacity-0 transition-opacity duration-700">
+                                        <span class="bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full">Evento Corporativo</span>
+                                    </div>
+                                    
+                                    <!-- Logo empresa en esquina superior derecha -->
+                                    <div class="absolute top-4 right-4 opacity-0 transition-opacity duration-700">
+                                        <span class="text-white text-sm font-bold">Valencia</span>
+                                    </div>
+                                    
+                                    <div class="absolute bottom-0 left-0 right-0 p-6 text-white opacity-0 transition-opacity duration-700">
+                                        <p class="text-sm font-normal leading-tight text-justify">
+                                            Evento corporativo en Valencia implementó <span class="font-black text-white tracking-tight">placenet</span> para feedback instantáneo y analytics de participación en tiempo real.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Hidden Cards for rotation -->
+                    <div id="card-3" class="carousel-card absolute w-80 h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(700px) translateZ(-500px) rotateY(-80deg); opacity: 0; z-index: 0; pointer-events: none;">
+                        <a href="/casos-de-exito" class="block h-full">
+                            <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
+                                <div class="relative h-full">
+                                    <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Trade Fair Case" />
+                                    <div class="absolute inset-0 bg-gradient-to-t from-background-third/90 via-transparent to-transparent"></div>
+                                    <div class="absolute inset-0 bg-gradient-to-b from-background-third/60 via-transparent to-transparent"></div>
+                                    
+                                    <!-- Categoría en esquina superior izquierda -->
+                                    <div class="absolute top-4 left-4 opacity-0 transition-opacity duration-700">
+                                        <span class="bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full">Feria Comercial</span>
+                                    </div>
+                                    
+                                    <!-- Logo empresa en esquina superior derecha -->
+                                    <div class="absolute top-4 right-4 opacity-0 transition-opacity duration-700">
+                                        <span class="text-white text-sm font-bold">Sevilla</span>
+                                    </div>
+                                    
+                                    <div class="absolute bottom-0 left-0 right-0 p-6 text-white opacity-0 transition-opacity duration-700">
+                                        <p class="text-sm font-normal leading-tight text-justify">
+                                            Feria comercial en Sevilla implementó <span class="font-black text-white tracking-tight">placenet</span> para conexiones automáticas entre expositores y visitantes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div id="card-4" class="carousel-card absolute w-80 h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(-700px) translateZ(-500px) rotateY(80deg); opacity: 0; z-index: 0; pointer-events: none;">
+                        <a href="/casos-de-exito" class="block h-full">
+                            <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
+                                <div class="relative h-full">
+                                    <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Medical Congress Case" />
+                                    <div class="absolute inset-0 bg-gradient-to-t from-background-third/90 via-transparent to-transparent"></div>
+                                    <div class="absolute inset-0 bg-gradient-to-b from-background-third/60 via-transparent to-transparent"></div>
+                                    
+                                    <!-- Categoría en esquina superior izquierda -->
+                                    <div class="absolute top-4 left-4 opacity-0 transition-opacity duration-700">
+                                        <span class="bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full">Congreso Médico</span>
+                                    </div>
+                                    
+                                    <!-- Logo empresa en esquina superior derecha -->
+                                    <div class="absolute top-4 right-4 opacity-0 transition-opacity duration-700">
+                                        <span class="text-white text-sm font-bold">Bilbao</span>
+                                    </div>
+                                    
+                                    <div class="absolute bottom-0 left-0 right-0 p-6 text-white opacity-0 transition-opacity duration-700">
+                                        <p class="text-sm font-normal leading-tight text-justify">
+                                            Congreso médico en Bilbao optimizó networking entre profesionales sanitarios con <span class="font-black text-white tracking-tight">placenet</span>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs Section -->
+    <section class="py-20 bg-background-first">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-20 items-start">
+                <!-- Left Side - Header -->
+                <div class="space-y-10">
+                    <h2 class="text-5xl font-medium text-dark-color leading-tight">
+                        Preguntas Frecuentes sobre Gestión de Eventos
+                    </h2>
+                    <p class="text-2xl font-normal text-dark-color leading-7">
+                        Resolvemos las dudas más comunes sobre cómo <span class="font-black text-dark-color tracking-tight">placenet</span> puede transformar la organización y experiencia de tus eventos.
+                    </p>
+                    
+                    <!-- Ver más FAQs Button -->
+                    <div class="pt-6">
+                        <a href="faqs.html" class="inline-flex items-center gap-3 border-2 border-background-third text-background-third px-8 py-3 rounded-[40px] text-lg font-medium hover:bg-background-third hover:text-white hover:scale-105 transition-all duration-300 group">
+                            <span>Ver más FAQs</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Right Side - FAQ Items -->
+                <div class="space-y-5">
+                    <!-- FAQ 1 - Initially Open -->
+                    <div class="faq-item bg-background-first hover:bg-dark-color hover:text-white rounded-3xl shadow-lg border border-dark-color transition-all duration-300 group hover:scale-105">
+                        <button class="w-full p-4 text-left flex justify-between items-center gap-8 focus:outline-none">
+                            <h3 class="text-2xl font-medium text-dark-color group-hover:text-white leading-9 flex-1">
+                                ¿Cómo puede placenet mejorar la experiencia de eventos?
+                            </h3>
+                            <div class="w-16 h-16 rounded-full border-2 border-dark-color group-hover:border-white flex items-center justify-center transition-transform duration-300 faq-icon">
+                                <svg class="w-6 h-6 text-dark-color group-hover:text-white transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-content px-4 pb-0 transition-all duration-300 max-h-0 overflow-hidden">
+                            <p class="text-base font-normal text-dark-color group-hover:text-white leading-tight text-justify pb-4">
+                                <span class="font-black text-dark-color group-hover:text-white tracking-tight">placenet</span> convierte eventos en experiencias inteligentes. Los asistentes reciben información contextual automáticamente: agenda personalizada, networking sugerido, mapas interactivos, feedback en tiempo real y conexiones automáticas con otros participantes con intereses similares.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item bg-background-first hover:bg-dark-color hover:text-white rounded-3xl shadow-lg border border-dark-color transition-all duration-300 group hover:scale-105">
+                        <button class="w-full p-4 text-left flex justify-between items-center gap-8 focus:outline-none">
+                            <h3 class="text-2xl font-medium text-dark-color group-hover:text-white leading-9 flex-1">
+                                ¿Qué tipos de eventos se pueden gestionar con placenet?
+                            </h3>
+                            <div class="w-16 h-16 rounded-full border-2 border-dark-color group-hover:border-white flex items-center justify-center transition-transform duration-300 faq-icon">
+                                <svg class="w-6 h-6 text-dark-color group-hover:text-white transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-content px-4 pb-0 transition-all duration-300 max-h-0 overflow-hidden">
+                            <p class="text-base font-normal text-dark-color group-hover:text-white leading-tight text-justify pb-4">
+                                Conferencias, festivales de música, eventos corporativos, ferias comerciales, congresos médicos, exposiciones de arte, eventos deportivos, lanzamientos de productos y cualquier evento que requiera networking inteligente, control de acceso y gestión de experiencias personalizadas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3-->
+                    <div class="faq-item bg-background-first hover:bg-dark-color hover:text-white rounded-3xl shadow-lg border border-dark-color transition-all duration-300 group hover:scale-105">
+                        <button class="w-full p-4 text-left flex justify-between items-center gap-8 focus:outline-none">
+                            <h3 class="text-2xl font-medium text-dark-color group-hover:text-white leading-9 flex-1">
+                                ¿Qué infraestructura necesita mi evento?
+                            </h3>
+                            <div class="w-16 h-16 rounded-full border-2 border-dark-color group-hover:border-white flex items-center justify-center transition-transform duration-300 faq-icon">
+                                <svg class="w-6 h-6 text-dark-color group-hover:text-white transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-content px-4 pb-0 transition-all duration-300 max-h-0 overflow-hidden">
+                            <p class="text-base font-normal text-dark-color group-hover:text-white leading-tight text-justify pb-4">
+                                Infraestructura mínima: WiFi estable y aplicación móvil. Opcionalmente: códigos QR, beacons para networking por proximidad, pantallas digitales para información en vivo y sistemas de sonido para anuncios automáticos.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4-->
+                    <div class="faq-item bg-background-first hover:bg-dark-color hover:text-white rounded-3xl shadow-lg border border-dark-color transition-all duration-300 group hover:scale-105">
+                        <button class="w-full p-4 text-left flex justify-between items-center gap-8 focus:outline-none">
+                            <h3 class="text-2xl font-medium text-dark-color group-hover:text-white leading-9 flex-1">
+                                ¿Cuánto tiempo toma configurar placenet para un evento?
+                            </h3>
+                            <div class="w-16 h-16 rounded-full border-2 border-dark-color group-hover:border-white flex items-center justify-center transition-transform duration-300 faq-icon">
+                                <svg class="w-6 h-6 text-dark-color group-hover:text-white transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-content px-4 pb-0 transition-all duration-300 max-h-0 overflow-hidden">
+                            <p class="text-base font-normal text-dark-color group-hover:text-white leading-tight text-justify pb-4">
+                                Configuración básica: 1-2 semanas. Eventos complejos: 3-4 semanas con networking avanzado y analytics personalizados. Eventos recurrentes tienen configuración instantánea tras el setup inicial.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-20 bg-background-third">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-5xl font-medium text-white leading-tight mb-12 max-w-6xl mx-auto pb-8">
+                Lo que necesitan los asistentes en el momento y lugar en que lo necesitan.
+            </h2>
+            <div class="gap-12 flex justify-center">
+            <button class="demo-btn border-2 border-white text-white px-16 py-4 rounded-[60px] text-2xl font-medium hover:bg-light-color hover:text-background-third hover:scale-105 transition-all duration-300">
+                Contactar
+            </button>
+            
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-background-third py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Main Footer Content -->
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-16">
+                <!-- Company Info Column -->
+                <div class="lg:col-span-1">
+                    <div class="mb-8">
+                        <img class="w-44 h-11 mb-6" src="img/logos/placenet_ligth.png" alt="Placenet Logo" />
+                        <p class="text-stone-300 text-lg font-normal leading-relaxed">
+                            Conectamos digitalmente personas y lugares físicos para crear experiencias únicas.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Solutions Column -->
+                <div>
+                    <h3 class="text-white text-xl font-semibold mb-6">Soluciones</h3>
+                    <div class="space-y-4">
+                        <a href="eventos.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Eventos</a>
+                        <a href="buildings.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Smart Buildings</a>
+                        <a href="fincas.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Administración de fincas</a>
+                        <a href="cities.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Smart Cities</a>
+                        <a href="turismo.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Travel y turismo</a>
+                    </div>
+                </div>
+                
+                <!-- Company Column -->
+                <div>
+                    <h3 class="text-white text-xl font-semibold mb-6">Empresa</h3>
+                    <div class="space-y-4">
+                        <a href="casos.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Casos de éxito</a>
+                        <a href="partner-find.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Partners</a>
+                        <a href="pricing.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Precios</a>
+                        <a href="blog.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Blog</a>
+                        <a href="faqs.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">FAQs</a>
+                    </div>
+                </div>
+                
+                <!-- Contact & Social Column -->
+                <div>
+                    <h3 class="text-white text-xl font-semibold mb-6">Contacto</h3>
+                    <div class="space-y-6">
+                        <!-- Email -->
+                        <div>
+                            <p class="text-stone-300 text-sm font-medium mb-2">Email</p>
+                            <a href="mailto:hola@placenet.app" class="text-white text-lg font-normal hover:text-stone-300 transition-colors">
+                                hola@placenet.app
+                            </a>
+                        </div>
+                        
+                        <!-- Address -->
+                        <div>
+                            <p class="text-stone-300 text-sm font-medium mb-2">Dirección</p>
+                            <p class="text-white text-lg font-normal leading-relaxed">
+                                Manel Farresa 87, 08173<br>
+                                San Cugat del Vallès<br>
+                                Barcelona, España
+                            </p>
+                        </div>
+                        
+                        <!-- Social Media -->
+                        <div>
+                            <p class="text-stone-300 text-sm font-medium mb-4">Síguenos</p>
+                            <div class="flex space-x-4">
+                                <!-- LinkedIn -->
+                                <a href="https://es.linkedin.com/company/placenetapp" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                    </svg>
+                                </a>
+                                <!-- YouTube -->
+                                <a href="https://www.youtube.com/@placenetapp" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                    </svg>
+                                </a>
+                                <!-- Instagram -->
+                                <a href="https://www.instagram.com/placenet.app" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    </svg>
+                                </a>
+                                <!-- TikTok -->
+                                <a href="https://www.tiktok.com/@placenet.app" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                                    </svg>
+                                </a>
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/placenetapp" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="pt-8 border-t border-stone-700">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <!-- Copyright -->
+                    <div>
+                        <p class="text-stone-400 text-sm font-normal">
+                            © 2023 Placenet, Internet of Places S.L. Todos los derechos reservados.
+                        </p>
+                    </div>
+                    
+                    <!-- Legal Links -->
+                    <div class="flex flex-wrap justify-center md:justify-end gap-6">
+                        <a href="privacidad.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Política de privacidad</a>
+                        <a href="cookies.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Cookies</a>
+                        <a href="terms.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Términos y condiciones</a>
+                        <a href="legal.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Aviso Legal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Modal - Event Management -->
+    <div id="contactModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 opacity-0 invisible transition-all duration-300">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full mx-auto transform scale-95 transition-transform duration-300" id="modalContent">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-8 border-b border-gray-100">
+                    <div>
+                        <h2 class="text-3xl font-black text-dark-color">Optimiza tus eventos</h2>
+                        <p class="text-lg text-slate-600 mt-2">Descubre cómo <span class="font-black text-dark-color tracking-tight">placenet</span> puede revolucionar tu gestión de eventos</p>
+                    </div>
+                    <button id="closeModal" class="w-10 h-10 rounded-full hover:bg-gray-100 hover:scale-110 flex items-center justify-center transition-all duration-300">
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <form id="contactForm" class="p-8 space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="firstName" class="block text-sm font-semibold text-dark-color mb-2">Nombre *</label>
+                            <input type="text" id="firstName" name="firstName" required 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-sm font-semibold text-dark-color mb-2">Apellidos *</label>
+                            <input type="text" id="lastName" name="lastName" required 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-dark-color mb-2">Email *</label>
+                            <input type="email" id="email" name="email" required 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-semibold text-dark-color mb-2">Teléfono</label>
+                            <input type="tel" id="phone" name="phone" 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="organization" class="block text-sm font-semibold text-dark-color mb-2">Empresa/Organización *</label>
+                        <input type="text" id="organization" name="organization" required
+                               placeholder="Empresa de eventos, Ayuntamiento, Centro de convenciones..."
+                               class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="eventRole" class="block text-sm font-semibold text-dark-color mb-2">Tu rol *</label>
+                            <select id="eventRole" name="eventRole" required 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                                <option value="">Selecciona tu rol</option>
+                                <option value="event-manager">Event Manager</option>
+                                <option value="organizador-eventos">Organizador de Eventos</option>
+                                <option value="director-marketing">Director de Marketing</option>
+                                <option value="responsable-comunicacion">Responsable de Comunicación</option>
+                                <option value="coordinador-eventos">Coordinador de Eventos</option>
+                                <option value="wedding-planner">Wedding Planner</option>
+                                <option value="promotor-eventos">Promotor de Eventos</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="eventType" class="block text-sm font-semibold text-dark-color mb-2">Tipo de eventos</label>
+                            <select id="eventType" name="eventType" 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                                <option value="">Selecciona el tipo</option>
+                                <option value="corporativos">Eventos Corporativos</option>
+                                <option value="congresos">Congresos y Conferencias</option>
+                                <option value="festivales">Festivales y Conciertos</option>
+                                <option value="bodas">Bodas y Celebraciones</option>
+                                <option value="deportivos">Eventos Deportivos</option>
+                                <option value="culturales">Eventos Culturales</option>
+                                <option value="ferias">Ferias y Exposiciones</option>
+                                <option value="mixto">Varios tipos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="eventProject" class="block text-sm font-semibold text-dark-color mb-2">Cuéntanos sobre tus necesidades de gestión de eventos</label>
+                        <textarea id="eventProject" name="eventProject" rows="4" 
+                                  class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color resize-none"
+                                  placeholder="¿Qué aspectos de la gestión de eventos quieres mejorar? ¿Buscas optimizar la comunicación con asistentes? ¿Necesitas automatizar procesos? ¿Quieres mejorar la experiencia del usuario?"></textarea>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <button type="button" id="cancelModal" 
+                                class="flex-1 px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 hover:scale-105 transition-all duration-300">
+                            Cancelar
+                        </button>
+                        <button type="submit" 
+                                class="flex-1 px-8 py-4 bg-background-third text-white rounded-xl font-semibold hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                            Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Platform Mockup Modal -->
+    <div id="platformModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 opacity-0 invisible transition-all duration-300">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="relative max-w-7xl w-full mx-auto">
+                <!-- Close Button -->
+                <button id="closePlatformModal" class="absolute top-4 right-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all duration-300 text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                
+                <!-- Modal Content -->
+                <div class="bg-background-third rounded-3xl shadow-2xl p-6 transform scale-95 transition-transform duration-300 relative" id="platformModalContent">
+                    <div class="rounded-2xl overflow-hidden aspect-video relative">
+                        <!-- Aquí puedes poner imágenes o videos explicativos -->
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Smart City Platform Interface - Vista completa" />
+                        
+                        <!-- Overlay con información -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-8">
+                            <h3 class="text-white text-3xl font-bold mb-4">Plataforma Smart Cities</h3>
+                            <p class="text-white/90 text-lg">
+                                Interfaz completa de gestión urbana donde los ciudadanos y administradores pueden interactuar con todos los servicios de la ciudad de forma intuitiva y en tiempo real.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="fixed bottom-8 right-8 w-14 h-14 bg-background-third text-white rounded-full shadow-lg hover:bg-slate-800 transition-all duration-300 opacity-0 invisible hover:scale-110 z-40">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <script>
+        // Header scroll behavior
+        let lastScrollTop = 0;
+        const header = document.getElementById('header');
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Header hide/show logic
+            if (scrollTop > lastScrollTop && scrollTop > 144) {
+                // Scrolling down and past header height
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up or at the top
+                header.style.transform = 'translateY(0)';
+            }
+            
+            // Show/hide scroll to top button
+            if (scrollTop > 300) {
+                scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+                scrollToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                scrollToTopBtn.classList.remove('opacity-100', 'visible');
+                scrollToTopBtn.classList.add('opacity-0', 'invisible');
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // Scroll to top functionality
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Demo button functionality with Smart Cities modal
+        const contactModal = document.getElementById('contactModal');
+        const modalContent = document.getElementById('modalContent');
+        const closeModal = document.getElementById('closeModal');
+        const cancelModal = document.getElementById('cancelModal');
+        const contactForm = document.getElementById('contactForm');
+
+        // Get all demo/contact buttons by class
+        const demoButtons = document.querySelectorAll('.demo-btn');
+
+        // Function to open modal
+        function openModal() {
+            contactModal.classList.remove('opacity-0', 'invisible');
+            contactModal.classList.add('opacity-100', 'visible');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close modal
+        function closeModalFunc() {
+            contactModal.classList.remove('opacity-100', 'visible');
+            contactModal.classList.add('opacity-0', 'invisible');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Add event listeners to demo buttons
+        demoButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+        });
+
+        // Close modal events
+        closeModal.addEventListener('click', closeModalFunc);
+        cancelModal.addEventListener('click', closeModalFunc);
+
+        // Close modal when clicking outside
+        contactModal.addEventListener('click', function(e) {
+            if (e.target === contactModal) {
+                closeModalFunc();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !contactModal.classList.contains('invisible')) {
+                closeModalFunc();
+            }
+        });
+
+        // Handle form submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
+            
+            // Simple form validation for Smart Cities specific fields
+            if (!data.firstName || !data.lastName || !data.email || !data.organization || !data.cityRole) {
+                alert('Por favor, completa todos los campos obligatorios (Nombre, Apellidos, Email, Organización y Rol)');
+                return;
+            }
+
+            // Here you would typically send the data to your server
+            console.log('Smart Cities form submitted:', data);
+            
+            // Show success message
+            alert('¡Gracias por tu interés en Smart Cities! Nuestro equipo de expertos te contactará pronto para discutir tu proyecto urbano.');
+            
+            // Reset form and close modal
+            contactForm.reset();
+            closeModalFunc();
+        });
+
+        // 3D Carousel functionality
+        let currentIndex = 1; // Start with the second card (index 1) as center
+        const totalCards = 5;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let isTransitioning = false; // Prevent rapid clicking
+
+        // Card positions for 3D carousel
+        const positions = [
+            { x: -300, z: -300, rotateY: 0, scale: 0.85, zIndex: 1 },     // Left side (visible with 0.3 opacity, no text)
+            { x: 0, z: 0, rotateY: 0, scale: 1, zIndex: 20 },              // Center (full opacity and all elements visible)
+            { x: 300, z: -300, rotateY: 0, scale: 0.85, zIndex: 1 },      // Right side (visible with 0.3 opacity, no text)
+            { x: 700, z: -500, rotateY: 0, scale: 0.7, zIndex: 0 },       // Hidden right
+            { x: -700, z: -500, rotateY: 0, scale: 0.7, zIndex: 0 }       // Hidden left
+        ];
+
+        function updateCarousel() {
+            for (let i = 0; i < totalCards; i++) {
+                const card = document.getElementById(`card-${i}`);
+                const positionIndex = (i - currentIndex + totalCards) % totalCards;
+                const position = positions[positionIndex];
+                
+                // Find UI elements inside this card
+                const categoryElement = card.querySelector('.absolute.top-4.left-4');
+                const logoElement = card.querySelector('.absolute.top-4.right-4');
+                const contentElement = card.querySelector('.absolute.bottom-0');
+                
+                // Apply position transforms
+                card.style.transform = `translateX(${position.x}px) translateZ(${position.z}px) rotateY(${position.rotateY}deg)`;
+                card.style.zIndex = position.zIndex;
+                
+                // Update card dimensions and visibility based on position
+                if (position.scale === 1) {
+                    // CENTER CARD - Full opacity, all elements visible
+                    card.style.width = '400px';
+                    card.style.height = '620px';
+                    card.style.opacity = '1';
+                    card.style.pointerEvents = 'auto';
+                    
+                    // Show all UI elements with smooth transition
+                    if (categoryElement) {
+                        categoryElement.style.opacity = '1';
+                        categoryElement.style.transition = 'opacity 0.4s ease-in-out';
+                    }
+                    if (logoElement) {
+                        logoElement.style.opacity = '1';
+                        logoElement.style.transition = 'opacity 0.4s ease-in-out';
+                    }
+                    if (contentElement) {
+                        contentElement.style.opacity = '1';
+                        contentElement.style.transition = 'opacity 0.4s ease-in-out';
+                    }
+                    
+                } else if (position.scale === 0.85) {
+                    // SIDE CARDS - Reduced opacity, only image visible
+                    card.style.width = '340px';
+                    card.style.height = '510px';
+                    card.style.opacity = '0.3';
+                    card.style.pointerEvents = 'none';
+                    
+                    // Hide all UI elements (category, logo, content)
+                    if (categoryElement) {
+                        categoryElement.style.opacity = '0';
+                        categoryElement.style.transition = 'opacity 0.4s ease-in-out';
+                    }
+                    if (logoElement) {
+                        logoElement.style.opacity = '0';
+                        logoElement.style.transition = 'opacity 0.4s ease-in-out';
+                    }
+                    if (contentElement) {
+                        contentElement.style.opacity = '0';
+                        contentElement.style.transition = 'opacity 0.4s ease-in-out';
+                    }
+                    
+                } else {
+                    // HIDDEN CARDS - Completely hidden
+                    card.style.width = '300px';
+                    card.style.height = '450px';
+                    card.style.opacity = '0';
+                    card.style.pointerEvents = 'none';
+                    
+                    // Hide all UI elements
+                    if (categoryElement) {
+                        categoryElement.style.opacity = '0';
+                        categoryElement.style.transition = 'opacity 0.4s ease-in-out';
+                    }
+                    if (logoElement) {
+                        logoElement.style.opacity = '0';
+                        logoElement.style.transition = 'opacity 0.4s ease-in-out';
+                    }
+                    if (contentElement) {
+                        contentElement.style.opacity = '0';
+                        contentElement.style.transition = 'opacity 0.4s ease-in-out';
+                    }
+                }
+            }
+        }
+
+        nextBtn.addEventListener('click', function() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            
+            currentIndex = (currentIndex + 1) % totalCards;
+            updateCarousel();
+            
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 700); // Match transition duration
+        });
+
+        prevBtn.addEventListener('click', function() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            
+            currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+            updateCarousel();
+            
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 700); // Match transition duration
+        });
+
+        // Auto-rotate carousel every 6 seconds
+        let autoRotateInterval = setInterval(function() {
+            if (!isTransitioning) {
+                currentIndex = (currentIndex + 1) % totalCards;
+                updateCarousel();
+            }
+        }, 6000);
+
+        // Pause auto-rotation on hover
+        const carouselContainer = document.querySelector('.perspective-1000');
+        if (carouselContainer) {
+            carouselContainer.addEventListener('mouseenter', () => {
+                clearInterval(autoRotateInterval);
+            });
+            
+            carouselContainer.addEventListener('mouseleave', () => {
+                autoRotateInterval = setInterval(function() {
+                    if (!isTransitioning) {
+                        currentIndex = (currentIndex + 1) % totalCards;
+                        updateCarousel();
+                    }
+                }, 6000);
+            });
+        }
+
+        // Initialize carousel on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCarousel();
+        });
+
+        // FAQ Accordion functionality with hover
+        function initFAQs() {
+            document.querySelectorAll('.faq-item').forEach(faqItem => {
+                const content = faqItem.querySelector('.faq-content');
+                const icon = faqItem.querySelector('.faq-icon svg');
+                
+                // Hover to open
+                faqItem.addEventListener('mouseenter', () => {
+                    // Close all other FAQs first
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        if (item !== faqItem) {
+                            const otherContent = item.querySelector('.faq-content');
+                            const otherIcon = item.querySelector('.faq-icon svg');
+                            otherContent.style.maxHeight = '0px';
+                            otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                    
+                    // Open current FAQ
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.style.transform = 'rotate(180deg)';
+                });
+                
+                // Mouse leave to close
+                faqItem.addEventListener('mouseleave', () => {
+                    content.style.maxHeight = '0px';
+                    icon.style.transform = 'rotate(0deg)';
+                });
+            });
+        }
+        
+        // Platform Mockup Modal functionality
+        function initPlatformModal() {
+            const platformMockup = document.getElementById('platformMockup');
+            const platformModal = document.getElementById('platformModal');
+            const closePlatformModal = document.getElementById('closePlatformModal');
+            const platformModalContent = document.getElementById('platformModalContent');
+            
+            // Open modal when clicking on mockup
+            platformMockup.addEventListener('click', function() {
+                platformModal.classList.remove('opacity-0', 'invisible');
+                platformModal.classList.add('opacity-100', 'visible');
+                platformModalContent.style.transform = 'scale(1)';
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            });
+            
+            // Close modal function
+            function closePlatformModalFunc() {
+                platformModal.classList.remove('opacity-100', 'visible');
+                platformModal.classList.add('opacity-0', 'invisible');
+                platformModalContent.style.transform = 'scale(0.95)';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+            
+            // Close modal when clicking close button
+            closePlatformModal.addEventListener('click', closePlatformModalFunc);
+            
+            // Close modal when clicking outside content
+            platformModal.addEventListener('click', function(e) {
+                if (e.target === platformModal) {
+                    closePlatformModalFunc();
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && platformModal.classList.contains('visible')) {
+                    closePlatformModalFunc();
+                }
+            });
+        }
+        
+        // Initialize FAQs when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCarousel();
+            initFAQs();
+            initPlatformModal();
+        });
+    </script>
+</body>
+</html>
