@@ -295,9 +295,20 @@
             <div class="p-6 sm:p-8 md:p-10 text-center mt-8 sm:mt-12 px-4">
                 <h3 class="text-xl sm:text-2xl font-bold text-placenet-dark mb-4 sm:mb-6">Want <span class="font-extrabold">placenet</span> at another location?</h3>
                 <div class="flex flex-col gap-4 max-w-sm mx-auto">
-                    <a href="mailto:social@placenet.app?subject=New Domain Request" class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
+                    <button type="button"
+                        onclick="sendMailtoDomain()"
+                        class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
                         Request a new domain
-                    </a>
+                    </button>
+        // Mailto handler for CTA (works better on mobile)
+        function sendMailtoDomain() {
+            const mailto = 'mailto:social@placenet.app?subject=New%20Domain%20Request';
+            window.location.href = mailto;
+            trackEvent('button_click', {
+                button_text: 'Request a new domain',
+                button_href: mailto
+            });
+        }
                 </div>
             </div>
         </section>
@@ -311,18 +322,21 @@
         };
         
         function shareWhatsApp() {
-            const message = `Placenet is now in Barcelona! 
-
-Chat with others HERE & NOW. Find people in the same place as you!
-
-Download it now:
-iOS: ${appLinks.ios}
-Android: ${appLinks.android}
-`;
-            
+            const message = `Placenet is now in Barcelona!\n\nChat with others HERE & NOW. Find people in the same place as you!\n\nDownload it now:\niOS: ${appLinks.ios}\nAndroid: ${appLinks.android}`;
             const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
-            
+            // Try to open WhatsApp app directly
+            const whatsappUrl = `whatsapp://send?text=${encodedMessage}`;
+            const fallbackUrl = `https://wa.me/?text=${encodedMessage}`;
+            // Create a temporary iframe to try to open the app
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = whatsappUrl;
+            document.body.appendChild(iframe);
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+                // If not opened, fallback to browser
+                window.open(fallbackUrl, '_blank');
+            }, 800);
             trackEvent('share_click', { platform: 'whatsapp' });
         }
         
