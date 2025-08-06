@@ -29,6 +29,268 @@
     <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script>
+        // Modal for domain/contact request
+        function openDomainModal() {
+            if (document.getElementById('domainModal')) return;
+            const modal = document.createElement('div');
+            modal.id = 'domainModal';
+            modal.className = 'fixed inset-0 z-[20000] flex items-center justify-center bg-black/50 backdrop-blur-sm';
+            // Disable background scroll and interaction
+            document.body.classList.add('pointer-events-none', 'overflow-hidden');
+            modal.innerHTML = `
+                <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-4 sm:p-8 relative animate-fade-in border border-placenet-dark/10 mx-4 sm:mx-6 my-6 flex flex-col items-center justify-center max-h-[90vh] overflow-auto pointer-events-auto">
+                    <button onclick="closeDomainModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl transition-colors">&times;</button>
+                    <div class="flex flex-col items-center mb-2">
+                        <img src='img/logos/placenet_dark.png' alt='Placenet' class='h-10 mb-2 drop-shadow-md'>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-placenet-dark mb-1">Request a domain</h2>
+                    </div>
+                    <form id="domainRequestForm" class="flex flex-col gap-3 mt-2">
+                        <div class="flex flex-col gap-3 w-full">
+                            <input type="text" name="name" placeholder="Your name" required class="border border-gray-300 rounded-lg px-4 py-3 text-base w-full focus:ring-2 focus:ring-placenet-accent outline-none" />
+                            <select name="country" required class="border border-gray-300 rounded-lg px-3 py-3 text-base w-full focus:ring-2 focus:ring-placenet-accent outline-none bg-white">
+                                <option value="" disabled selected>Country</option>
+                                <option value="AF">Afghanistan</option>
+                                <option value="AL">Albania</option>
+                                <option value="DZ">Algeria</option>
+                                <option value="AD">Andorra</option>
+                                <option value="AO">Angola</option>
+                                <option value="AG">Antigua and Barbuda</option>
+                                <option value="AR">Argentina</option>
+                                <option value="AM">Armenia</option>
+                                <option value="AU">Australia</option>
+                                <option value="AT">Austria</option>
+                                <option value="AZ">Azerbaijan</option>
+                                <option value="BS">Bahamas</option>
+                                <option value="BH">Bahrain</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="BB">Barbados</option>
+                                <option value="BY">Belarus</option>
+                                <option value="BE">Belgium</option>
+                                <option value="BZ">Belize</option>
+                                <option value="BJ">Benin</option>
+                                <option value="BT">Bhutan</option>
+                                <option value="BO">Bolivia</option>
+                                <option value="BA">Bosnia and Herzegovina</option>
+                                <option value="BW">Botswana</option>
+                                <option value="BR">Brazil</option>
+                                <option value="BN">Brunei</option>
+                                <option value="BG">Bulgaria</option>
+                                <option value="BF">Burkina Faso</option>
+                                <option value="BI">Burundi</option>
+                                <option value="KH">Cambodia</option>
+                                <option value="CM">Cameroon</option>
+                                <option value="CA">Canada</option>
+                                <option value="CV">Cape Verde</option>
+                                <option value="CF">Central African Republic</option>
+                                <option value="TD">Chad</option>
+                                <option value="CL">Chile</option>
+                                <option value="CN">China</option>
+                                <option value="CO">Colombia</option>
+                                <option value="KM">Comoros</option>
+                                <option value="CG">Congo</option>
+                                <option value="CD">Congo, Democratic Republic of the</option>
+                                <option value="CR">Costa Rica</option>
+                                <option value="CI">Côte d'Ivoire</option>
+                                <option value="HR">Croatia</option>
+                                <option value="CU">Cuba</option>
+                                <option value="CY">Cyprus</option>
+                                <option value="CZ">Czechia</option>
+                                <option value="DK">Denmark</option>
+                                <option value="DJ">Djibouti</option>
+                                <option value="DM">Dominica</option>
+                                <option value="DO">Dominican Republic</option>
+                                <option value="EC">Ecuador</option>
+                                <option value="EG">Egypt</option>
+                                <option value="SV">El Salvador</option>
+                                <option value="GQ">Equatorial Guinea</option>
+                                <option value="ER">Eritrea</option>
+                                <option value="EE">Estonia</option>
+                                <option value="SZ">Eswatini</option>
+                                <option value="ET">Ethiopia</option>
+                                <option value="FJ">Fiji</option>
+                                <option value="FI">Finland</option>
+                                <option value="FR">France</option>
+                                <option value="GA">Gabon</option>
+                                <option value="GM">Gambia</option>
+                                <option value="GE">Georgia</option>
+                                <option value="DE">Germany</option>
+                                <option value="GH">Ghana</option>
+                                <option value="GR">Greece</option>
+                                <option value="GD">Grenada</option>
+                                <option value="GT">Guatemala</option>
+                                <option value="GN">Guinea</option>
+                                <option value="GW">Guinea-Bissau</option>
+                                <option value="GY">Guyana</option>
+                                <option value="HT">Haiti</option>
+                                <option value="HN">Honduras</option>
+                                <option value="HU">Hungary</option>
+                                <option value="IS">Iceland</option>
+                                <option value="IN">India</option>
+                                <option value="ID">Indonesia</option>
+                                <option value="IR">Iran</option>
+                                <option value="IQ">Iraq</option>
+                                <option value="IE">Ireland</option>
+                                <option value="IL">Israel</option>
+                                <option value="IT">Italy</option>
+                                <option value="JM">Jamaica</option>
+                                <option value="JP">Japan</option>
+                                <option value="JO">Jordan</option>
+                                <option value="KZ">Kazakhstan</option>
+                                <option value="KE">Kenya</option>
+                                <option value="KI">Kiribati</option>
+                                <option value="KP">Korea, North</option>
+                                <option value="KR">Korea, South</option>
+                                <option value="KW">Kuwait</option>
+                                <option value="KG">Kyrgyzstan</option>
+                                <option value="LA">Laos</option>
+                                <option value="LV">Latvia</option>
+                                <option value="LB">Lebanon</option>
+                                <option value="LS">Lesotho</option>
+                                <option value="LR">Liberia</option>
+                                <option value="LY">Libya</option>
+                                <option value="LI">Liechtenstein</option>
+                                <option value="LT">Lithuania</option>
+                                <option value="LU">Luxembourg</option>
+                                <option value="MG">Madagascar</option>
+                                <option value="MW">Malawi</option>
+                                <option value="MY">Malaysia</option>
+                                <option value="MV">Maldives</option>
+                                <option value="ML">Mali</option>
+                                <option value="MT">Malta</option>
+                                <option value="MH">Marshall Islands</option>
+                                <option value="MR">Mauritania</option>
+                                <option value="MU">Mauritius</option>
+                                <option value="MX">Mexico</option>
+                                <option value="FM">Micronesia</option>
+                                <option value="MD">Moldova</option>
+                                <option value="MC">Monaco</option>
+                                <option value="MN">Mongolia</option>
+                                <option value="ME">Montenegro</option>
+                                <option value="MA">Morocco</option>
+                                <option value="MZ">Mozambique</option>
+                                <option value="MM">Myanmar</option>
+                                <option value="NA">Namibia</option>
+                                <option value="NR">Nauru</option>
+                                <option value="NP">Nepal</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="NZ">New Zealand</option>
+                                <option value="NI">Nicaragua</option>
+                                <option value="NE">Niger</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="MK">North Macedonia</option>
+                                <option value="NO">Norway</option>
+                                <option value="OM">Oman</option>
+                                <option value="PK">Pakistan</option>
+                                <option value="PW">Palau</option>
+                                <option value="PS">Palestine</option>
+                                <option value="PA">Panama</option>
+                                <option value="PG">Papua New Guinea</option>
+                                <option value="PY">Paraguay</option>
+                                <option value="PE">Peru</option>
+                                <option value="PH">Philippines</option>
+                                <option value="PL">Poland</option>
+                                <option value="PT">Portugal</option>
+                                <option value="QA">Qatar</option>
+                                <option value="RO">Romania</option>
+                                <option value="RU">Russia</option>
+                                <option value="RW">Rwanda</option>
+                                <option value="KN">Saint Kitts and Nevis</option>
+                                <option value="LC">Saint Lucia</option>
+                                <option value="VC">Saint Vincent and the Grenadines</option>
+                                <option value="WS">Samoa</option>
+                                <option value="SM">San Marino</option>
+                                <option value="ST">Sao Tome and Principe</option>
+                                <option value="SA">Saudi Arabia</option>
+                                <option value="SN">Senegal</option>
+                                <option value="RS">Serbia</option>
+                                <option value="SC">Seychelles</option>
+                                <option value="SL">Sierra Leone</option>
+                                <option value="SG">Singapore</option>
+                                <option value="SK">Slovakia</option>
+                                <option value="SI">Slovenia</option>
+                                <option value="SB">Solomon Islands</option>
+                                <option value="SO">Somalia</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="SS">South Sudan</option>
+                                <option value="ES">Spain</option>
+                                <option value="LK">Sri Lanka</option>
+                                <option value="SD">Sudan</option>
+                                <option value="SR">Suriname</option>
+                                <option value="SE">Sweden</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="SY">Syria</option>
+                                <option value="TW">Taiwan</option>
+                                <option value="TJ">Tajikistan</option>
+                                <option value="TZ">Tanzania</option>
+                                <option value="TH">Thailand</option>
+                                <option value="TL">Timor-Leste</option>
+                                <option value="TG">Togo</option>
+                                <option value="TO">Tonga</option>
+                                <option value="TT">Trinidad and Tobago</option>
+                                <option value="TN">Tunisia</option>
+                                <option value="TR">Turkey</option>
+                                <option value="TM">Turkmenistan</option>
+                                <option value="TV">Tuvalu</option>
+                                <option value="UG">Uganda</option>
+                                <option value="UA">Ukraine</option>
+                                <option value="AE">United Arab Emirates</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="US">United States</option>
+                                <option value="UY">Uruguay</option>
+                                <option value="UZ">Uzbekistan</option>
+                                <option value="VU">Vanuatu</option>
+                                <option value="VA">Vatican City</option>
+                                <option value="VE">Venezuela</option>
+                                <option value="VN">Vietnam</option>
+                                <option value="YE">Yemen</option>
+                                <option value="ZM">Zambia</option>
+                                <option value="ZW">Zimbabwe</option>
+                            </select>
+                            <input type="email" name="email" placeholder="Your email" required class="border border-gray-300 rounded-lg px-4 py-3 text-base w-full focus:ring-2 focus:ring-placenet-accent outline-none" />
+                            <input type="tel" name="phone" placeholder="Phone number" required pattern="[0-9+()\-\s]{6,}" inputmode="tel" class="border border-gray-300 rounded-lg px-4 py-3 text-base w-full focus:ring-2 focus:ring-placenet-accent outline-none" />
+                            <input type="text" name="location" placeholder="Location (city, town, building...)" required class="border border-gray-300 rounded-lg px-4 py-3 text-base w-full focus:ring-2 focus:ring-placenet-accent outline-none" />
+                        </div>
+                        <button type="submit" class="bg-placenet-dark text-white rounded-xl px-4 py-3 font-semibold hover:bg-placenet-accent transition text-base sm:text-lg mt-2 shadow-md">Send request</button>
+                        <div id="domainFormMsg" class="text-center text-sm mt-2"></div>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            document.getElementById('domainRequestForm').onsubmit = submitDomainRequest;
+        }
+
+        function closeDomainModal() {
+            const modal = document.getElementById('domainModal');
+            if (modal) modal.remove();
+            // Re-enable background interaction and scroll
+            document.body.classList.remove('pointer-events-none', 'overflow-hidden');
+        }
+
+        // Google Apps Script endpoint (replace with your deployed script URL)
+        const DOMAIN_FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w0w/exec';
+
+        function submitDomainRequest(e) {
+            e.preventDefault();
+            const form = e.target;
+            const msg = document.getElementById('domainFormMsg');
+            msg.textContent = 'Sending...';
+            msg.className = 'text-center text-sm mt-2 text-gray-500';
+            const data = new FormData(form);
+            fetch(DOMAIN_FORM_ENDPOINT, {
+                method: 'POST',
+                body: data
+            })
+            .then(res => res.ok ? res.json() : Promise.reject(res))
+            .then(() => {
+                msg.textContent = '✅ Request sent! We will contact you soon.';
+                msg.className = 'text-center text-green-600 mt-2';
+                form.reset();
+            })
+            .catch(() => {
+                msg.textContent = '❌ Error sending request. Please try again later.';
+                msg.className = 'text-center text-red-600 mt-2';
+            });
+        }
         // Mailto handler for CTA (works better on mobile)
         function sendMailto() {
             const mailto = 'mailto:social@placenet.app?subject=New%20Location%20Request%20-%20Barcelona';
@@ -150,6 +412,39 @@
                 animation: none !important; 
             }
         }
+
+        /* Floating Share Banner custom style */
+        .floating-banner {
+            pointer-events: none;
+            transition: filter 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s cubic-bezier(.4,0,.2,1);
+            filter: drop-shadow(0 8px 32px rgba(0,0,0,0.18)) drop-shadow(0 1.5px 6px rgba(0,0,0,0.10));
+        }
+        .floating-banner-inner {
+            pointer-events: auto;
+            border-radius: 1.25rem;
+            background: #fff;
+            border: 1.5px solid #e5e7eb;
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+            transition: box-shadow 0.3s cubic-bezier(.4,0,.2,1), transform 0.2s cubic-bezier(.4,0,.2,1);
+        }
+        .floating-banner-inner:hover {
+            box-shadow: 0 12px 40px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.12);
+            transform: translateY(-2px) scale(1.03);
+        }
+        @media (max-width: 640px) {
+            .floating-banner {
+                left: 50% !important;
+                bottom: 16px !important;
+                width: 98vw !important;
+                max-width: 98vw !important;
+            }
+            .floating-banner-inner {
+                max-width: 98vw !important;
+                width: 100% !important;
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
+        }
     </style>
 </head>
 <body class="font-rethink min-h-screen overflow-x-hidden bg-gradient-to-br from-placenet-light via-white to-placenet-light">
@@ -261,23 +556,19 @@
                             <span class="text-xs sm:text-sm font-medium text-white">Cafés</span>
                         </div>
                         <!-- Duplicate for seamless loop -->
-                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(138,202,242,0.8)] to-[#06B6D4] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
-                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏖️</div>
-                            <span class="text-xs sm:text-sm font-medium text-white">Beaches</span>
-                        </div>
-                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(255,144,82,0.8)] to-[#EA580C] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
-                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🍺</div>
-                            <span class="text-xs sm:text-sm font-medium text-white">Bars</span>
-                        </div>
-                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(99,95,229,0.8)] to-[#7C3AED] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
-                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">⚽</div>
-                            <span class="text-xs sm:text-sm font-medium text-white">Sports</span>
-                        </div>
-                    </div>
+                <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(138,202,242,0.8)] to-[#06B6D4] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                    <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏖️</div>
+                    <span class="text-xs sm:text-sm font-medium text-white">Beaches</span>
+                </div>
+                <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(255,144,82,0.8)] to-[#EA580C] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                    <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">⚽</div>
+                    <span class="text-xs sm:text-sm font-medium text-white">Sports</span>
                 </div>
             </div>
-            
-            <!-- Phone Section -->
+        </div>
+    </div>
+    
+    <!-- Phone Section -->
             <div class="relative py-6 sm:py-8 md:py-12 px-4 sm:px-6 md:px-8 overflow-hidden">
                 <div class="relative h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px] flex items-center justify-center">
                     <!-- Single Phone Display -->
@@ -313,7 +604,7 @@
                 <h3 class="text-xl sm:text-2xl font-bold text-placenet-dark mb-4 sm:mb-6">Missing <span class="font-extrabold">placenet</span> at your favorite spot?</h3>
                 <div class="flex flex-col gap-4 max-w-sm mx-auto">
                     <button type="button"
-                        onclick="sendMailto()"
+                        onclick="openDomainModal()"
                         class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
                         Request a domain
                     </button>
@@ -321,110 +612,30 @@
             </div>
         </section>
     </main>
+
+<!-- Share Placenet Banner (always floating at bottom of viewport) -->
+<div id="sharePlacenetBanner" class="fixed left-1/2 -translate-x-1/2 z-[99999] flex justify-center w-auto max-w-full pointer-events-none floating-banner" style="bottom:32px;display:none;">
+    <div class="relative bg-white backdrop-blur-md border border-gray-200 shadow-2xl rounded-2xl px-4 py-3 flex items-center gap-3 max-w-xs w-full sm:max-w-sm transition-all duration-500 opacity-0 pointer-events-auto cursor-pointer ring-1 ring-black/5 floating-banner-inner" id="sharePlacenetBannerInner">
+        <div class="flex-shrink-0">
+            <img id="sharePlacenetQR" src="img/app/qr.png" alt="Download Placenet QR" class="w-16 h-16 rounded-lg border border-gray-200 shadow-sm bg-white" style="object-fit: contain;" />
+        </div>
+        <div class="flex-1 min-w-0">
+            <div class="font-semibold text-placenet-dark text-sm mb-1">Love Placenet?</div>
+            <div class="text-xs text-gray-600 leading-tight">Show it to someone!<br>Scan to download the app.</div>
+        </div>
+        <button id="closeSharePlacenetBanner" class="ml-2 text-gray-400 hover:text-gray-700 text-lg font-bold p-1 rounded-full transition-colors pointer-events-auto" tabindex="0">&times;</button>
+    </div>
+</div>
+
+    <!-- Modal QR Large -->
+    <div id="sharePlacenetQRModal" class="fixed inset-0 z-[20001] flex items-center justify-center bg-black/60 backdrop-blur-sm transition-all duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 flex flex-col items-center max-w-xs w-full relative animate-fade-in border border-placenet-dark/10">
+            <button id="closeSharePlacenetQRModal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl transition-colors">&times;</button>
+            <img id="sharePlacenetQRBig" src="img/app/qr.png" alt="Download Placenet QR" class="w-48 h-48 rounded-xl border border-gray-200 shadow-md bg-white mb-4" />
+        </div>
+    </div>
     
     <script>
-        // Share functionality
-        const appLinks = {
-            ios: 'https://apps.apple.com/es/app/placenet-iop/id6504680197',
-            android: 'https://play.google.com/store/apps/details?id=app.placenet.iop&hl=es&pli=1'
-        };
-        
-        function shareWhatsApp() {
-            const message = `Placenet is now in Barcelona!\n\nChat with others HERE & NOW. Find people in the same place as you!\n\nDownload it now:\niOS: ${appLinks.ios}\nAndroid: ${appLinks.android}`;
-            const encodedMessage = encodeURIComponent(message);
-
-            // Try to open WhatsApp app directly
-            const deepLink = `whatsapp://send?text=${encodedMessage}`;
-            const fallbackLink = `https://wa.me/?text=${encodedMessage}`;
-
-            let opened = false;
-            // Create an invisible iframe for deep linking (works on mobile)
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = deepLink;
-            document.body.appendChild(iframe);
-
-            // Fallback to wa.me after short delay if app not opened
-            setTimeout(() => {
-                if (!opened) {
-                    window.open(fallbackLink, '_blank');
-                }
-                document.body.removeChild(iframe);
-            }, 1200);
-
-            // Mark as opened if page visibility changes (user switched to WhatsApp)
-            const visibilityHandler = () => {
-                opened = true;
-                document.removeEventListener('visibilitychange', visibilityHandler);
-            };
-            document.addEventListener('visibilitychange', visibilityHandler);
-
-            trackEvent('share_click', { platform: 'whatsapp' });
-        }
-        
-        function shareEmail() {
-            const subject = encodeURIComponent('Check out Placenet - Now in Barcelona!');
-            const body = encodeURIComponent(`Hi!
-
-I wanted to share this awesome new app with you - Placenet is now available in Barcelona!
-
-Chat with people who are in the same location as you (parks, beaches, universities, etc.) 
-
-Download it here:
-iPhone: ${appLinks.ios}
-Android: ${appLinks.android}
-
-Hope you check it out!`);
-            
-            window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
-            
-            trackEvent('share_click', { platform: 'email' });
-        }
-        
-        function copyLinks() {
-            const text = `Placenet - Now in Barcelona!
-
-Chat with people in the same place as you.
-
-iPhone: ${appLinks.ios}
-Android: ${appLinks.android}`;
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
-                    showCopySuccess();
-                }).catch(() => {
-                    fallbackCopyTextToClipboard(text);
-                });
-            } else {
-                fallbackCopyTextToClipboard(text);
-            }
-            
-            trackEvent('share_click', { platform: 'copy' });
-        }
-        
-        function fallbackCopyTextToClipboard(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.top = "0";
-            textArea.style.left = "0";
-            textArea.style.position = "fixed";
-            textArea.style.opacity = "0";
-            
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-                document.execCommand('copy');
-                showCopySuccess();
-            } catch (err) {
-                console.error('Fallback: Could not copy text: ', err);
-                alert('Could not copy to clipboard. Please copy manually.');
-            }
-            
-            document.body.removeChild(textArea);
-        }
-        
         function showCopySuccess() {
             const copyBtn = document.getElementById('copyBtn');
             if (!copyBtn) return;
@@ -438,9 +649,9 @@ Android: ${appLinks.android}`;
                 copyBtn.innerHTML = originalText;
                 copyBtn.classList.remove('copied');
             }, 2000);
-        }
         
-        // Smooth scroll for anchor links
+
+        // Share Placenet Banner (always floating at bottom of viewport, outside any scrollable container)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -502,67 +713,8 @@ Android: ${appLinks.android}`;
             });
         }
         
-        // Show share banner to encourage viral growth
-        function showShareBanner() {
-            // Don't show if user has already shared recently (reduced from 24h to 1h for testing)
-            const lastShared = localStorage.getItem('placenet_shared_recently');
-            if (lastShared && (Date.now() - parseInt(lastShared)) < 3600000) { // 1 hour instead of 24h
-                return;
-            }
+       
             
-            const sharePrompt = document.createElement('div');
-            sharePrompt.innerHTML = `
-                <div class="fixed bottom-5 left-5 right-5 bg-placenet-dark text-white p-4 rounded-xl z-[10000] flex items-center justify-between shadow-xl">
-                    <div>
-                        <div class="font-semibold mb-1">🚀 Loving Placenet?</div>
-                        <div class="text-sm opacity-90">Share it with friends and help grow your local community!</div>
-                    </div>
-                    <button onclick="shareFromBanner()" class="bg-white text-placenet-dark border-none px-4 py-2 rounded-lg font-semibold ml-4 hover:bg-gray-100 transition-colors">Share</button>
-                    <button onclick="dismissShareBanner(this)" class="bg-transparent border-none text-white p-2 ml-2 text-xl hover:bg-white/10 rounded transition-colors">&times;</button>
-                </div>
-            `;
-            
-            document.body.appendChild(sharePrompt);
-            
-            // Auto hide after 30 seconds (increased from 15)
-            setTimeout(() => {
-                if (sharePrompt.parentElement) {
-                    sharePrompt.remove();
-                }
-            }, 30000);
-        }
-        
-        function shareFromBanner() {
-            // Scroll to top (since we removed share section)
-            window.scrollTo({ 
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // Mark as shared recently
-            localStorage.setItem('placenet_shared_recently', Date.now());
-            
-            // Remove banner
-            document.querySelector('.fixed.bottom-5')?.remove();
-            
-            // Open WhatsApp share directly
-            shareWhatsApp();
-            
-            // Track event
-            trackEvent('share_banner_click', {
-                source: 'floating_banner'
-            });
-        }
-        
-        function dismissShareBanner(button) {
-            button.closest('.fixed').remove();
-            // Don't show again for 24 hours
-            localStorage.setItem('placenet_shared_recently', Date.now());
-            
-            trackEvent('share_banner_dismiss', {
-                source: 'floating_banner'
-            });
-        }
         
         // Touch gestures for better mobile interaction
         let touchStartY = 0;
@@ -659,13 +811,7 @@ Android: ${appLinks.android}`;
             });
         });
         
-        // Start application and show share banner
-        document.addEventListener('DOMContentLoaded', () => {
-            // Show share banner after shorter delay (2 seconds instead of 5)
-            setTimeout(() => {
-                showShareBanner();
-            }, 2000);
-        });
+       
         
         // Touch controls for places sliders - Infinite manual sliding
         const firstRow = document.getElementById('firstRow');
@@ -850,6 +996,102 @@ Android: ${appLinks.android}`;
                 if (secondSlider) secondSlider.style.animationPlayState = 'running';
             }
         });
+    </script>
+
+    <!-- Share Placenet Banner Logic -->
+    <script>
+
+    // Smart download URL logic: open App Store on iOS, Play Store on Android
+    function getSmartPlacenetUrl() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        // iOS detection
+        if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+            return 'https://apps.apple.com/app/placenet/id123456789';
+        }
+        // Android detection
+        if (/android/i.test(ua)) {
+            return 'https://play.google.com/store/apps/details?id=app.placenet';
+        }
+        // Fallback: website
+        return 'https://maximesteban.github.io/placenet_website/';
+    }
+
+    // Show banner randomly (e.g. 1 in 3 visits) and not if recently closed
+    function shouldShowShareBanner() {
+        // For testing: always show the banner
+        return true;
+    }
+
+    let shareBannerTimeout = null;
+    function showSharePlacenetBanner() {
+        const banner = document.getElementById('sharePlacenetBanner');
+        if (!banner) return;
+        banner.style.display = 'flex';
+        setTimeout(() => {
+            banner.querySelector('#sharePlacenetBannerInner').classList.remove('opacity-0', 'pointer-events-none');
+            banner.querySelector('#sharePlacenetBannerInner').classList.add('opacity-100');
+        }, 50);
+        // Auto-close after 10s if not interacted
+        shareBannerTimeout = setTimeout(() => {
+            hideSharePlacenetBanner();
+        }, 20000);
+    }
+
+    function hideSharePlacenetBanner() {
+        const banner = document.getElementById('sharePlacenetBanner');
+        if (!banner) return;
+        banner.querySelector('#sharePlacenetBannerInner').classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => { banner.style.display = 'none'; }, 400);
+        localStorage.setItem('sharePlacenetBannerClosed', Date.now().toString());
+        if (shareBannerTimeout) clearTimeout(shareBannerTimeout);
+    }
+
+    // Modal QR logic
+    function showSharePlacenetQRModal() {
+        const modal = document.getElementById('sharePlacenetQRModal');
+        if (!modal) return;
+        modal.style.display = 'flex';
+        setTimeout(() => {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+        }, 30);
+    }
+    function hideSharePlacenetQRModal() {
+        const modal = document.getElementById('sharePlacenetQRModal');
+        if (!modal) return;
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => { modal.style.display = 'none'; }, 300);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (shouldShowShareBanner()) {
+            setTimeout(showSharePlacenetBanner, 1200); // Show after short delay
+        }
+        const closeBtn = document.getElementById('closeSharePlacenetBanner');
+        if (closeBtn) closeBtn.onclick = (e) => {
+            e.stopPropagation();
+            hideSharePlacenetBanner();
+        };
+        // Banner click (not close button)
+        const bannerInner = document.getElementById('sharePlacenetBannerInner');
+        if (bannerInner) {
+            bannerInner.addEventListener('click', function(e) {
+                if (e.target.id === 'closeSharePlacenetBanner') return;
+                showSharePlacenetQRModal();
+                hideSharePlacenetBanner();
+            });
+        }
+        // Modal close
+        const closeQRModal = document.getElementById('closeSharePlacenetQRModal');
+        if (closeQRModal) closeQRModal.onclick = hideSharePlacenetQRModal;
+        // Also close modal on background click
+        const qrModal = document.getElementById('sharePlacenetQRModal');
+        if (qrModal) {
+            qrModal.addEventListener('click', function(e) {
+                if (e.target === qrModal) hideSharePlacenetQRModal();
+            });
+        }
+    });
     </script>
 </body>
 </html>

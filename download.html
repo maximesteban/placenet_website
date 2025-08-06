@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000122">          
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Placenet">
+    <title>Download Placenet</title>
+    <meta name="description" content="Download the Placenet app for iOS and Android.">
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="img/logos/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logos/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logos/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logos/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/logos/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="img/logos/android-chrome-512x512.png">
+    <link rel="manifest" href="site.webmanifest">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Rethink Sans', system-ui, sans-serif; }
+    </style>
+</head>
+<body class="font-rethink min-h-screen overflow-x-hidden bg-gradient-to-br from-placenet-light via-white to-placenet-light flex flex-col justify-center items-center">
+    <div class="w-full max-w-md mx-auto mt-16 mb-8 p-6 bg-white/80 rounded-3xl shadow-2xl border border-gray-200 flex flex-col items-center">
+        <img src="img/logos/placenet_dark.png" alt="Placenet" class="h-12 mb-4 drop-shadow-md">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-placenet-dark mb-2 text-center">Download Placenet</h1>
+        <p class="text-gray-700 text-center mb-6">Get the Placenet app for your device:</p>
+        <div class="flex flex-col gap-4 w-full">
+            <a href="https://apps.apple.com/app/placenet/id123456789" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-black text-white rounded-xl px-4 py-3 font-semibold hover:bg-placenet-accent transition text-base shadow-md">
+                <img src="img/logos/apple-touch-icon.png" alt="App Store" class="h-6 w-6"> App Store (iOS)
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=app.placenet" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-green-600 text-white rounded-xl px-4 py-3 font-semibold hover:bg-placenet-accent transition text-base shadow-md">
+                <img src="img/logos/android-chrome-192x192.png" alt="Google Play" class="h-6 w-6"> Google Play (Android)
+            </a>
+        </div>
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            <p>Or scan the QR code below:</p>
+            <img src="img/app/qr.png" alt="Placenet QR" class="w-32 h-32 mx-auto mt-2 rounded-lg border border-gray-200 shadow-sm bg-white" style="object-fit: contain;" />
+        </div>
+    </div>
+    <footer class="w-full text-center text-xs text-gray-400 pb-4">&copy; 2025 Placenet</footer>
+</body>
+</html>

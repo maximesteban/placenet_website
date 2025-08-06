@@ -300,6 +300,11 @@
                         class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
                         Request a new domain
                     </button>
+                    <button type="button"
+                        onclick="openDomainModal()"
+                        class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
+                        Request a new domain
+                    </button>
                 </div>
             </div>
         </section>
@@ -469,79 +474,7 @@ Android: ${appLinks.android}`;
                         console.log('SW registration failed: ', registrationError);
                     });
             });
-        }
-        
-        // Show share banner to encourage viral growth
-        function showShareBanner() {
-            // Don't show if user has already shared recently (reduced from 24h to 1h for testing)
-            const lastShared = localStorage.getItem('placenet_shared_recently');
-            if (lastShared && (Date.now() - parseInt(lastShared)) < 3600000) { // 1 hour instead of 24h
-                return;
-            }
-            
-            const sharePrompt = document.createElement('div');
-            sharePrompt.innerHTML = `
-                <div class="fixed bottom-5 left-5 right-5 bg-placenet-dark text-white p-4 rounded-xl z-[10000] flex items-center justify-between shadow-xl">
-                    <div>
-                        <div class="font-semibold mb-1">🚀 Loving Placenet?</div>
-                        <div class="text-sm opacity-90">Share it with friends and help grow your local community!</div>
-                    </div>
-                    <button onclick="shareFromBanner()" class="bg-white text-placenet-dark border-none px-4 py-2 rounded-lg font-semibold ml-4 hover:bg-gray-100 transition-colors">Share</button>
-                    <button onclick="dismissShareBanner(this)" class="bg-transparent border-none text-white p-2 ml-2 text-xl hover:bg-white/10 rounded transition-colors">&times;</button>
-                </div>
-            `;
-            
-            document.body.appendChild(sharePrompt);
-            
-            // Auto hide after 30 seconds (increased from 15)
-            setTimeout(() => {
-                if (sharePrompt.parentElement) {
-                    sharePrompt.remove();
-                }
-            }, 30000);
-        }
-        
-        function sendMailtoDomain() {
-            const mailto = 'mailto:social@placenet.app?subject=New%20Domain%20Request';
-            window.location.href = mailto;
-            trackEvent('button_click', {
-                button_text: 'Request a new domain',
-                button_href: mailto
-            });
-        }
-
-
-        function shareFromBanner() {
-            // Scroll to top (since we removed share section)
-            window.scrollTo({ 
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // Mark as shared recently
-            localStorage.setItem('placenet_shared_recently', Date.now());
-            
-            // Remove banner
-            document.querySelector('.fixed.bottom-5')?.remove();
-            
-            // Open WhatsApp share directly
-            shareWhatsApp();
-            
-            // Track event
-            trackEvent('share_banner_click', {
-                source: 'floating_banner'
-            });
-        }
-        
-        function dismissShareBanner(button) {
-            button.closest('.fixed').remove();
-            // Don't show again for 24 hours
-            localStorage.setItem('placenet_shared_recently', Date.now());
-            
-            trackEvent('share_banner_dismiss', {
-                source: 'floating_banner'
-            });
-        }
+        }        
         
         // Touch gestures for better mobile interaction
         let touchStartY = 0;
