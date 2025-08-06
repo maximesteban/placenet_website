@@ -300,15 +300,6 @@
                         class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
                         Request a new domain
                     </button>
-        // Mailto handler for CTA (works better on mobile)
-        function sendMailtoDomain() {
-            const mailto = 'mailto:social@placenet.app?subject=New%20Domain%20Request';
-            window.location.href = mailto;
-            trackEvent('button_click', {
-                button_text: 'Request a new domain',
-                button_href: mailto
-            });
-        }
                 </div>
             </div>
         </section>
@@ -510,6 +501,16 @@ Android: ${appLinks.android}`;
             }, 30000);
         }
         
+        function sendMailtoDomain() {
+            const mailto = 'mailto:social@placenet.app?subject=New%20Domain%20Request';
+            window.location.href = mailto;
+            trackEvent('button_click', {
+                button_text: 'Request a new domain',
+                button_href: mailto
+            });
+        }
+
+
         function shareFromBanner() {
             // Scroll to top (since we removed share section)
             window.scrollTo({ 

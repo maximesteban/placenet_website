@@ -29,6 +29,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script>
+        // Mailto handler for CTA (works better on mobile)
+        function sendMailto() {
+            const mailto = 'mailto:social@placenet.app?subject=New%20Location%20Request%20-%20Barcelona';
+            window.location.href = mailto;
+            trackEvent('button_click', {
+                button_text: 'Request a domain',
+                button_href: mailto
+            });
+        }
         tailwind.config = {
             theme: {
                 extend: {
@@ -308,15 +317,6 @@
                         class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
                         Request a domain
                     </button>
-        // Mailto handler for CTA (works better on mobile)
-        function sendMailto() {
-            const mailto = 'mailto:social@placenet.app?subject=New%20Location%20Request%20-%20Barcelona';
-            window.location.href = mailto;
-            trackEvent('button_click', {
-                button_text: 'Request a domain',
-                button_href: mailto
-            });
-        }
                 </div>
             </div>
         </section>
