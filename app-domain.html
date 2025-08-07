@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#000122">          
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Placenet">
 
@@ -141,6 +141,17 @@
                 animation: none !important; 
             }
         }
+        
+        .touch-manual {
+            cursor: grab;
+            touch-action: pan-x;
+        }
+        .touch-manual:active {
+            cursor: grabbing;
+            opacity: 0.8;
+            transform: scale(0.98);
+            transition: all 0.1s ease;
+        }
     </style>
 </head>
 <body class="font-rethink min-h-screen overflow-x-hidden bg-gradient-to-br from-placenet-light via-white to-placenet-light">
@@ -206,7 +217,7 @@
                 
                 <!-- First sliding row (left to right) -->
                 <div class="relative overflow-hidden mb-3 sm:mb-4 w-full" id="firstRow">
-                    <div class="flex gap-3 sm:gap-4 animate-slide-right" id="firstSlider">
+                    <div class="flex gap-3 sm:gap-4 animate-slide-right touch-manual" id="firstSlider">
                         <div class="flex items-center gap-2 bg-gradient-to-r from-[#C389FF] to-[#A855F7] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
                             <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🌳</div>
                             <span class="text-xs sm:text-sm font-medium text-white">Parks</span>
@@ -249,7 +260,7 @@
 
                 <!-- Second sliding row (right to left) -->
                 <div class="relative overflow-hidden w-full" id="secondRow">
-                    <div class="flex gap-3 sm:gap-4 animate-slide-left" id="secondSlider">
+                    <div class="flex gap-3 sm:gap-4 animate-slide-left touch-manual" id="secondSlider">
                         <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(138,202,242,0.8)] to-[#06B6D4] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
                             <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏖️</div>
                             <span class="text-xs sm:text-sm font-medium text-white">Beaches</span>
@@ -363,13 +374,24 @@
         const btn = document.getElementById('qrFloatBtn');
         if (btn) btn.style.pointerEvents = 'auto';
     }
-    // Cerrar modal QR con Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeShareModal();
-    });
-    // Cerrar modal QR al hacer clic fuera del contenido
-    document.getElementById('shareModal').addEventListener('click', function(e) {
-        if (e.target === this) closeShareModal();
+    // Listeners para cerrar modales QR y dominio, agrupados en DOMContentLoaded
+    window.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeShareModal();
+            if (e.key === 'Escape') closeDomainModal();
+        });
+        const shareModal = document.getElementById('shareModal');
+        if (shareModal) {
+            shareModal.addEventListener('click', function(e) {
+                if (e.target === this) closeShareModal();
+            });
+        }
+        const domainModal = document.getElementById('domainModal');
+        if (domainModal) {
+            domainModal.addEventListener('click', function(e) {
+                if (e.target === this) closeDomainModal();
+            });
+        }
     });
     </script>
     <script>
@@ -443,14 +465,7 @@
                 event.target.reset();
             }, 800);
         }
-        // Cerrar modal con Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeDomainModal();
-        });
-        // Cerrar modal al hacer clic fuera del contenido
-        document.getElementById('domainModal').addEventListener('click', function(e) {
-            if (e.target === this) closeDomainModal();
-        });
+        // ...existing code...
         
        
         
@@ -623,179 +638,104 @@
         let startX = 0;
         let currentX = 0;
         let initialTransform = 0;
-        
-        // Get the width of one complete set of items
+        let activeSlider = null;
+
         function getSliderWidth(slider) {
             if (!slider) return 0;
             const items = slider.children;
-            const halfItems = Math.floor(items.length / 2); // Since we duplicate items
+            const halfItems = Math.floor(items.length / 2);
             let width = 0;
             for (let i = 0; i < halfItems; i++) {
-                width += items[i].offsetWidth + 16; // 16px is the gap (4 * 4px)
+                width += items[i].offsetWidth + 16;
             }
             return width;
         }
-        
-        // Disable automatic animations when user interacts
-        function disableAutoAnimations() {
-            if (firstSlider) {
-                // Pause animation and capture current transform
-                firstSlider.style.animationPlayState = 'paused';
-                const currentTransform = getComputedStyle(firstSlider).transform;
+
+        function disableAutoAnimations(slider) {
+            if (slider) {
+                slider.style.animationPlayState = 'paused';
+                const currentTransform = getComputedStyle(slider).transform;
                 if (currentTransform !== 'none') {
-                    firstSlider.style.animation = 'none';
-                    firstSlider.style.transform = currentTransform;
-                }
-            }
-            if (secondSlider) {
-                // Pause animation and capture current transform
-                secondSlider.style.animationPlayState = 'paused';
-                const currentTransform = getComputedStyle(secondSlider).transform;
-                if (currentTransform !== 'none') {
-                    secondSlider.style.animation = 'none';
-                    secondSlider.style.transform = currentTransform;
+                    slider.style.animation = 'none';
+                    slider.style.transform = currentTransform;
                 }
             }
         }
-        
-        // Re-enable automatic animations
-        function enableAutoAnimations() {
-            if (firstSlider) {
-                // Clear any manual transform and restart animation
-                firstSlider.style.transform = '';
-                firstSlider.style.animation = 'slide-right 20s linear infinite';
-                firstSlider.style.animationPlayState = 'running';
-            }
-            if (secondSlider) {
-                // Clear any manual transform and restart animation
-                secondSlider.style.transform = '';
-                secondSlider.style.animation = 'slide-left 25s linear infinite';
-                secondSlider.style.animationPlayState = 'running';
+
+        function enableAutoAnimations(slider, animationName, duration) {
+            if (slider) {
+                slider.style.transform = '';
+                slider.style.animation = `${animationName} ${duration} linear infinite`;
+                slider.style.animationPlayState = 'running';
             }
         }
-        
-        // Normalize position to create infinite loop effect
-        function normalizePosition(position, sliderWidth, isFirstRow = true) {
-            // Ensure smooth infinite scrolling by wrapping positions
+
+        function normalizePosition(position, sliderWidth) {
             const halfWidth = sliderWidth / 2;
-            
-            if (isFirstRow) {
-                // For first row (left to right)
-                while (position > halfWidth) {
-                    position -= sliderWidth;
-                }
-                while (position < -halfWidth) {
-                    position += sliderWidth;
-                }
-            } else {
-                // For second row (right to left) 
-                while (position > halfWidth) {
-                    position -= sliderWidth;
-                }
-                while (position < -halfWidth) {
-                    position += sliderWidth;
-                }
+            while (position > halfWidth) {
+                position -= sliderWidth;
+            }
+            while (position < -halfWidth) {
+                position += sliderWidth;
             }
             return position;
         }
-        
-        // Touch start handler
-        function handleTouchStart(e, isFirstRow = true) {
+
+        function handleDragStart(e, slider) {
             isDragging = true;
-            startX = e.touches[0].clientX;
-            
-            const slider = isFirstRow ? firstSlider : secondSlider;
-            if (slider) {
-                const transform = getComputedStyle(slider).transform;
-                if (transform !== 'none') {
-                    const matrix = new DOMMatrix(transform);
-                    initialTransform = matrix.e;
-                } else {
-                    initialTransform = 0;
-                }
+            activeSlider = slider;
+            startX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+            const transform = getComputedStyle(slider).transform;
+            if (transform !== 'none') {
+                const matrix = new DOMMatrix(transform);
+                initialTransform = matrix.e;
+            } else {
+                initialTransform = 0;
             }
-            
-            disableAutoAnimations();
-            
-            // Visual feedback
-            const element = isFirstRow ? firstRow : secondRow;
-            element.style.opacity = '0.8';
+            disableAutoAnimations(slider);
+            slider.parentElement.style.opacity = '0.8';
         }
-        
-        // Touch move handler
-        function handleTouchMove(e, isFirstRow = true) {
-            if (!isDragging) return;
-            
+
+        function handleDragMove(e) {
+            if (!isDragging || !activeSlider) return;
             e.preventDefault();
-            const touch = e.touches[0];
-            const deltaX = touch.clientX - startX;
-            const slider = isFirstRow ? firstSlider : secondSlider;
-            
-            if (slider) {
-                const sliderWidth = getSliderWidth(slider);
-                let newPosition = initialTransform + deltaX;
-                
-                // Normalize position for infinite loop
-                newPosition = normalizePosition(newPosition, sliderWidth, isFirstRow);
-                
-                slider.style.transform = `translateX(${newPosition}px)`;
-                currentX = newPosition;
-            }
+            const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+            const deltaX = clientX - startX;
+            const sliderWidth = getSliderWidth(activeSlider);
+            let newPosition = initialTransform + deltaX;
+            newPosition = normalizePosition(newPosition, sliderWidth);
+            activeSlider.style.transform = `translateX(${newPosition}px)`;
+            currentX = newPosition;
         }
-        
-        // Touch end handler
-        function handleTouchEnd(e, isFirstRow = true) {
-            if (!isDragging) return;
-            
+
+        function handleDragEnd(e, animationName, duration) {
+            if (!isDragging || !activeSlider) return;
             isDragging = false;
-            const element = isFirstRow ? firstRow : secondRow;
-            const slider = isFirstRow ? firstSlider : secondSlider;
-            element.style.opacity = '1';
-            
-            // Don't reset transform, let it continue from current position
-            // Resume animations smoothly without jumping
+            activeSlider.parentElement.style.opacity = '1';
             setTimeout(() => {
-                if (slider) {
-                    // Remove any transition to avoid jumps
-                    slider.style.transition = 'none';
-                    // Re-enable animations while preserving current position flow
-                    enableAutoAnimations();
-                }
+                activeSlider.style.transition = 'none';
+                enableAutoAnimations(activeSlider, animationName, duration);
+                activeSlider = null;
             }, 100);
         }
-        
-        // Add touch events to both rows
-        if (firstRow && secondRow) {
-            // First row events
-            firstRow.addEventListener('touchstart', (e) => handleTouchStart(e, true), { passive: false });
-            firstRow.addEventListener('touchmove', (e) => handleTouchMove(e, true), { passive: false });
-            firstRow.addEventListener('touchend', (e) => handleTouchEnd(e, true), { passive: true });
-            
-            // Second row events
-            secondRow.addEventListener('touchstart', (e) => handleTouchStart(e, false), { passive: false });
-            secondRow.addEventListener('touchmove', (e) => handleTouchMove(e, false), { passive: false });
-            secondRow.addEventListener('touchend', (e) => handleTouchEnd(e, false), { passive: true });
-            
-            // Prevent scrolling when dragging sliders
-            firstRow.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
-            secondRow.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+
+        // Add listeners for both mouse and touch
+        if (firstSlider && firstRow) {
+            firstRow.addEventListener('mousedown', (e) => handleDragStart(e, firstSlider));
+            firstRow.addEventListener('touchstart', (e) => handleDragStart(e, firstSlider), { passive: false });
+            window.addEventListener('mousemove', handleDragMove);
+            window.addEventListener('touchmove', handleDragMove, { passive: false });
+            window.addEventListener('mouseup', (e) => handleDragEnd(e, 'slide-right', '20s'));
+            window.addEventListener('touchend', (e) => handleDragEnd(e, 'slide-right', '20s'));
         }
-        
-        // Pause places slider on page visibility change (mobile background/foreground)
-        document.addEventListener('visibilitychange', () => {
-            const firstSlider = document.getElementById('firstSlider');
-            const secondSlider = document.getElementById('secondSlider');
-            
-            if (document.hidden) {
-                // Page is hidden (user switched apps or tabs)
-                if (firstSlider) firstSlider.style.animationPlayState = 'paused';
-                if (secondSlider) secondSlider.style.animationPlayState = 'paused';
-            } else {
-                // Page is visible again
-                if (firstSlider) firstSlider.style.animationPlayState = 'running';
-                if (secondSlider) secondSlider.style.animationPlayState = 'running';
-            }
-        });
+        if (secondSlider && secondRow) {
+            secondRow.addEventListener('mousedown', (e) => handleDragStart(e, secondSlider));
+            secondRow.addEventListener('touchstart', (e) => handleDragStart(e, secondSlider), { passive: false });
+            window.addEventListener('mousemove', handleDragMove);
+            window.addEventListener('touchmove', handleDragMove, { passive: false });
+            window.addEventListener('mouseup', (e) => handleDragEnd(e, 'slide-left', '25s'));
+            window.addEventListener('touchend', (e) => handleDragEnd(e, 'slide-left', '25s'));
+        }
     </script>
 
    <!-- Botón QR flotante (visible al inicio) -->

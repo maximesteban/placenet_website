@@ -358,13 +358,25 @@
         const btn = document.getElementById('qrFloatBtn');
         if (btn) btn.style.pointerEvents = 'auto';
     }
-    // Cerrar modal QR con Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeShareModal();
-    });
-    // Cerrar modal QR al hacer clic fuera del contenido
-    document.getElementById('shareModal').addEventListener('click', function(e) {
-        if (e.target === this) closeShareModal();
+    // Listeners para cerrar modales QR y dominio, agrupados en DOMContentLoaded
+    window.addEventListener('DOMContentLoaded', () => {
+        // QR modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeShareModal();
+            if (e.key === 'Escape') closeDomainModal();
+        });
+        const shareModal = document.getElementById('shareModal');
+        if (shareModal) {
+            shareModal.addEventListener('click', function(e) {
+                if (e.target === this) closeShareModal();
+            });
+        }
+        const domainModal = document.getElementById('domainModal');
+        if (domainModal) {
+            domainModal.addEventListener('click', function(e) {
+                if (e.target === this) closeDomainModal();
+            });
+        }
     });
     </script>
     
@@ -460,15 +472,7 @@ function submitDomainRequest(event) {
         form.reset();
     }, 800);
 }
-        // Cerrar modal con Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeDomainModal();
-        });
-
-        // Cerrar modal al hacer clic fuera del contenido
-        document.getElementById('domainModal').addEventListener('click', function(e) {
-            if (e.target === this) closeDomainModal();
-        });
+        // ...existing code...
         function setVH() {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -614,191 +618,132 @@ function submitDomainRequest(event) {
             });
         });
         
-       
-        
-        // Touch controls for places sliders - Infinite manual sliding
-        const firstRow = document.getElementById('firstRow');
-        const secondRow = document.getElementById('secondRow');
-        const firstSlider = document.getElementById('firstSlider');
-        const secondSlider = document.getElementById('secondSlider');
-        
-        let isDragging = false;
-        let startX = 0;
-        let currentX = 0;
-        let initialTransform = 0;
-        
-        // Get the width of one complete set of items
-        function getSliderWidth(slider) {
-            if (!slider) return 0;
-            const items = slider.children;
-            const halfItems = Math.floor(items.length / 2); // Since we duplicate items
-            let width = 0;
-            for (let i = 0; i < halfItems; i++) {
-                width += items[i].offsetWidth + 16; // 16px is the gap (4 * 4px)
-            }
-            return width;
+// Manual sliding for places sliders (touch and mouse) - FIXED
+// Drag manual igual que en app-domain.html, ahora dentro de DOMContentLoaded
+window.addEventListener('DOMContentLoaded', () => {
+    const firstRow = document.getElementById('firstRow');
+    const secondRow = document.getElementById('secondRow');
+    const firstSlider = document.getElementById('firstSlider');
+    const secondSlider = document.getElementById('secondSlider');
+
+    // Asegurar clase touch-manual en sliders
+    if (firstSlider && !firstSlider.classList.contains('touch-manual')) firstSlider.classList.add('touch-manual');
+    if (secondSlider && !secondSlider.classList.contains('touch-manual')) secondSlider.classList.add('touch-manual');
+
+    let isDragging = false;
+    let startX = 0;
+    let initialTransform = 0;
+    let activeSlider = null;
+    let animationName = '';
+    let animationDuration = '';
+    let rafId = null;
+    let lastClientX = 0;
+
+    function getSliderWidth(slider) {
+        if (!slider) return 0;
+        let width = 0;
+        for (let i = 0; i < slider.children.length; i++) {
+            width += slider.children[i].offsetWidth + 16;
         }
-        
-        // Disable automatic animations when user interacts
-        function disableAutoAnimations() {
-            if (firstSlider) {
-                // Pause animation and capture current transform
-                firstSlider.style.animationPlayState = 'paused';
-                const currentTransform = getComputedStyle(firstSlider).transform;
-                if (currentTransform !== 'none') {
-                    firstSlider.style.animation = 'none';
-                    firstSlider.style.transform = currentTransform;
-                }
-            }
-            if (secondSlider) {
-                // Pause animation and capture current transform
-                secondSlider.style.animationPlayState = 'paused';
-                const currentTransform = getComputedStyle(secondSlider).transform;
-                if (currentTransform !== 'none') {
-                    secondSlider.style.animation = 'none';
-                    secondSlider.style.transform = currentTransform;
-                }
+        return width;
+    }
+
+    function disableAutoAnimations(slider) {
+        if (slider) {
+            slider.style.animationPlayState = 'paused';
+            slider.style.animation = 'none';
+            const computed = getComputedStyle(slider).transform;
+            if (computed !== 'none') {
+                slider.style.transform = computed;
             }
         }
-        
-        // Re-enable automatic animations
-        function enableAutoAnimations() {
-            if (firstSlider) {
-                // Clear any manual transform and restart animation
-                firstSlider.style.transform = '';
-                firstSlider.style.animation = 'slide-right 20s linear infinite';
-                firstSlider.style.animationPlayState = 'running';
-            }
-            if (secondSlider) {
-                // Clear any manual transform and restart animation
-                secondSlider.style.transform = '';
-                secondSlider.style.animation = 'slide-left 25s linear infinite';
-                secondSlider.style.animationPlayState = 'running';
-            }
+    }
+
+    function enableAutoAnimations(slider, animationName, duration) {
+        if (slider) {
+            slider.style.transition = 'none';
+            slider.style.transform = '';
+            slider.style.animation = `${animationName} ${duration} linear infinite`;
+            slider.style.animationPlayState = 'running';
         }
-        
-        // Normalize position to create infinite loop effect
-        function normalizePosition(position, sliderWidth, isFirstRow = true) {
-            // Ensure smooth infinite scrolling by wrapping positions
-            const halfWidth = sliderWidth / 2;
-            
-            if (isFirstRow) {
-                // For first row (left to right)
-                while (position > halfWidth) {
-                    position -= sliderWidth;
-                }
-                while (position < -halfWidth) {
-                    position += sliderWidth;
-                }
-            } else {
-                // For second row (right to left) 
-                while (position > halfWidth) {
-                    position -= sliderWidth;
-                }
-                while (position < -halfWidth) {
-                    position += sliderWidth;
-                }
-            }
-            return position;
+    }
+
+    function normalizePosition(position, sliderWidth) {
+        const halfWidth = sliderWidth / 2;
+        while (position > halfWidth) {
+            position -= sliderWidth;
         }
-        
-        // Touch start handler
-        function handleTouchStart(e, isFirstRow = true) {
-            isDragging = true;
-            startX = e.touches[0].clientX;
-            
-            const slider = isFirstRow ? firstSlider : secondSlider;
-            if (slider) {
-                const transform = getComputedStyle(slider).transform;
-                if (transform !== 'none') {
-                    const matrix = new DOMMatrix(transform);
-                    initialTransform = matrix.e;
-                } else {
-                    initialTransform = 0;
-                }
-            }
-            
-            disableAutoAnimations();
-            
-            // Visual feedback
-            const element = isFirstRow ? firstRow : secondRow;
-            element.style.opacity = '0.8';
+        while (position < -halfWidth) {
+            position += sliderWidth;
         }
-        
-        // Touch move handler
-        function handleTouchMove(e, isFirstRow = true) {
-            if (!isDragging) return;
-            
-            e.preventDefault();
-            const touch = e.touches[0];
-            const deltaX = touch.clientX - startX;
-            const slider = isFirstRow ? firstSlider : secondSlider;
-            
-            if (slider) {
-                const sliderWidth = getSliderWidth(slider);
-                let newPosition = initialTransform + deltaX;
-                
-                // Normalize position for infinite loop
-                newPosition = normalizePosition(newPosition, sliderWidth, isFirstRow);
-                
-                slider.style.transform = `translateX(${newPosition}px)`;
-                currentX = newPosition;
-            }
+        return position;
+    }
+
+    function dragUpdate() {
+        if (!isDragging || !activeSlider) return;
+        const sliderWidth = getSliderWidth(activeSlider);
+        let newPosition = initialTransform + (lastClientX - startX);
+        newPosition = normalizePosition(newPosition, sliderWidth);
+        activeSlider.style.transform = `translateX(${newPosition}px)`;
+        rafId = requestAnimationFrame(dragUpdate);
+    }
+
+    function handleDragStart(e, slider, anim, duration) {
+        if (isDragging) return;
+        isDragging = true;
+        activeSlider = slider;
+        animationName = anim;
+        animationDuration = duration;
+        startX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+        lastClientX = startX;
+        const transform = getComputedStyle(slider).transform;
+        if (transform !== 'none') {
+            const matrix = new DOMMatrix(transform);
+            initialTransform = matrix.e;
+        } else {
+            initialTransform = 0;
         }
-        
-        // Touch end handler
-        function handleTouchEnd(e, isFirstRow = true) {
-            if (!isDragging) return;
-            
-            isDragging = false;
-            const element = isFirstRow ? firstRow : secondRow;
-            const slider = isFirstRow ? firstSlider : secondSlider;
-            element.style.opacity = '1';
-            
-            // Don't reset transform, let it continue from current position
-            // Resume animations smoothly without jumping
-            setTimeout(() => {
-                if (slider) {
-                    // Remove any transition to avoid jumps
-                    slider.style.transition = 'none';
-                    // Re-enable animations while preserving current position flow
-                    enableAutoAnimations();
-                }
-            }, 100);
+        disableAutoAnimations(slider);
+        slider.parentElement.style.opacity = '0.8';
+        document.body.style.userSelect = 'none';
+        rafId = requestAnimationFrame(dragUpdate);
+    }
+
+    function handleDragMove(e) {
+        if (!isDragging || !activeSlider) return;
+        if (e.type.startsWith('touch')) {
+            lastClientX = e.touches[0].clientX;
+        } else {
+            lastClientX = e.clientX;
         }
-        
-        // Add touch events to both rows
-        if (firstRow && secondRow) {
-            // First row events
-            firstRow.addEventListener('touchstart', (e) => handleTouchStart(e, true), { passive: false });
-            firstRow.addEventListener('touchmove', (e) => handleTouchMove(e, true), { passive: false });
-            firstRow.addEventListener('touchend', (e) => handleTouchEnd(e, true), { passive: true });
-            
-            // Second row events
-            secondRow.addEventListener('touchstart', (e) => handleTouchStart(e, false), { passive: false });
-            secondRow.addEventListener('touchmove', (e) => handleTouchMove(e, false), { passive: false });
-            secondRow.addEventListener('touchend', (e) => handleTouchEnd(e, false), { passive: true });
-            
-            // Prevent scrolling when dragging sliders
-            firstRow.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
-            secondRow.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
-        }
-        
-        // Pause places slider on page visibility change (mobile background/foreground)
-        document.addEventListener('visibilitychange', () => {
-            const firstSlider = document.getElementById('firstSlider');
-            const secondSlider = document.getElementById('secondSlider');
-            
-            if (document.hidden) {
-                // Page is hidden (user switched apps or tabs)
-                if (firstSlider) firstSlider.style.animationPlayState = 'paused';
-                if (secondSlider) secondSlider.style.animationPlayState = 'paused';
-            } else {
-                // Page is visible again
-                if (firstSlider) firstSlider.style.animationPlayState = 'running';
-                if (secondSlider) secondSlider.style.animationPlayState = 'running';
-            }
-        });
+    }
+
+    function handleDragEnd() {
+        if (!isDragging || !activeSlider) return;
+        isDragging = false;
+        activeSlider.parentElement.style.opacity = '1';
+        if (rafId) cancelAnimationFrame(rafId);
+        setTimeout(() => {
+            enableAutoAnimations(activeSlider, animationName, animationDuration);
+            activeSlider = null;
+            document.body.style.userSelect = '';
+        }, 80);
+    }
+
+    // Listeners igual que en app-domain.html
+    if (firstSlider && firstRow) {
+        firstRow.addEventListener('mousedown', (e) => handleDragStart(e, firstSlider, 'slide-right', '20s'));
+        firstRow.addEventListener('touchstart', (e) => handleDragStart(e, firstSlider, 'slide-right', '20s'), { passive: false });
+    }
+    if (secondSlider && secondRow) {
+        secondRow.addEventListener('mousedown', (e) => handleDragStart(e, secondSlider, 'slide-left', '25s'));
+        secondRow.addEventListener('touchstart', (e) => handleDragStart(e, secondSlider, 'slide-left', '25s'), { passive: false });
+    }
+    window.addEventListener('mousemove', handleDragMove);
+    window.addEventListener('touchmove', handleDragMove, { passive: false });
+    window.addEventListener('mouseup', handleDragEnd);
+    window.addEventListener('touchend', handleDragEnd);
+});
     </script>
     
 <!-- Botón QR flotante (visible al inicio) -->
