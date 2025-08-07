@@ -296,21 +296,113 @@
                 <h3 class="text-xl sm:text-2xl font-bold text-placenet-dark mb-4 sm:mb-6">Want <span class="font-extrabold">placenet</span> at another location?</h3>
                 <div class="flex flex-col gap-4 max-w-sm mx-auto">
                     <button type="button"
-                        onclick="sendMailtoDomain()"
-                        class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
-                        Request a new domain
-                    </button>
-                    <button type="button"
                         onclick="openDomainModal()"
                         class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
                         Request a new domain
                     </button>
                 </div>
             </div>
+    <!-- Modal de solicitud de dominio -->
+    <div id="domainModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center" tabindex="0">
+            <button onclick="closeDomainModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h2 class="text-xl font-bold mb-2 text-placenet-dark">Request a Domain</h2>
+            <p class="text-sm text-gray-600 mb-4 text-center">Suggest a new domain for Placenet.</p>
+            <form id="domainRequestForm" class="w-full flex flex-col gap-3" onsubmit="submitDomainRequest(event)">
+                <input type="text" name="domain" placeholder="Domain name" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="text" name="city" placeholder="City or town" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <select name="country" id="countrySelect" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                    <option value="">Select country</option>
+                </select>
+                <input type="tel" name="phone" id="phoneInput" placeholder="Phone number (e.g. +34 600123456)" required pattern="^\+[1-9]\d{1,14}$" class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="email" name="email" placeholder="Your email" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <button type="submit" class="bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl px-4 py-2 mt-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">Send Request</button>
+            </form>
+            <div id="domainModalSuccess" class="hidden text-green-600 font-semibold mt-4">Thank you! Your request has been sent.</div>
+        </div>
+    </div>
         </section>
     </main>
     
     <script>
+        // Modal logic
+        function openDomainModal() {
+            const modal = document.getElementById('domainModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    modal.style.pointerEvents = 'auto';
+                }, 10);
+                document.body.style.overflow = 'hidden';
+                document.body.style.touchAction = 'none';
+            }
+        }
+
+        function closeDomainModal() {
+            const modal = document.getElementById('domainModal');
+            if (modal) {
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+                document.body.style.overflow = '';
+                document.body.style.touchAction = '';
+                // Reset form and success message
+                const form = document.getElementById('domainRequestForm');
+                if (form) form.reset();
+                const successMsg = document.getElementById('domainModalSuccess');
+                if (successMsg) successMsg.classList.add('hidden');
+            }
+        }
+
+        // Lista de países en orden alfabético
+        const countries = [
+            "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"
+        ];
+
+        // Rellenar el selector de países al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            const countrySelect = document.getElementById('countrySelect');
+            if (countrySelect) {
+                countries.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country;
+                    countrySelect.appendChild(option);
+                });
+            }
+        });
+
+        function submitDomainRequest(event) {
+            event.preventDefault();
+            // Validación extra para teléfono internacional
+            const phoneInput = document.getElementById('phoneInput');
+            const phoneValue = phoneInput.value.trim();
+            const phonePattern = /^\+[1-9]\d{1,14}$/;
+            if (!phonePattern.test(phoneValue)) {
+                phoneInput.classList.add('ring-2', 'ring-red-500');
+                phoneInput.focus();
+                return;
+            } else {
+                phoneInput.classList.remove('ring-2', 'ring-red-500');
+            }
+            // Simulación de envío (puedes conectar con tu backend aquí)
+            setTimeout(() => {
+                const successMsg = document.getElementById('domainModalSuccess');
+                if (successMsg) successMsg.classList.remove('hidden');
+                event.target.reset();
+            }, 800);
+        }
+        // Cerrar modal con Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeDomainModal();
+        });
+        // Cerrar modal al hacer clic fuera del contenido
+        document.getElementById('domainModal').addEventListener('click', function(e) {
+            if (e.target === this) closeDomainModal();
+        });
         // Share functionality
         const appLinks = {
             ios: 'https://apps.apple.com/es/app/placenet-iop/id6504680197',
