@@ -321,9 +321,57 @@
             <div id="domainModalSuccess" class="hidden text-green-600 font-semibold mt-4">Thank you! Your request has been sent.</div>
         </div>
     </div>
-        </section>
+        
     </main>
-    
+   <script>
+    // QR modal logic (sin banner)
+    function openShareModal() {
+        const modal = document.getElementById('shareModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.style.pointerEvents = 'auto';
+                // Mostrar overlay con opacidad
+                const overlay = document.getElementById('shareModalOverlay');
+                if (overlay) overlay.style.opacity = '1';
+            }, 10);
+            document.body.style.overflow = 'hidden';
+            document.body.style.touchAction = 'none';
+            document.body.classList.add('modal-open');
+        }
+        // Deshabilitar el botón QR mientras el modal está abierto
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.pointerEvents = 'none';
+    }
+    function closeShareModal() {
+        const modal = document.getElementById('shareModal');
+        if (modal) {
+            modal.style.opacity = '0';
+            modal.style.pointerEvents = 'none';
+            // Ocultar overlay con opacidad
+            const overlay = document.getElementById('shareModalOverlay');
+            if (overlay) overlay.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+        document.body.classList.remove('modal-open');
+        // Rehabilitar el botón QR
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.pointerEvents = 'auto';
+    }
+    // Cerrar modal QR con Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeShareModal();
+    });
+    // Cerrar modal QR al hacer clic fuera del contenido
+    document.getElementById('shareModal').addEventListener('click', function(e) {
+        if (e.target === this) closeShareModal();
+    });
+    </script>
     <script>
         // Modal logic
         function openDomainModal() {
@@ -403,108 +451,8 @@
         document.getElementById('domainModal').addEventListener('click', function(e) {
             if (e.target === this) closeDomainModal();
         });
-        // Share functionality
-        const appLinks = {
-            ios: 'https://apps.apple.com/es/app/placenet-iop/id6504680197',
-            android: 'https://play.google.com/store/apps/details?id=app.placenet.iop&hl=es&pli=1'
-        };
         
-        function shareWhatsApp() {
-            const message = `Placenet is now in Barcelona!\n\nChat with others HERE & NOW. Find people in the same place as you!\n\nDownload it now:\niOS: ${appLinks.ios}\nAndroid: ${appLinks.android}`;
-            const encodedMessage = encodeURIComponent(message);
-            // Try to open WhatsApp app directly
-            const whatsappUrl = `whatsapp://send?text=${encodedMessage}`;
-            const fallbackUrl = `https://wa.me/?text=${encodedMessage}`;
-            // Create a temporary iframe to try to open the app
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = whatsappUrl;
-            document.body.appendChild(iframe);
-            setTimeout(() => {
-                document.body.removeChild(iframe);
-                // If not opened, fallback to browser
-                window.open(fallbackUrl, '_blank');
-            }, 800);
-            trackEvent('share_click', { platform: 'whatsapp' });
-        }
-        
-        function shareEmail() {
-            const subject = encodeURIComponent('Check out Placenet - Now in Barcelona!');
-            const body = encodeURIComponent(`Hi!
-
-I wanted to share this awesome new app with you - Placenet is now available in Barcelona!
-
-Chat with people who are in the same location as you (parks, beaches, universities, etc.) 
-
-Download it here:
-iPhone: ${appLinks.ios}
-Android: ${appLinks.android}
-
-Hope you check it out!`);
-            
-            window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
-            
-            trackEvent('share_click', { platform: 'email' });
-        }
-        
-        function copyLinks() {
-            const text = `Placenet - Now in Barcelona!
-
-Chat with people in the same place as you.
-
-iPhone: ${appLinks.ios}
-Android: ${appLinks.android}`;
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
-                    showCopySuccess();
-                }).catch(() => {
-                    fallbackCopyTextToClipboard(text);
-                });
-            } else {
-                fallbackCopyTextToClipboard(text);
-            }
-            
-            trackEvent('share_click', { platform: 'copy' });
-        }
-        
-        function fallbackCopyTextToClipboard(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.top = "0";
-            textArea.style.left = "0";
-            textArea.style.position = "fixed";
-            textArea.style.opacity = "0";
-            
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-                document.execCommand('copy');
-                showCopySuccess();
-            } catch (err) {
-                console.error('Fallback: Could not copy text: ', err);
-                alert('Could not copy to clipboard. Please copy manually.');
-            }
-            
-            document.body.removeChild(textArea);
-        }
-        
-        function showCopySuccess() {
-            const copyBtn = document.getElementById('copyBtn');
-            if (!copyBtn) return;
-            
-            const originalText = copyBtn.innerHTML;
-            
-            copyBtn.innerHTML = '✅ Copied!';
-            copyBtn.classList.add('copied');
-            
-            setTimeout(() => {
-                copyBtn.innerHTML = originalText;
-                copyBtn.classList.remove('copied');
-            }, 2000);
-        }
+       
         
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -663,13 +611,7 @@ Android: ${appLinks.android}`;
             });
         });
         
-        // Start application and show share banner
-        document.addEventListener('DOMContentLoaded', () => {
-            // Show share banner after shorter delay (2 seconds instead of 5)
-            setTimeout(() => {
-                showShareBanner();
-            }, 2000);
-        });
+        
         
         // Touch controls for places sliders - Infinite manual sliding
         const firstRow = document.getElementById('firstRow');
@@ -855,5 +797,41 @@ Android: ${appLinks.android}`;
             }
         });
     </script>
+
+   <!-- Botón QR flotante (visible al inicio) -->
+    <button id="qrFloatBtn" onclick="openShareModal()" class="fixed bottom-3 right-3 z-60 bg-white rounded-2xl border border-gray-200 shadow-2xl p-3" aria-label="Mostrar QR Placenet">
+    <img src="img/app/qr.png" alt="QR Placenet" class="w-10 h-10 block">
+</button>
+
+    <!-- Modal QR -->
+    <div id="shareModal" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <!-- Overlay semitransparente -->
+        <div id="shareModalOverlay" class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"></div>
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center z-10" tabindex="0">
+            <button onclick="closeShareModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h2 class="text-3xl font-bold mb-2 text-placenet-dark">Únete al chat</h2>
+            <p class="text-sm text-gray-600 mb-4 text-center">Comparte este QR para que se unan al dominio.</p>
+            <img src="img/app/qr.png" alt="QR Placenet" class="w-80 h-80 mb-4 rounded-xl border border-gray-200 shadow-md">
+        </div>
+    </div>
+    <!-- Modal de solicitud de dominio -->
+    <div id="domainModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center" tabindex="0">
+            <button onclick="closeDomainModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h2 class="text-xl font-bold mb-2 text-placenet-dark">Request a Domain</h2>
+            <p class="text-sm text-gray-600 mb-4 text-center">Suggest a new domain for Placenet.</p>
+            <form id="domainRequestForm" class="w-full flex flex-col gap-3" onsubmit="submitDomainRequest(event)">
+                <input type="text" name="domain" placeholder="Domain name" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="text" name="city" placeholder="City or town" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <select name="country" id="countrySelect" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                    <option value="">Select country</option>
+                </select>
+                <input type="tel" name="phone" id="phoneInput" placeholder="Phone number (e.g. +34 600123456)" required pattern="^\+[1-9]\d{1,14}$" class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="email" name="email" placeholder="Your email" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <button type="submit" class="bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl px-4 py-2 mt-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">Send Request</button>
+            </form>
+            <div id="domainModalSuccess" class="hidden text-green-600 font-semibold mt-4">Thank you! Your request has been sent.</div>
+        </div>
+    </div>
 </body>
 </html>

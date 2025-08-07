@@ -59,6 +59,13 @@
             66% { transform: translateY(10px) rotate(240deg); }
         }
         
+        /* Zoom in/out animation for heading */
+        @keyframes zoomInOut {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+        
         .floating { animation: float 20s infinite linear; }
         
         .floating-1 { animation-delay: -5s; }
@@ -141,39 +148,6 @@
                 animation: none !important; 
             }
         }
-
-        /* Floating Share Banner custom style */
-        .floating-banner {
-            /* pointer-events: none;  Eliminado para permitir interacción y posición fija */
-            transition: filter 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s cubic-bezier(.4,0,.2,1);
-            filter: drop-shadow(0 8px 32px rgba(0,0,0,0.18)) drop-shadow(0 1.5px 6px rgba(0,0,0,0.10));
-        }
-        .floating-banner-inner {
-            pointer-events: auto;
-            border-radius: 1.25rem;
-            background: #fff;
-            border: 1.5px solid #e5e7eb;
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
-            transition: box-shadow 0.3s cubic-bezier(.4,0,.2,1), transform 0.2s cubic-bezier(.4,0,.2,1);
-        }
-        .floating-banner-inner:hover {
-            box-shadow: 0 12px 40px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.12);
-            transform: translateY(-2px) scale(1.03);
-        }
-        @media (max-width: 640px) {
-            .floating-banner {
-                left: 50% !important;
-                bottom: 16px !important;
-                width: 98vw !important;
-                max-width: 98vw !important;
-            }
-            .floating-banner-inner {
-                max-width: 98vw !important;
-                width: 100% !important;
-                padding-left: 0.5rem !important;
-                padding-right: 0.5rem !important;
-            }
-        }
     </style>
 </head>
 <body class="font-rethink min-h-screen overflow-x-hidden bg-gradient-to-br from-placenet-light via-white to-placenet-light">
@@ -186,20 +160,20 @@
     
     <!-- Logo Section -->
     <section class="relative z-10 py-8 sm:py-12 text-center px-4">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-placenet-dark mb-4 flex items-center justify-center gap-2 flex-wrap leading-tight">
+        <h1 class="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-placenet-dark mb-4 flex items-center justify-center gap-2 flex-wrap leading-tight">
             Welcome to 
-            <img src="img/logos/placenet_dark.png" alt="Placenet" class="h-8 sm:h-10 md:h-14 lg:h-16 w-auto drop-shadow-lg">
+            <img src="img/logos/placenet_dark.png" alt="Placenet" class="h-10 sm:h-12 md:h-16 lg:h-18 w-auto drop-shadow-lg">
         </h1>
-        <div class="mt-4 sm:mt-6 inline-flex items-center px-4 sm:px-5 py-2 bg-placenet-dark/10 text-placenet-dark rounded-full text-sm font-semibold border border-placenet-dark/15 backdrop-blur-sm">
+        <div class="mt-6 sm:mt-6 inline-flex items-center px-4 sm:px-5 py-2 bg-placenet-dark/10 text-placenet-dark rounded-full text-sm font-semibold border border-placenet-dark/15 backdrop-blur-sm">
             🎉 Now Available in Barcelona
         </div>
     </section>
     
     <!-- Main Content -->
     <main class="relative z-5 min-h-[calc(100vh-120px)] flex flex-col justify-center">
-        <!-- Hero Section -->
-        <section class="text-center px-4 sm:px-6 py-4 sm:py-6">
-            <p class="text-lg sm:text-xl font-medium text-gray-600 mb-6 sm:mb-8 max-w-lg mx-auto leading-relaxed">
+
+        <section class="text-center px-4 sm:px-6 py-2 sm:py-6">
+            <p class="text-lg sm:text-xl font-medium text-gray-600 mb-2 sm:mb-8 max-w-lg mx-auto leading-relaxed">
                 Move around Barcelona and chat with those in the same place as you.
             </p>
         </section>
@@ -207,12 +181,12 @@
         <!-- Features Section -->
         <section class="py-4 sm:py-6 relative z-5">
             <div class="text-center mb-6 sm:mb-8 px-4">
-                <h2 class="text-3xl sm:text-3xl font-extrabold text-placenet-dark">Chat here & Now</h2>
+                <h2 class="text-3xl sm:text-3xl font-extrabold text-placenet-dark" style="display:inline-block;animation:zoomInOut 2.5s ease-in-out infinite;">Chat here & Now</h2>
             </div>
             
             <!-- Places Section -->
-            <div class="mx-auto mb-8 sm:mb-12 overflow-hidden">
-                <p class="text-center text-gray-600 mb-4 sm:mb-6 text-lg sm:text-base px-4">Connect with people at</p>
+            <div class="mx-auto mb-6 sm:mb-12 overflow-hidden">
+                <p class="text-left text-gray-600 mb-4 sm:mb-6 text-xs sm:text-base px-4">Connect with people at:</p>
                 
                 <!-- First sliding row (left to right) -->
                 <div class="relative overflow-hidden mb-3 sm:mb-4 w-full" id="firstRow">
@@ -298,11 +272,11 @@
     </div>
     
     <!-- Phone Section -->
-            <div class="relative py-6 sm:py-8 md:py-12 px-4 sm:px-6 md:px-8 overflow-hidden">
+            <div class="relative py-2 sm:py-8 md:py-12 px-4 sm:px-6 md:px-8 overflow-hidden">
                 <div class="relative h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px] flex items-center justify-center mb-0 sm:mb-1 md:mb-2">
                     <!-- Single Phone Display -->
                     <div class="relative flex items-center justify-center">
-                        <div class="mega-phone w-[260px] h-[380px] sm:w-[300px] sm:h-[420px] md:w-[340px] md:h-[460px] lg:w-[380px] lg:h-[500px] bg-gradient-to-br from-gray-800 to-gray-700 rounded-[28px] sm:rounded-[32px] p-2 sm:p-3 relative shadow-2xl border-2 border-white/10">
+                        <div class="mega-phone w-[260px] h-[380px] sm:w-[300px] sm:h-[420px] md:w-[340px] md:h-[460px] lg:w-[380px] lg:h-[500px] bg-gradient-to-br from-gray-800 to-gray-700 rounded-[28px] sm:rounded-[32px] p-2 sm:p-3 relative border-2 border-white/10">
                             <!-- Phone notch -->
                             <div class="absolute top-2 sm:top-3 left-1/2 transform -translate-x-1/2 w-10 sm:w-12 h-1 sm:h-1.5 bg-gray-600 rounded-full"></div>
                             
@@ -340,29 +314,62 @@
 
         </section>
 
-    <!-- Modal de solicitud de dominio -->
-    <div id="domainModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center" tabindex="0">
-            <button onclick="closeDomainModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
-            <h2 class="text-xl font-bold mb-2 text-placenet-dark">Request a Domain</h2>
-            <p class="text-sm text-gray-600 mb-4 text-center">Suggest a new domain for Placenet.</p>
-            <form id="domainRequestForm" class="w-full flex flex-col gap-3" onsubmit="submitDomainRequest(event)">
-                <input type="text" name="domain" placeholder="Domain name" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
-                <input type="text" name="city" placeholder="City or town" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
-                <select name="country" id="countrySelect" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
-                    <option value="">Select country</option>
-                </select>
-                <input type="tel" name="phone" id="phoneInput" placeholder="Phone number (e.g. +34 600123456)" required pattern="^\+[1-9]\d{1,14}$" class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
-                <input type="email" name="email" placeholder="Your email" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
-                <button type="submit" class="bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl px-4 py-2 mt-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">Send Request</button>
-            </form>
-            <div id="domainModalSuccess" class="hidden text-green-600 font-semibold mt-4">Thank you! Your request has been sent.</div>
-        </div>
-    </div>
+    
     </main>
 
+
+    <script>
+    // QR modal logic (sin banner)
+    function openShareModal() {
+        const modal = document.getElementById('shareModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.style.pointerEvents = 'auto';
+                // Mostrar overlay con opacidad
+                const overlay = document.getElementById('shareModalOverlay');
+                if (overlay) overlay.style.opacity = '1';
+            }, 10);
+            document.body.style.overflow = 'hidden';
+            document.body.style.touchAction = 'none';
+            document.body.classList.add('modal-open');
+        }
+        // Deshabilitar el botón QR mientras el modal está abierto
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.pointerEvents = 'none';
+    }
+    function closeShareModal() {
+        const modal = document.getElementById('shareModal');
+        if (modal) {
+            modal.style.opacity = '0';
+            modal.style.pointerEvents = 'none';
+            // Ocultar overlay con opacidad
+            const overlay = document.getElementById('shareModalOverlay');
+            if (overlay) overlay.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+        document.body.classList.remove('modal-open');
+        // Rehabilitar el botón QR
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.pointerEvents = 'auto';
+    }
+    // Cerrar modal QR con Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeShareModal();
+    });
+    // Cerrar modal QR al hacer clic fuera del contenido
+    document.getElementById('shareModal').addEventListener('click', function(e) {
+        if (e.target === this) closeShareModal();
+    });
+    </script>
     
     <script>
+
         function showCopySuccess() {
             const copyBtn = document.getElementById('copyBtn');
             if (!copyBtn) return;
@@ -792,9 +799,43 @@ function submitDomainRequest(event) {
                 if (secondSlider) secondSlider.style.animationPlayState = 'running';
             }
         });
-
     </script>
-
     
+<!-- Botón QR flotante (visible al inicio) -->
+    <button id="qrFloatBtn" onclick="openShareModal()" class="fixed bottom-3 right-3 z-60 bg-white rounded-2xl border border-gray-200 shadow-2xl p-3" aria-label="Mostrar QR Placenet">
+    <img src="img/app/qr.png" alt="QR Placenet" class="w-10 h-10 block">
+</button>
+
+    <!-- Modal QR -->
+    <div id="shareModal" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <!-- Overlay semitransparente -->
+        <div id="shareModalOverlay" class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"></div>
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center z-10" tabindex="0">
+            <button onclick="closeShareModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h2 class="text-3xl font-bold mb-2 text-placenet-dark">Únete al chat</h2>
+            <p class="text-sm text-gray-600 mb-4 text-center">Comparte este QR para que se unan al dominio.</p>
+            <img src="img/app/qr.png" alt="QR Placenet" class="w-80 h-80 mb-4 rounded-xl border border-gray-200 shadow-md">
+        </div>
+    </div>
+    <!-- Modal de solicitud de dominio -->
+    <div id="domainModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center" tabindex="0">
+            <button onclick="closeDomainModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h2 class="text-xl font-bold mb-2 text-placenet-dark">Request a Domain</h2>
+            <p class="text-sm text-gray-600 mb-4 text-center">Suggest a new domain for Placenet.</p>
+            <form id="domainRequestForm" class="w-full flex flex-col gap-3" onsubmit="submitDomainRequest(event)">
+                <input type="text" name="domain" placeholder="Domain name" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="text" name="city" placeholder="City or town" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <select name="country" id="countrySelect" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                    <option value="">Select country</option>
+                </select>
+                <input type="tel" name="phone" id="phoneInput" placeholder="Phone number (e.g. +34 600123456)" required pattern="^\+[1-9]\d{1,14}$" class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="email" name="email" placeholder="Your email" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <button type="submit" class="bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl px-4 py-2 mt-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">Send Request</button>
+            </form>
+            <div id="domainModalSuccess" class="hidden text-green-600 font-semibold mt-4">Thank you! Your request has been sent.</div>
+        </div>
+    </div>
+
 </body>
 </html>

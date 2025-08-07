@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Placenet QR Banner Test</title>
+    <meta name="theme-color" content="#000122">
+    <link rel="icon" type="image/x-icon" href="img/logos/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logos/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logos/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logos/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'placenet-dark': '#000122',
+                        'placenet-light': '#EFE5D7',
+                        'placenet-accent': '#667eea'
+                    },
+                    fontFamily: {
+                        'rethink': ['Rethink Sans', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-rethink min-h-screen overflow-x-hidden bg-gradient-to-br from-placenet-light via-white to-placenet-light">
+    <!-- Banner flotante para compartir, todo clicable -->
+    <div id="shareBanner" class="fixed left-1/2 bottom-2 w-[96vw] max-w-[96vw] -translate-x-1/2 z-[9999] shadow-2xl pointer-events-auto">
+    <div id="bannerContent" class="flex items-center gap-3 px-4 py-3 shadow-lg w-full cursor-pointer rounded-2xl bg-white border border-gray-200" onclick="showQRModalFromBanner()">
+        <span class="font-semibold text-placenet-dark flex-1 text-center">¿Quieres compartir este dominio?<br><span class="font-semibold">Toca para mostrar el QR</span></span>
+        <span class="inline-flex items-center justify-center rounded-xl px-1 py-1 bg-white border border-gray-200 shadow-md"><img src="img/app/qr.png" alt="QR Placenet" class="w-8 h-8 block"></span>
+    </div>
+</div>
+
+    <!-- Botón QR flotante (oculto al inicio) -->
+    <button id="qrFloatBtn" onclick="openShareModal()" class="hidden fixed bottom-3 right-3 z-60 bg-white rounded-2xl border border-gray-200 shadow-2xl p-3" aria-label="Mostrar QR Placenet">
+    <img src="img/app/qr.png" alt="QR Placenet" class="w-10 h-10 block">
+</button>
+
+    <!-- Modal QR -->
+    <div id="shareModal" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center" tabindex="0">
+            <button onclick="closeShareModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h2 class="text-3xl font-bold mb-2 text-placenet-dark">Únete al chat</h2>
+            <p class="text-sm text-gray-600 mb-4 text-center">Comparte este QR para que se unan al dominio.</p>
+            <img src="img/app/qr.png" alt="QR Placenet" class="w-80 h-80 mb-4 rounded-xl border border-gray-200 shadow-md">
+        </div>
+    </div>
+
+   
+
+    <script>
+    // Banner QR modal logic
+    let bannerTimeout;
+    function showQRModalFromBanner() {
+        openShareModal();
+        hideBanner();
+    }
+    function openShareModal() {
+        const modal = document.getElementById('shareModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.style.pointerEvents = 'auto';
+            }, 10);
+            document.body.style.overflow = 'hidden';
+            document.body.style.touchAction = 'none';
+            // Bloquear interacción fuera del modal
+            document.body.classList.add('modal-open');
+        }
+        // Deshabilitar el banner y el botón QR
+        const banner = document.getElementById('shareBanner');
+        if (banner) banner.style.pointerEvents = 'none';
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.pointerEvents = 'none';
+    }
+    function closeShareModal() {
+        const modal = document.getElementById('shareModal');
+        if (modal) {
+            modal.style.opacity = '0';
+            modal.style.pointerEvents = 'none';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+        document.body.classList.remove('modal-open');
+        // Rehabilitar el banner y el botón QR
+        const banner = document.getElementById('shareBanner');
+        if (banner) banner.style.pointerEvents = 'auto';
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.pointerEvents = 'auto';
+        showQRFloatBtn();
+    // Opcional: bloquear scroll/interacción con todo el body cuando el modal está abierto
+    // Puedes añadir esto al CSS para reforzar:
+    // .modal-open {
+    //     pointer-events: none;
+    // }
+    }
+    // Ocultar banner tras 20s o al cerrar modal
+    function hideBanner() {
+        const banner = document.getElementById('shareBanner');
+        if (banner) banner.style.display = 'none';
+        showQRFloatBtn();
+    }
+    function showQRFloatBtn() {
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.display = 'block';
+    }
+    function hideQRFloatBtn() {
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.display = 'none';
+    }
+    // Cerrar modal QR con Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeShareModal();
+    });
+    // Cerrar modal QR al hacer clic fuera del contenido
+    document.getElementById('shareModal').addEventListener('click', function(e) {
+        if (e.target === this) closeShareModal();
+    });
+    // Ocultar banner tras 20 segundos
+    window.addEventListener('DOMContentLoaded', () => {
+        bannerTimeout = setTimeout(hideBanner, 20000);
+    });
+    </script>
+</body>
+</html>
+    </script>
