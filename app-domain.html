@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000122">          
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Placenet">
+
+    <title>Placenet in Barcelona</title>
+    <meta name="description" content="Welcome to Barcelona! Placenet is now available in your city.">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="img/logos/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logos/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logos/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logos/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/logos/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="img/logos/android-chrome-512x512.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'placenet-dark': '#000122',
+                        'placenet-light': '#EFE5D7',
+                        'placenet-accent': '#667eea'
+                    },
+                    fontFamily: {
+                        'rethink': ['Rethink Sans', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Rethink Sans', system-ui, sans-serif; }
+        
+        /* Custom styles for 3D phone effect */
+        .mega-phone {
+            transform-style: preserve-3d;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+        
+        .floating { animation: float 20s infinite linear; }
+        
+        .floating-1 { animation-delay: -5s; }
+        .floating-2 { animation-delay: -10s; }
+        .floating-3 { animation-delay: -15s; }
+        
+        /* Sliding animations for places - True infinite seamless loop */
+        @keyframes slide-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+        
+        @keyframes slide-left {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .animate-slide-right {
+            animation: slide-right 20s linear infinite;
+        }
+        
+        .animate-slide-left {
+            animation: slide-left 25s linear infinite;
+        }
+        
+        /* Pause animations on hover */
+        .animate-slide-right:hover,
+        .animate-slide-left:hover {
+            animation-play-state: paused;
+        }
+        
+        /* Touch-friendly controls for mobile */
+        @media (max-width: 640px) {
+            .animate-slide-right,
+            .animate-slide-left {
+                animation-duration: 25s; /* Slower on mobile for better readability */
+            }
+            
+            #firstRow,
+            #secondRow {
+                position: relative;
+                cursor: grab;
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+                touch-action: pan-x;
+            }
+            
+            #firstRow:active,
+            #secondRow:active {
+                cursor: grabbing;
+                opacity: 0.8;
+                transform: scale(0.98);
+                transition: all 0.1s ease;
+            }
+        }
+        
+        /* Full width sliders */
+        #firstRow,
+        #secondRow {
+            margin-left: -1rem;
+            margin-right: -1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            width: calc(100% + 2rem);
+        }
+        
+        @media (min-width: 640px) {
+            #firstRow,
+            #secondRow {
+                margin-left: -1.5rem;
+                margin-right: -1.5rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                width: calc(100% + 3rem);
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .slide, .floating, .animate-slide-right, .animate-slide-left { 
+                transition: none !important; 
+                animation: none !important; 
+            }
+        }
+    </style>
+</head>
+<body class="font-rethink min-h-screen overflow-x-hidden bg-gradient-to-br from-placenet-light via-white to-placenet-light">
+    <!-- Background circles -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute w-48 h-48 rounded-full top-[10%] -right-12 opacity-50 bg-gradient-to-br from-placenet-dark/5 to-placenet-accent/5 floating floating-1"></div>
+        <div class="absolute w-36 h-36 rounded-full bottom-[20%] -left-8 opacity-50 bg-gradient-to-br from-placenet-accent/3 to-placenet-dark/3 floating floating-2"></div>
+        <div class="absolute w-24 h-24 rounded-full top-[60%] right-[10%] opacity-50 bg-gradient-to-br from-placenet-dark/4 to-placenet-accent/4 floating floating-3"></div>
+    </div>
+    
+    <!-- Logo Section -->
+    <section class="relative z-10 py-4 sm:py-6 pt-16 sm:pt-20 text-center px-4">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-placenet-dark mb-2 flex items-center justify-center gap-2 flex-wrap leading-tight">
+            You are in a Digital Domain
+        </h1>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="relative z-5 min-h-[calc(100vh-120px)] flex flex-col justify-center">
+        <!-- Hero Section -->
+        <section class="text-center px-4 sm:px-6 py-2 sm:py-3">
+            <p class="text-lg sm:text-xl font-medium text-gray-600 mb-3 sm:mb-4 max-w-2xl mx-auto leading-relaxed">
+                Chat only with people physically present at this location. Available only while you're here.
+            </p>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="py-0 sm:py-1 relative z-5">
+            <!-- Phone Section -->
+            <div class="relative py-0 sm:py-1 md:py-2 px-4 sm:px-6 md:px-8 overflow-hidden">
+                <div class="relative h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px] flex items-center justify-center">
+                    <!-- Single Phone Display -->
+                    <div class="relative flex items-center justify-center">
+                        <div class="mega-phone w-[260px] h-[380px] sm:w-[300px] sm:h-[420px] md:w-[340px] md:h-[460px] lg:w-[380px] lg:h-[500px] bg-gradient-to-br from-gray-800 to-gray-700 rounded-[28px] sm:rounded-[32px] p-2 sm:p-3 relative border-2 border-white/10">
+                            <!-- Phone notch -->
+                            <div class="absolute top-2 sm:top-3 left-1/2 transform -translate-x-1/2 w-10 sm:w-12 h-1 sm:h-1.5 bg-gray-600 rounded-full"></div>
+                            
+                            <!-- Phone screen -->
+                            <div class="w-full h-full bg-black rounded-[22px] sm:rounded-[26px] overflow-hidden relative">
+                                <!-- Background image -->
+                                <img src="img/app/DOMAIN.png" alt="Placenet App Demo" class="w-full h-full object-cover object-top">
+                                
+                                <!-- Blur overlay for bottom part only -->
+                                <div class="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent backdrop-blur-sm"></div>
+                                
+                                <!-- Gradient overlay with text -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-placenet-dark/90 via-placenet-dark/60 to-transparent flex flex-col justify-end p-4 sm:p-6 md:p-8">
+                                    <div class="text-center text-white space-y-2 sm:space-y-3">
+                                        <h3 class="text-2xl sm:text-xl md:text-2xl font-bold pb-6 leading-tight">
+                                            Chat & Connect
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            
+            <!-- Places Section -->
+            <div class="mx-auto mb-8 sm:mb-12 overflow-hidden">
+                
+                <!-- First sliding row (left to right) -->
+                <div class="relative overflow-hidden mb-3 sm:mb-4 w-full" id="firstRow">
+                    <div class="flex gap-3 sm:gap-4 animate-slide-right" id="firstSlider">
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#C389FF] to-[#A855F7] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🌳</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Parks</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#EFC041] to-[#F59E0B] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🎓</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Universities</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#FF9052] to-[#F97316] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🎵</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Clubs</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#8ACAF2] to-[#3B82F6] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏟️</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Stadiums</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#635FE5] to-[#4F46E5] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🗽</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Tourism</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(195,137,255,0.8)] to-[#8B5CF6] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏠</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Residences</span>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#C389FF] to-[#A855F7] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🌳</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Parks</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#EFC041] to-[#F59E0B] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🎓</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Universities</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#FF9052] to-[#F97316] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🎵</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Clubs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second sliding row (right to left) -->
+                <div class="relative overflow-hidden w-full" id="secondRow">
+                    <div class="flex gap-3 sm:gap-4 animate-slide-left" id="secondSlider">
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(138,202,242,0.8)] to-[#06B6D4] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏖️</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Beaches</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-orange-100 to-orange-200 rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🍺</div>
+                            <span class="text-xs sm:text-sm font-medium text-gray-700">Bars</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-red-100 to-red-200 rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">⚽</div>
+                            <span class="text-xs sm:text-sm font-medium text-gray-700">Sports</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(239,192,65,0.8)] to-[#D97706] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">📚</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Libraries</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(195,137,255,0.7)] to-[#9333EA] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">💪</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Gyms</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(239,192,65,0.7)] to-[#059669] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">☕</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Cafés</span>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(138,202,242,0.8)] to-[#06B6D4] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏖️</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Beaches</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(255,144,82,0.8)] to-[#EA580C] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🍺</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Bars</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(99,95,229,0.8)] to-[#7C3AED] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">⚽</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Sports</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact CTA -->
+            <div class="p-6 sm:p-8 md:p-10 text-center mt-8 sm:mt-12 px-4">
+                <h3 class="text-xl sm:text-2xl font-bold text-placenet-dark mb-4 sm:mb-6">Want <span class="font-extrabold">placenet</span> at another location?</h3>
+                <div class="flex flex-col gap-4 max-w-sm mx-auto">
+                    <button type="button"
+                        onclick="sendMailtoDomain()"
+                        class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
+                        Request a new domain
+                    </button>
+                    <button type="button"
+                        onclick="openDomainModal()"
+                        class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
+                        Request a new domain
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Share functionality
+        const appLinks = {
+            ios: 'https://apps.apple.com/es/app/placenet-iop/id6504680197',
+            android: 'https://play.google.com/store/apps/details?id=app.placenet.iop&hl=es&pli=1'
+        };
+        
+        function shareWhatsApp() {
+            const message = `Placenet is now in Barcelona!\n\nChat with others HERE & NOW. Find people in the same place as you!\n\nDownload it now:\niOS: ${appLinks.ios}\nAndroid: ${appLinks.android}`;
+            const encodedMessage = encodeURIComponent(message);
+            // Try to open WhatsApp app directly
+            const whatsappUrl = `whatsapp://send?text=${encodedMessage}`;
+            const fallbackUrl = `https://wa.me/?text=${encodedMessage}`;
+            // Create a temporary iframe to try to open the app
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = whatsappUrl;
+            document.body.appendChild(iframe);
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+                // If not opened, fallback to browser
+                window.open(fallbackUrl, '_blank');
+            }, 800);
+            trackEvent('share_click', { platform: 'whatsapp' });
+        }
+        
+        function shareEmail() {
+            const subject = encodeURIComponent('Check out Placenet - Now in Barcelona!');
+            const body = encodeURIComponent(`Hi!
+
+I wanted to share this awesome new app with you - Placenet is now available in Barcelona!
+
+Chat with people who are in the same location as you (parks, beaches, universities, etc.) 
+
+Download it here:
+iPhone: ${appLinks.ios}
+Android: ${appLinks.android}
+
+Hope you check it out!`);
+            
+            window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
+            
+            trackEvent('share_click', { platform: 'email' });
+        }
+        
+        function copyLinks() {
+            const text = `Placenet - Now in Barcelona!
+
+Chat with people in the same place as you.
+
+iPhone: ${appLinks.ios}
+Android: ${appLinks.android}`;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopySuccess();
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text);
+            }
+            
+            trackEvent('share_click', { platform: 'copy' });
+        }
+        
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (err) {
+                console.error('Fallback: Could not copy text: ', err);
+                alert('Could not copy to clipboard. Please copy manually.');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        function showCopySuccess() {
+            const copyBtn = document.getElementById('copyBtn');
+            if (!copyBtn) return;
+            
+            const originalText = copyBtn.innerHTML;
+            
+            copyBtn.innerHTML = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.classList.remove('copied');
+            }, 2000);
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add viewport height fix for mobile browsers
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setVH();
+        window.addEventListener('resize', setVH);
+        window.addEventListener('orientationchange', setVH);
+        
+        // Intersection Observer for animation on scroll
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            document.querySelectorAll('.bg-gradient-to-br').forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(element);
+            });
+        }
+        
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }        
+        
+        // Touch gestures for better mobile interaction
+        let touchStartY = 0;
+        let touchEndY = 0;
+        
+        document.addEventListener('touchstart', e => {
+            // Don't interfere with places slider touches
+            if (!e.target.closest('#firstRow') && !e.target.closest('#secondRow')) {
+                touchStartY = e.changedTouches[0].screenY;
+            }
+        }, { passive: true });
+        
+        document.addEventListener('touchend', e => {
+            // Don't interfere with places slider touches
+            if (!e.target.closest('#firstRow') && !e.target.closest('#secondRow')) {
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 100;
+            const diff = touchStartY - touchEndY;
+            
+            // Swipe up to scroll to next section
+            if (diff > swipeThreshold) {
+                const currentSection = getCurrentSection();
+                const nextSection = currentSection?.nextElementSibling;
+                if (nextSection && nextSection.tagName === 'SECTION') {
+                    nextSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            // Swipe down to scroll to previous section
+            else if (diff < -swipeThreshold) {
+                const currentSection = getCurrentSection();
+                const prevSection = currentSection?.previousElementSibling;
+                if (prevSection && prevSection.tagName === 'SECTION') {
+                    prevSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+        
+        function getCurrentSection() {
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+            
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                const sectionTop = rect.top + window.scrollY;
+                const sectionBottom = sectionTop + rect.height;
+                
+                if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                    return section;
+                }
+            }
+            return sections[0];
+        }
+        
+        // Preload critical images
+        const criticalImages = [
+            'img/logos/placenet_dark.png'
+        ];
+        
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+        
+        // Performance: Lazy load non-critical resources
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                console.log('Loading non-critical resources...');
+            });
+        }
+        
+        // Analytics simulation (replace with real analytics)
+        function trackEvent(eventName, properties = {}) {
+            console.log(`Event: ${eventName}`, properties);
+        }
+        
+        // Track page view
+        trackEvent('page_view', {
+            page: 'barcelona_landing',
+            timestamp: new Date().toISOString()
+        });
+        
+        // Track button clicks
+        document.querySelectorAll('a[href^="mailto"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                trackEvent('button_click', {
+                    button_text: e.target.textContent.trim(),
+                    button_href: e.target.href || null
+                });
+            });
+        });
+        
+        // Start application and show share banner
+        document.addEventListener('DOMContentLoaded', () => {
+            // Show share banner after shorter delay (2 seconds instead of 5)
+            setTimeout(() => {
+                showShareBanner();
+            }, 2000);
+        });
+        
+        // Touch controls for places sliders - Infinite manual sliding
+        const firstRow = document.getElementById('firstRow');
+        const secondRow = document.getElementById('secondRow');
+        const firstSlider = document.getElementById('firstSlider');
+        const secondSlider = document.getElementById('secondSlider');
+        
+        let isDragging = false;
+        let startX = 0;
+        let currentX = 0;
+        let initialTransform = 0;
+        
+        // Get the width of one complete set of items
+        function getSliderWidth(slider) {
+            if (!slider) return 0;
+            const items = slider.children;
+            const halfItems = Math.floor(items.length / 2); // Since we duplicate items
+            let width = 0;
+            for (let i = 0; i < halfItems; i++) {
+                width += items[i].offsetWidth + 16; // 16px is the gap (4 * 4px)
+            }
+            return width;
+        }
+        
+        // Disable automatic animations when user interacts
+        function disableAutoAnimations() {
+            if (firstSlider) {
+                // Pause animation and capture current transform
+                firstSlider.style.animationPlayState = 'paused';
+                const currentTransform = getComputedStyle(firstSlider).transform;
+                if (currentTransform !== 'none') {
+                    firstSlider.style.animation = 'none';
+                    firstSlider.style.transform = currentTransform;
+                }
+            }
+            if (secondSlider) {
+                // Pause animation and capture current transform
+                secondSlider.style.animationPlayState = 'paused';
+                const currentTransform = getComputedStyle(secondSlider).transform;
+                if (currentTransform !== 'none') {
+                    secondSlider.style.animation = 'none';
+                    secondSlider.style.transform = currentTransform;
+                }
+            }
+        }
+        
+        // Re-enable automatic animations
+        function enableAutoAnimations() {
+            if (firstSlider) {
+                // Clear any manual transform and restart animation
+                firstSlider.style.transform = '';
+                firstSlider.style.animation = 'slide-right 20s linear infinite';
+                firstSlider.style.animationPlayState = 'running';
+            }
+            if (secondSlider) {
+                // Clear any manual transform and restart animation
+                secondSlider.style.transform = '';
+                secondSlider.style.animation = 'slide-left 25s linear infinite';
+                secondSlider.style.animationPlayState = 'running';
+            }
+        }
+        
+        // Normalize position to create infinite loop effect
+        function normalizePosition(position, sliderWidth, isFirstRow = true) {
+            // Ensure smooth infinite scrolling by wrapping positions
+            const halfWidth = sliderWidth / 2;
+            
+            if (isFirstRow) {
+                // For first row (left to right)
+                while (position > halfWidth) {
+                    position -= sliderWidth;
+                }
+                while (position < -halfWidth) {
+                    position += sliderWidth;
+                }
+            } else {
+                // For second row (right to left) 
+                while (position > halfWidth) {
+                    position -= sliderWidth;
+                }
+                while (position < -halfWidth) {
+                    position += sliderWidth;
+                }
+            }
+            return position;
+        }
+        
+        // Touch start handler
+        function handleTouchStart(e, isFirstRow = true) {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            
+            const slider = isFirstRow ? firstSlider : secondSlider;
+            if (slider) {
+                const transform = getComputedStyle(slider).transform;
+                if (transform !== 'none') {
+                    const matrix = new DOMMatrix(transform);
+                    initialTransform = matrix.e;
+                } else {
+                    initialTransform = 0;
+                }
+            }
+            
+            disableAutoAnimations();
+            
+            // Visual feedback
+            const element = isFirstRow ? firstRow : secondRow;
+            element.style.opacity = '0.8';
+        }
+        
+        // Touch move handler
+        function handleTouchMove(e, isFirstRow = true) {
+            if (!isDragging) return;
+            
+            e.preventDefault();
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - startX;
+            const slider = isFirstRow ? firstSlider : secondSlider;
+            
+            if (slider) {
+                const sliderWidth = getSliderWidth(slider);
+                let newPosition = initialTransform + deltaX;
+                
+                // Normalize position for infinite loop
+                newPosition = normalizePosition(newPosition, sliderWidth, isFirstRow);
+                
+                slider.style.transform = `translateX(${newPosition}px)`;
+                currentX = newPosition;
+            }
+        }
+        
+        // Touch end handler
+        function handleTouchEnd(e, isFirstRow = true) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            const element = isFirstRow ? firstRow : secondRow;
+            const slider = isFirstRow ? firstSlider : secondSlider;
+            element.style.opacity = '1';
+            
+            // Don't reset transform, let it continue from current position
+            // Resume animations smoothly without jumping
+            setTimeout(() => {
+                if (slider) {
+                    // Remove any transition to avoid jumps
+                    slider.style.transition = 'none';
+                    // Re-enable animations while preserving current position flow
+                    enableAutoAnimations();
+                }
+            }, 100);
+        }
+        
+        // Add touch events to both rows
+        if (firstRow && secondRow) {
+            // First row events
+            firstRow.addEventListener('touchstart', (e) => handleTouchStart(e, true), { passive: false });
+            firstRow.addEventListener('touchmove', (e) => handleTouchMove(e, true), { passive: false });
+            firstRow.addEventListener('touchend', (e) => handleTouchEnd(e, true), { passive: true });
+            
+            // Second row events
+            secondRow.addEventListener('touchstart', (e) => handleTouchStart(e, false), { passive: false });
+            secondRow.addEventListener('touchmove', (e) => handleTouchMove(e, false), { passive: false });
+            secondRow.addEventListener('touchend', (e) => handleTouchEnd(e, false), { passive: true });
+            
+            // Prevent scrolling when dragging sliders
+            firstRow.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+            secondRow.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+        }
+        
+        // Pause places slider on page visibility change (mobile background/foreground)
+        document.addEventListener('visibilitychange', () => {
+            const firstSlider = document.getElementById('firstSlider');
+            const secondSlider = document.getElementById('secondSlider');
+            
+            if (document.hidden) {
+                // Page is hidden (user switched apps or tabs)
+                if (firstSlider) firstSlider.style.animationPlayState = 'paused';
+                if (secondSlider) secondSlider.style.animationPlayState = 'paused';
+            } else {
+                // Page is visible again
+                if (firstSlider) firstSlider.style.animationPlayState = 'running';
+                if (secondSlider) secondSlider.style.animationPlayState = 'running';
+            }
+        });
+    </script>
+</body>
+</html>

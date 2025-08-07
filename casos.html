@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casos de Éxito - Placenet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'rethink': ['Rethink Sans', 'sans-serif']
+                    },
+                    colors: {
+                        'background-first': '#EFE5D7',
+                        'background-third': '#000122',
+                        'dark-color': '#000122',
+                        'light-color': '#EFE5D7',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="font-rethink">
+    <!-- Navigation Header -->
+    <header id="header" class="w-full h-36 bg-background-first fixed top-0 z-50 transform transition-transform duration-300 ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+            <a href="home.html">
+                <img class="w-32 h-8" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-36">
+        <section class="py-20 bg-background-first">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <h1 class="text-6xl font-black text-dark-color leading-none mb-6">
+                    Casos de Éxito
+                </h1>
+                <p class="text-2xl font-normal text-dark-color leading-7 mb-12">
+                    Descubre cómo nuestros clientes han transformado sus espacios con Placenet
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-background-third py-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-white">© 2023 Placenet, Internet of Places S.L. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

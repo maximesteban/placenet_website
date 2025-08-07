@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad | Placenet, Internet of Places</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Política de privacidad de Placenet - Información sobre cómo recopilamos, utilizamos y protegemos tu información personal.">
+    <meta name="keywords" content="placenet, política privacidad, protección datos, RGPD, privacidad">
+    <meta name="author" content="Placenet">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://placenet.app/privacidad/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://placenet.app/privacidad/">
+    <meta property="og:title" content="Política de Privacidad | Placenet, Internet of Places">
+    <meta property="og:description" content="Política de privacidad de Placenet - Información sobre cómo recopilamos, utilizamos y protegemos tu información personal.">
+    <meta property="og:image" content="https://placenet.com/img/og-home.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Placenet">
+    <meta property="og:locale" content="es_ES">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://placenet.app/privacidad/">
+    <meta property="twitter:title" content="Política de Privacidad | Placenet, Internet of Places">
+    <meta property="twitter:description" content="Política de privacidad de Placenet - Información sobre cómo recopilamos, utilizamos y protegemos tu información personal.">>
+    <meta property="twitter:image" content="https://placenet.com/img/og-home.jpg">
+    <meta name="twitter:creator" content="@placenet">
+    <meta name="twitter:site" content="@placenet">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="img/logos/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logos/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logos/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logos/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/logos/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="img/logos/android-chrome-512x512.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#000122">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'rethink': ['Rethink Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        'background-first': '#EFE5D7',
+                        'background-third': '#000122',
+                        'dark-color': '#000122',
+                        'light-color': '#EFE5D7',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="font-rethink">
+    <!-- Navigation Header -->
+    <header id="header" class="w-full h-36 bg-background-first fixed top-0 z-50 transform transition-transform duration-300 ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+            <a href="home.html">
+                <img class="w-32 h-8" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-10">
+                <!-- Soluciones -->
+                <div class="relative group">
+                    <a href="#" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Soluciones
+                        <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </a>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <a href="eventos.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Eventos</a>
+                        <a href="buildings.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Smart Buildings</a>
+                        <a href="fincas.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Administración de fincas</a>
+                        <a href="cities.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Smart Cities</a>
+                        <a href="turismo.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Travel y turismo</a>
+                    </div>
+                </div>
+
+                <!-- Recursos -->
+                <div class="relative group">
+                    <a href="#" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Recursos
+                        <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </a>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <a href="tutoriales.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Tutoriales</a>
+                        <a href="blog.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Blog</a>
+                        <a href="casos.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Casos de éxito</a>
+                        <a href="faqs.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">FAQS</a>
+                    </div>
+                </div>
+
+                <!-- Socios -->
+                <div class="relative group">
+                    <a href="#" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Socios
+                        <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </a>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <a href="partner-find.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Buscar un partner</a>
+                        <a href="partner-be.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Convertirme en partner</a>
+                    </div>
+                </div>
+
+                <!-- Precios -->
+                <div class="relative group">
+                    <a href="pricing.html" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Precios
+                    </a>
+                </div>
+
+                <!-- Our App -->
+                <div class="relative group">
+                    <a href="app.html" class="text-dark-color text-base font-bold hover:text-background-third transition-colors flex items-center">
+                        Placenet App
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button class="demo-btn bg-background-third text-white px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                    ¡Lo quiero!
+                </button>
+                <button class="bg-background-third text-white px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                    Iniciar sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Privacy Policy Content -->
+    <section class="min-h-screen bg-background-first pt-36 pb-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-6xl font-black text-dark-color mb-6">
+                    Política de Privacidad
+                </h1>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Última actualización: 11 de julio de 2025
+                </p>
+            </div>
+
+            <!-- Content -->
+            <div class="rounded-3xl p-8 md:p-12">
+                <div class="prose prose-lg max-w-none">
+                    <p class="text-lg text-slate-700 mb-8 text-justify">
+                        En <strong>PLACENET INTERNET OF PLACES, S.L.</strong> nos comprometemos a proteger y respetar tu privacidad. Esta Política de Privacidad describe cómo recopilamos, utilizamos y protegemos tu información personal cuando utilizas nuestra aplicación móvil y nuestra página web.
+                    </p>
+
+                    <h2 class="text-3xl font-bold text-dark-color mt-12 mb-6">1. Información que Recopilamos</h2>
+                    <p class="text-slate-700 mb-6 text-justify">
+                        Recopilamos información personal que nos proporcionas directamente, como tu nombre, dirección de correo electrónico y cualquier otra información que ingreses en la aplicación o en formularios web. También recopilamos datos de ubicación mediante GPS u otras tecnologías de localización cuando utilizas nuestros servicios, así como información técnica relacionada con el uso de la app y la web (por ejemplo, dirección IP, tipo de dispositivo, navegador, cookies, etc.).
+                    </p>
+
+                    <h2 class="text-3xl font-bold text-dark-color mt-12 mb-6">2. Uso de la Información</h2>
+                    <p class="text-slate-700 mb-4 text-justify">
+                        Utilizamos la información recopilada para:
+                    </p>
+                    <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
+                        <li>Proporcionar y mejorar nuestros servicios.</li>
+                        <li>Personalizar tu experiencia en la aplicación y/o en la web.</li>
+                        <li>Comunicarnos contigo, responder a tus preguntas y ofrecer soporte técnico.</li>
+                        <li>Enviar actualizaciones, promociones y novedades relacionadas con PLACENET.</li>
+                        <li>Cumplir con obligaciones legales o contractuales.</li>
+                    </ul>
+
+                    <h2 class="text-3xl font-bold text-dark-color mt-12 mb-6">3. Compartición de la Información</h2>
+                    <p class="text-slate-700 mb-4 text-justify">
+                        No compartimos tu información personal con terceros, excepto en las siguientes circunstancias:
+                    </p>
+                    <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
+                        <li>Con proveedores de servicios que trabajan en nuestro nombre (por ejemplo, alojamiento, analítica, notificaciones push), bajo estrictas condiciones de confidencialidad.</li>
+                        <li>Cuando sea requerido por ley o en respuesta a procesos legales válidos.</li>
+                        <li>Para proteger los derechos, propiedad o seguridad de PLACENET, nuestros usuarios u otras personas.</li>
+                    </ul>
+
+                    <h2 class="text-3xl font-bold text-dark-color mt-12 mb-6">4. Seguridad de la Información</h2>
+                    <p class="text-slate-700 mb-6 text-justify">
+                        Implementamos medidas de seguridad técnicas y organizativas razonables para proteger tu información personal contra accesos no autorizados, alteraciones, divulgaciones o destrucciones. No obstante, debes tener en cuenta que ningún método de transmisión por Internet o almacenamiento electrónico es 100% seguro.
+                    </p>
+
+                    <h2 class="text-3xl font-bold text-dark-color mt-12 mb-6">5. Tus Derechos</h2>
+                    <p class="text-slate-700 mb-4 text-justify">
+                        Como usuario, tienes derecho a:
+                    </p>
+                    <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
+                        <li>Acceder a tus datos personales.</li>
+                        <li>Solicitar la rectificación de los datos inexactos.</li>
+                        <li>Solicitar la supresión de tus datos (derecho al olvido).</li>
+                        <li>Limitar u oponerte al tratamiento de tus datos.</li>
+                        <li>Solicitar la portabilidad de tus datos a otro proveedor.</li>
+                    </ul>
+                    <p class="text-slate-700 mb-6 text-justify">
+                        Puedes ejercer estos derechos escribiéndonos a <a href="mailto:hola@placenet.app" class="text-background-third font-semibold hover:underline">hola@placenet.app</a>, indicando tu identidad y el derecho que deseas ejercer.
+                    </p>
+
+                    <h2 class="text-3xl font-bold text-dark-color mt-12 mb-6">6. Cambios en la Política de Privacidad</h2>
+                    <p class="text-slate-700 mb-6 text-justify">
+                        Nos reservamos el derecho de modificar esta Política de Privacidad en cualquier momento. Te notificaremos sobre cualquier cambio publicando la nueva política en nuestra aplicación y/o en la web. Se recomienda revisar periódicamente esta política para estar al tanto de cualquier actualización.
+                    </p>
+
+                    <h2 class="text-3xl font-bold text-dark-color mt-12 mb-6">7. Contacto</h2>
+                    <p class="text-slate-700 mb-4 text-justify">
+                        Si tienes alguna pregunta sobre esta Política de Privacidad o sobre cómo manejamos tu información personal, puedes escribirnos a:
+                    </p>
+                    <div class="rounded-xl p-6 mb-6">
+                        <p class="text-slate-800 font-semibold mb-2"><strong>PLACENET, INTERNET OF PLACES, S.L.</strong></p>
+                        <p class="text-slate-700 mb-2">📍 Carrer de Manel Farrés, 87, 08173, Sant Cugat del Vallés, Barcelona, España</p>
+                        <p class="text-slate-700 mb-2">🌐 Web: <a href="https://placenet.app" class="text-background-third font-semibold hover:underline">https://placenet.app</a></p>
+                        <p class="text-slate-700">📩 Correo electrónico: <a href="mailto:hola@placenet.app" class="text-background-third font-semibold hover:underline">hola@placenet.app</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-background-third py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Main Footer Content -->
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-16">
+                <!-- Company Info Column -->
+                <div class="lg:col-span-1">
+                    <div class="mb-8">
+                        <img class="w-44 h-11 mb-6" src="img/logos/placenet_ligth.png" alt="Placenet Logo" />
+                        <p class="text-stone-300 text-lg font-normal leading-relaxed">
+                            Conectamos digitalmente personas y lugares físicos para crear experiencias únicas.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Solutions Column -->
+                <div>
+                    <h3 class="text-white text-xl font-semibold mb-6">Soluciones</h3>
+                    <div class="space-y-4">
+                        <a href="eventos.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Eventos</a>
+                        <a href="buildings.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Smart Buildings</a>
+                        <a href="fincas.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Administración de fincas</a>
+                        <a href="cities.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Smart Cities</a>
+                        <a href="turismo.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Travel y turismo</a>
+                    </div>
+                </div>
+                
+                <!-- Company Column -->
+                <div>
+                    <h3 class="text-white text-xl font-semibold mb-6">Empresa</h3>
+                    <div class="space-y-4">
+                        <a href="casos.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Casos de éxito</a>
+                        <a href="partner-find.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Partners</a>
+                        <a href="pricing.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Precios</a>
+                        <a href="blog.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">Blog</a>
+                        <a href="faqs.html" class="block text-stone-300 text-lg font-normal hover:text-white transition-colors">FAQs</a>
+                    </div>
+                </div>
+                
+                <!-- Contact & Social Column -->
+                <div>
+                    <h3 class="text-white text-xl font-semibold mb-6">Contacto</h3>
+                    <div class="space-y-6">
+                        <!-- Email -->
+                        <div>
+                            <p class="text-stone-300 text-sm font-medium mb-2">Email</p>
+                            <a href="mailto:hola@placenet.app" class="text-white text-lg font-normal hover:text-stone-300 transition-colors">
+                                hola@placenet.app
+                            </a>
+                        </div>
+                        
+                        <!-- Address -->
+                        <div>
+                            <p class="text-stone-300 text-sm font-medium mb-2">Dirección</p>
+                            <p class="text-white text-lg font-normal leading-relaxed">
+                                Manel Farresa 87, 08173<br>
+                                San Cugat del Vallès<br>
+                                Barcelona, España
+                            </p>
+                        </div>
+                        
+                        <!-- Social Media -->
+                        <div>
+                            <p class="text-stone-300 text-sm font-medium mb-4">Síguenos</p>
+                            <div class="flex space-x-4">
+                                <!-- LinkedIn -->
+                                <a href="https://es.linkedin.com/company/placenetapp" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                    </svg>
+                                </a>
+                                <!-- YouTube -->
+                                <a href="https://www.youtube.com/@placenetapp" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                    </svg>
+                                </a>
+                                <!-- Instagram -->
+                                <a href="https://www.instagram.com/placenet.app" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    </svg>
+                                </a>
+                                <!-- TikTok -->
+                                <a href="https://www.tiktok.com/@placenet.app" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                                    </svg>
+                                </a>
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/placenetapp" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="pt-8 border-t border-stone-700">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <!-- Copyright -->
+                    <div>
+                        <p class="text-stone-400 text-sm font-normal">
+                            © 2023 Placenet, Internet of Places S.L. Todos los derechos reservados.
+                        </p>
+                    </div>
+                    
+                    <!-- Legal Links -->
+                    <div class="flex flex-wrap justify-center md:justify-end gap-6">
+                        <a href="privacidad.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Política de privacidad</a>
+                        <a href="cookies.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Cookies</a>
+                        <a href="terms.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Términos y condiciones</a>
+                        <a href="legal.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Aviso Legal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="fixed bottom-8 right-8 w-14 h-14 bg-background-third text-white rounded-full shadow-lg hover:bg-slate-800 transition-all duration-300 opacity-0 invisible hover:scale-110 z-40">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 opacity-0 invisible transition-all duration-300">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full mx-auto transform scale-95 transition-transform duration-300" id="modalContent">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-8 border-b border-gray-100">
+                    <div>
+                        <h2 class="text-3xl font-black text-dark-color">¡Hablemos!</h2>
+                        <p class="text-lg text-slate-600 mt-2">Cuéntanos sobre tu proyecto y te contactaremos pronto</p>
+                    </div>
+                    <button id="closeModal" class="w-10 h-10 rounded-full hover:bg-gray-100 hover:scale-110 flex items-center justify-center transition-all duration-300">
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <form id="contactForm" class="p-8 space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="firstName" class="block text-sm font-semibold text-dark-color mb-2">Nombre *</label>
+                            <input type="text" id="firstName" name="firstName" required 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-sm font-semibold text-dark-color mb-2">Apellidos *</label>
+                            <input type="text" id="lastName" name="lastName" required 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-dark-color mb-2">Email *</label>
+                            <input type="email" id="email" name="email" required 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-semibold text-dark-color mb-2">Teléfono</label>
+                            <input type="tel" id="phone" name="phone" 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="company" class="block text-sm font-semibold text-dark-color mb-2">Empresa</label>
+                        <input type="text" id="company" name="company" 
+                               class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                    </div>
+
+                    <div>
+                        <label for="solution" class="block text-sm font-semibold text-dark-color mb-2">¿Qué solución te interesa? *</label>
+                        <select id="solution" name="solution" required 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color">
+                            <option value="">Selecciona una opción</option>
+                            <option value="eventos">Eventos</option>
+                            <option value="smart-buildings">Smart Buildings</option>
+                            <option value="administracion-fincas">Administración de fincas</option>
+                            <option value="smart-cities">Smart Cities</option>
+                            <option value="travel-turismo">Travel y turismo</option>
+                            <option value="placenet-app">Placenet App</option>
+                            <option value="no-seguro">No estoy seguro</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-semibold text-dark-color mb-2">Cuéntanos sobre tu proyecto</label>
+                        <textarea id="message" name="message" rows="4" 
+                                  class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-background-third focus:outline-none transition-colors text-dark-color resize-none"
+                                  placeholder="Describe brevemente tu proyecto, necesidades o cualquier pregunta que tengas..."></textarea>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <button type="button" id="cancelModal" 
+                                class="flex-1 px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 hover:scale-105 transition-all duration-300">
+                            Cancelar
+                        </button>
+                        <button type="submit" 
+                                class="flex-1 px-8 py-4 bg-background-third text-white rounded-xl font-semibold hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                            Enviar solicitud
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Header scroll behavior
+        let lastScrollTop = 0;
+        const header = document.getElementById('header');
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Header hide/show logic
+            if (scrollTop > lastScrollTop && scrollTop > 144) {
+                // Scrolling down and past header height
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up or at the top
+                header.style.transform = 'translateY(0)';
+            }
+            
+            // Show/hide scroll to top button
+            if (scrollTop > 300) {
+                scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+                scrollToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                scrollToTopBtn.classList.remove('opacity-100', 'visible');
+                scrollToTopBtn.classList.add('opacity-0', 'invisible');
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // Scroll to top functionality
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Contact Modal functionality
+        const contactModal = document.getElementById('contactModal');
+        const modalContent = document.getElementById('modalContent');
+        const closeModal = document.getElementById('closeModal');
+        const cancelModal = document.getElementById('cancelModal');
+        const contactForm = document.getElementById('contactForm');
+
+        // Get all demo/contact buttons by class
+        const demoButtons = document.querySelectorAll('.demo-btn');
+
+        // Function to open modal
+        function openModal() {
+            contactModal.classList.remove('opacity-0', 'invisible');
+            contactModal.classList.add('opacity-100', 'visible');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close modal
+        function closeModalFunc() {
+            contactModal.classList.remove('opacity-100', 'visible');
+            contactModal.classList.add('opacity-0', 'invisible');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Add event listeners to demo buttons
+        demoButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+        });
+
+        // Close modal events
+        if (closeModal) {
+            closeModal.addEventListener('click', closeModalFunc);
+        }
+        if (cancelModal) {
+            cancelModal.addEventListener('click', closeModalFunc);
+        }
+
+        // Close modal when clicking outside
+        if (contactModal) {
+            contactModal.addEventListener('click', function(e) {
+                if (e.target === contactModal) {
+                    closeModalFunc();
+                }
+            });
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && contactModal && !contactModal.classList.contains('invisible')) {
+                closeModalFunc();
+            }
+        });
+
+        // Handle form submission
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(contactForm);
+                const data = Object.fromEntries(formData);
+                
+                // Simple form validation
+                if (!data.firstName || !data.lastName || !data.email || !data.solution) {
+                    alert('Por favor, completa todos los campos obligatorios');
+                    return;
+                }
+
+                // Here you would typically send the data to your server
+                console.log('Form submitted:', data);
+                
+                // Show success message
+                alert('¡Gracias por tu interés! Te contactaremos pronto.');
+                
+                // Reset form and close modal
+                contactForm.reset();
+                closeModalFunc();
+            });
+        }
+    </script>
+</body>
+</html>
