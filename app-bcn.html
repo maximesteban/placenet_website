@@ -316,6 +316,10 @@
 
     
     </main>
+</section>
+<!-- ...existing code... -->
+<!-- Move script to end of body for correct DOM loading -->
+</script>
 
 
     <script>
@@ -426,7 +430,7 @@
             document.body.style.overflow = '';
             document.body.style.touchAction = '';
             // Reset form and success message
-            const form = document.getElementById('domainRequestForm');
+            const form = document.getElementById('DomainRequest');
             if (form) form.reset();
             const successMsg = document.getElementById('domainModalSuccess');
             if (successMsg) successMsg.classList.add('hidden');
@@ -451,28 +455,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function submitDomainRequest(event) {
-    event.preventDefault();
-    const form = event.target;
-    // Validación extra para teléfono internacional
-    const phoneInput = document.getElementById('phoneInput');
-    const phoneValue = phoneInput.value.trim();
-    const phonePattern = /^\+[1-9]\d{1,14}$/;
-    if (!phonePattern.test(phoneValue)) {
-        phoneInput.classList.add('ring-2', 'ring-red-500');
-        phoneInput.focus();
-        return;
-    } else {
-        phoneInput.classList.remove('ring-2', 'ring-red-500');
-    }
-    // Simulación de envío (puedes conectar con tu backend aquí)
-    setTimeout(() => {
-        const successMsg = document.getElementById('domainModalSuccess');
-        if (successMsg) successMsg.classList.remove('hidden');
-        form.reset();
-    }, 800);
-}
-        // ...existing code...
+    
         function setVH() {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -768,7 +751,7 @@ window.addEventListener('DOMContentLoaded', () => {
             <button onclick="closeDomainModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
             <h2 class="text-xl font-bold mb-2 text-placenet-dark">Request a Domain</h2>
             <p class="text-sm text-gray-600 mb-4 text-center">Suggest a new domain for Placenet.</p>
-            <form id="domainRequestForm" class="w-full flex flex-col gap-3" onsubmit="submitDomainRequest(event)">
+            <form id="DomainRequest" class="w-full flex flex-col gap-3">
                 <input type="text" name="domain" placeholder="Domain name" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
                 <input type="text" name="city" placeholder="City or town" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
                 <select name="country" id="countrySelect" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
@@ -782,5 +765,47 @@ window.addEventListener('DOMContentLoaded', () => {
         </div>
     </div>
 
+<script>
+// Handler para enviar el formulario de solicitud de dominio por email
+document.addEventListener('DOMContentLoaded', function() {
+    const domainForm = document.getElementById('DomainRequest');
+    console.log('[Placenet] Formulario encontrado en el DOM:', !!domainForm);
+    if (domainForm) {
+        domainForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('[Placenet] Formulario modal enviado');
+            const formData = new FormData(domainForm);
+            const params = new URLSearchParams();
+            for (const pair of formData.entries()) {
+                params.append(pair[0], pair[1]);
+            }
+            // Endpoint de Google Apps Script
+            const endpoint = 'https://script.google.com/macros/s/AKfycbwQ3oxuIr0Bnmc-XsDEKaAOHeHNrRRsBGuHZuCBw-zXlkU6z68Uv6vyjJ9PtcYMQmtrmA/exec';
+            console.log('[Placenet] Enviando fetch a:', endpoint);
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params.toString()
+            })
+            .then(response => {
+                console.log('[Placenet] Respuesta fetch:', response);
+                return response.ok ? response.text() : Promise.reject(response);
+            })
+            .then((text) => {
+                console.log('[Placenet] Éxito:', text);
+                domainForm.reset();
+                document.getElementById('domainModalSuccess').classList.remove('hidden');
+            })
+            .catch((err) => {
+                console.error('[Placenet] Error en fetch:', err);
+                alert('There was an error sending your request. Please try again later.');
+            });
+        });
+    }
+});
+</script>
 </body>
+
 </html>

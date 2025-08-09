@@ -774,4 +774,46 @@
         </div>
     </div>
 </body>
+<script>
+// Handler para enviar el formulario de solicitud de dominio por email (igual que app-bcn.html)
+document.addEventListener('DOMContentLoaded', function() {
+    const domainForm = document.getElementById('domainRequestForm');
+    console.log('[Placenet] Formulario encontrado en el DOM (app-domain):', !!domainForm);
+    if (domainForm) {
+        domainForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('[Placenet] Formulario modal enviado (app-domain)');
+            const formData = new FormData(domainForm);
+            const params = new URLSearchParams();
+            for (const pair of formData.entries()) {
+                params.append(pair[0], pair[1]);
+            }
+            // Endpoint de Google Apps Script
+            const endpoint = 'https://script.google.com/macros/s/AKfycbwQ3oxuIr0Bnmc-XsDEKaAOHeHNrRRsBGuHZuCBw-zXlkU6z68Uv6vyjJ9PtcYMQmtrmA/exec';
+            console.log('[Placenet] Enviando fetch a:', endpoint);
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params.toString()
+            })
+            .then(response => {
+                console.log('[Placenet] Respuesta fetch:', response);
+                return response.ok ? response.text() : Promise.reject(response);
+            })
+            .then((text) => {
+                console.log('[Placenet] Éxito:', text);
+                domainForm.reset();
+                const successMsg = document.getElementById('domainModalSuccess');
+                if (successMsg) successMsg.classList.remove('hidden');
+            })
+            .catch((err) => {
+                console.error('[Placenet] Error en fetch:', err);
+                alert('There was an error sending your request. Please try again later.');
+            });
+        });
+    }
+});
+</script>
 </html>
