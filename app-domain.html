@@ -152,11 +152,27 @@
             transform: scale(0.98);
             transition: all 0.1s ease;
         }
+            /* Force QR button to be fixed and always visible */
+            #qrFloatBtn {
+                position: fixed !important;
+                right: 0.75rem !important;
+                bottom: 0.75rem !important;
+                z-index: 9999 !important;
+                display: block !important;
+            }
+                html, body, #qrFloatBtn {
+                    overflow: visible !important;
+                    transform: none !important;
+                }
     </style>
 </head>
 <body class="font-rethink min-h-screen overflow-x-hidden bg-gradient-to-br from-placenet-light via-white to-placenet-light">
-    <!-- Background circles -->
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <!-- Botón QR flotante (absolute first child in body) -->
+        <button id="qrFloatBtn" onclick="openShareModal()" class="fixed bottom-3 right-3 z-[9999] bg-white rounded-2xl border border-gray-200 shadow-2xl p-3" aria-label="Mostrar QR Placenet" style="position:fixed;bottom:0.75rem;right:0.75rem;z-index:9999;">
+            <img src="img/app/qr.png" alt="QR Placenet" class="w-10 h-10 block">
+        </button>
+        <!-- Background circles -->
+        <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div class="absolute w-48 h-48 rounded-full top-[10%] -right-12 opacity-50 bg-gradient-to-br from-placenet-dark/5 to-placenet-accent/5 floating floating-1"></div>
         <div class="absolute w-36 h-36 rounded-full bottom-[20%] -left-8 opacity-50 bg-gradient-to-br from-placenet-accent/3 to-placenet-dark/3 floating floating-2"></div>
         <div class="absolute w-24 h-24 rounded-full top-[60%] right-[10%] opacity-50 bg-gradient-to-br from-placenet-dark/4 to-placenet-accent/4 floating floating-3"></div>
@@ -738,8 +754,8 @@
         }
     </script>
 
-   <!-- Botón QR flotante (visible al inicio) -->
-    <button id="qrFloatBtn" onclick="openShareModal()" class="fixed bottom-3 right-3 z-60 bg-white rounded-2xl border border-gray-200 shadow-2xl p-3" aria-label="Mostrar QR Placenet">
+<!-- Botón QR flotante (absolute first child in body) -->
+<button id="qrFloatBtn" onclick="openShareModal()" class="fixed bottom-3 right-3 z-[9999] bg-white rounded-2xl border border-gray-200 shadow-2xl p-3" aria-label="Mostrar QR Placenet" style="position:fixed;bottom:0.75rem;right:0.75rem;z-index:9999;">
     <img src="img/app/qr.png" alt="QR Placenet" class="w-10 h-10 block">
 </button>
 
