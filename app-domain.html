@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000122">          
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Placenet">
+
+    <title>Placenet in Barcelona</title>
+    <meta name="description" content="Welcome to Barcelona! Placenet is now available in your city.">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="img/logos/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logos/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logos/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logos/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/logos/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="img/logos/android-chrome-512x512.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'placenet-dark': '#000122',
+                        'placenet-light': '#EFE5D7',
+                        'placenet-accent': '#667eea'
+                    },
+                    fontFamily: {
+                        'rethink': ['Rethink Sans', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Rethink Sans', system-ui, sans-serif; }
+        
+        /* Custom styles for 3D phone effect */
+        .mega-phone {
+            transform-style: preserve-3d;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+        
+        .floating { animation: float 20s infinite linear; }
+        
+        .floating-1 { animation-delay: -5s; }
+        .floating-2 { animation-delay: -10s; }
+        .floating-3 { animation-delay: -15s; }
+        
+        /* Sliding animations for places - True infinite seamless loop */
+        @keyframes slide-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+        
+        @keyframes slide-left {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .animate-slide-right {
+            animation: slide-right 20s linear infinite;
+        }
+        
+        .animate-slide-left {
+            animation: slide-left 25s linear infinite;
+        }
+        
+        /* Pause animations on hover */
+        .animate-slide-right:hover,
+        .animate-slide-left:hover {
+            animation-play-state: paused;
+        }
+        
+        /* Touch-friendly controls for mobile */
+        @media (max-width: 640px) {
+            .animate-slide-right,
+            .animate-slide-left {
+                animation-duration: 25s; /* Slower on mobile for better readability */
+            }
+            
+            #firstRow,
+            #secondRow {
+                position: relative;
+                cursor: grab;
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+                touch-action: pan-x;
+            }
+            
+            #firstRow:active,
+            #secondRow:active {
+                cursor: grabbing;
+                opacity: 0.8;
+                transform: scale(0.98);
+                transition: all 0.1s ease;
+            }
+        }
+        
+        /* Full width sliders */
+        #firstRow,
+        #secondRow {
+            margin-left: -1rem;
+            margin-right: -1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            width: calc(100% + 2rem);
+        }
+        
+        @media (min-width: 640px) {
+            #firstRow,
+            #secondRow {
+                margin-left: -1.5rem;
+                margin-right: -1.5rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                width: calc(100% + 3rem);
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .slide, .floating, .animate-slide-right, .animate-slide-left { 
+                transition: none !important; 
+                animation: none !important; 
+            }
+        }
+        
+        .touch-manual {
+            cursor: grab;
+            touch-action: pan-x;
+        }
+        .touch-manual:active {
+            cursor: grabbing;
+            opacity: 0.8;
+            transform: scale(0.98);
+            transition: all 0.1s ease;
+        }
+            /* Force QR button to be fixed and always visible */
+            #qrFloatBtn {
+                position: fixed !important;
+                right: 0.75rem !important;
+                bottom: 0.75rem !important;
+                z-index: 9999 !important;
+                display: block !important;
+            }
+                html, body, #qrFloatBtn {
+                    overflow: visible !important;
+                    transform: none !important;
+                }
+    </style>
+</head>
+<body class="font-rethink min-h-screen overflow-x-hidden bg-gradient-to-br from-placenet-light via-white to-placenet-light">
+        <!-- Botón QR flotante (absolute first child in body) -->
+        <button id="qrFloatBtn" onclick="openShareModal()" class="fixed bottom-3 right-3 z-[9999] bg-white rounded-2xl border border-gray-200 shadow-2xl p-3" aria-label="Mostrar QR Placenet" style="position:fixed;bottom:0.75rem;right:0.75rem;z-index:9999;">
+            <img src="img/app/qr.png" alt="QR Placenet" class="w-10 h-10 block">
+        </button>
+        <!-- Background circles -->
+        <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute w-48 h-48 rounded-full top-[10%] -right-12 opacity-50 bg-gradient-to-br from-placenet-dark/5 to-placenet-accent/5 floating floating-1"></div>
+        <div class="absolute w-36 h-36 rounded-full bottom-[20%] -left-8 opacity-50 bg-gradient-to-br from-placenet-accent/3 to-placenet-dark/3 floating floating-2"></div>
+        <div class="absolute w-24 h-24 rounded-full top-[60%] right-[10%] opacity-50 bg-gradient-to-br from-placenet-dark/4 to-placenet-accent/4 floating floating-3"></div>
+    </div>
+    
+    <!-- Logo Section -->
+    <section class="relative z-10 py-4 sm:py-6 pt-16 sm:pt-20 text-center px-4">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-placenet-dark mb-2 flex items-center justify-center gap-2 flex-wrap leading-tight">
+            You are in a Digital Domain
+        </h1>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="relative z-5 min-h-[calc(100vh-120px)] flex flex-col justify-center">
+        <!-- Hero Section -->
+        <section class="text-center px-4 sm:px-6 py-2 sm:py-3">
+            <p class="text-lg sm:text-xl font-medium text-gray-600 mb-3 sm:mb-4 max-w-2xl mx-auto leading-relaxed">
+                Chat only with people physically present at this location. Available only while you're here.
+            </p>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="py-0 sm:py-1 relative z-5">
+            <!-- Phone Section -->
+            <div class="relative py-0 sm:py-1 md:py-2 px-4 sm:px-6 md:px-8 overflow-hidden">
+                <div class="relative h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px] flex items-center justify-center">
+                    <!-- Single Phone Display -->
+                    <div class="relative flex items-center justify-center">
+                        <div class="mega-phone w-[260px] h-[380px] sm:w-[300px] sm:h-[420px] md:w-[340px] md:h-[460px] lg:w-[380px] lg:h-[500px] bg-gradient-to-br from-gray-800 to-gray-700 rounded-[28px] sm:rounded-[32px] p-2 sm:p-3 relative border-2 border-white/10">
+                            <!-- Phone notch -->
+                            <div class="absolute top-2 sm:top-3 left-1/2 transform -translate-x-1/2 w-10 sm:w-12 h-1 sm:h-1.5 bg-gray-600 rounded-full"></div>
+                            
+                            <!-- Phone screen -->
+                            <div class="w-full h-full bg-black rounded-[22px] sm:rounded-[26px] overflow-hidden relative">
+                                <!-- Background image -->
+                                <img src="img/app/DOMAIN.png" alt="Placenet App Demo" class="w-full h-full object-cover object-top">
+                                
+                                <!-- Blur overlay for bottom part only -->
+                                <div class="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent backdrop-blur-sm"></div>
+                                
+                                <!-- Gradient overlay with text -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-placenet-dark/90 via-placenet-dark/60 to-transparent flex flex-col justify-end p-4 sm:p-6 md:p-8">
+                                    <div class="text-center text-white space-y-2 sm:space-y-3">
+                                        <h3 class="text-2xl sm:text-xl md:text-2xl font-bold pb-6 leading-tight">
+                                            Chat & Connect
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            
+            <!-- Places Section -->
+            <div class="mx-auto mb-8 sm:mb-12 overflow-hidden">
+                
+                <!-- First sliding row (left to right) -->
+                <div class="relative overflow-hidden mb-3 sm:mb-4 w-full" id="firstRow">
+                    <div class="flex gap-3 sm:gap-4 animate-slide-right touch-manual" id="firstSlider">
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#C389FF] to-[#A855F7] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🌳</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Parks</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#EFC041] to-[#F59E0B] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🎓</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Universities</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#FF9052] to-[#F97316] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🎵</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Clubs</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#8ACAF2] to-[#3B82F6] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏟️</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Stadiums</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#635FE5] to-[#4F46E5] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🗽</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Tourism</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(195,137,255,0.8)] to-[#8B5CF6] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏠</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Residences</span>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#C389FF] to-[#A855F7] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🌳</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Parks</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#EFC041] to-[#F59E0B] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🎓</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Universities</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[#FF9052] to-[#F97316] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🎵</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Clubs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second sliding row (right to left) -->
+                <div class="relative overflow-hidden w-full" id="secondRow">
+                    <div class="flex gap-3 sm:gap-4 animate-slide-left touch-manual" id="secondSlider">
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(138,202,242,0.8)] to-[#06B6D4] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏖️</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Beaches</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-orange-100 to-orange-200 rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🍺</div>
+                            <span class="text-xs sm:text-sm font-medium text-gray-700">Bars</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-red-100 to-red-200 rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">⚽</div>
+                            <span class="text-xs sm:text-sm font-medium text-gray-700">Sports</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(239,192,65,0.8)] to-[#D97706] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">📚</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Libraries</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(195,137,255,0.7)] to-[#9333EA] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">💪</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Gyms</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(239,192,65,0.7)] to-[#059669] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">☕</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Cafés</span>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(138,202,242,0.8)] to-[#06B6D4] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🏖️</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Beaches</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(255,144,82,0.8)] to-[#EA580C] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">🍺</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Bars</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gradient-to-r from-[rgba(99,95,229,0.8)] to-[#7C3AED] rounded-full px-3 py-2 whitespace-nowrap flex-shrink-0">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base">⚽</div>
+                            <span class="text-xs sm:text-sm font-medium text-white">Sports</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact CTA -->
+            <div class="p-6 sm:p-8 md:p-10 text-center mt-8 sm:mt-12 px-4">
+                <h3 class="text-xl sm:text-2xl font-bold text-placenet-dark mb-4 sm:mb-6">Want <span class="font-extrabold">placenet</span> at another location?</h3>
+                <div class="flex flex-col gap-4 max-w-sm mx-auto">
+                    <button type="button"
+                        onclick="openDomainModal()"
+                        class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gap-2 min-h-12 sm:min-h-14 text-sm sm:text-base">
+                        Request a new domain
+                    </button>
+                </div>
+            </div>
+    <!-- Modal de solicitud de dominio -->
+    <div id="domainModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center" tabindex="0">
+            <button onclick="closeDomainModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h2 class="text-xl font-bold mb-2 text-placenet-dark">Request a Domain</h2>
+            <p class="text-sm text-gray-600 mb-4 text-center">Suggest a new domain for Placenet.</p>
+            <form id="domainRequestForm" class="w-full flex flex-col gap-3" onsubmit="submitDomainRequest(event)">
+                <input type="text" name="domain" placeholder="Domain name" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="text" name="city" placeholder="City or town" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <select name="country" id="countrySelect" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                    <option value="">Select country</option>
+                </select>
+                <input type="tel" name="phone" id="phoneInput" placeholder="Phone number (e.g. +34 600123456)" required pattern="^\+[1-9]\d{1,14}$" class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="email" name="email" placeholder="Your email" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <button type="submit" class="bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl px-4 py-2 mt-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">Send Request</button>
+            </form>
+            <div id="domainModalSuccess" class="hidden text-green-600 font-semibold mt-4">Thank you! Your request has been sent.</div>
+        </div>
+    </div>
+        
+    </main>
+   <script>
+    // QR modal logic (sin banner)
+    function openShareModal() {
+        const modal = document.getElementById('shareModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.style.pointerEvents = 'auto';
+                // Mostrar overlay con opacidad
+                const overlay = document.getElementById('shareModalOverlay');
+                if (overlay) overlay.style.opacity = '1';
+            }, 10);
+            document.body.style.overflow = 'hidden';
+            document.body.style.touchAction = 'none';
+            document.body.classList.add('modal-open');
+        }
+        // Deshabilitar el botón QR mientras el modal está abierto
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.pointerEvents = 'none';
+    }
+    function closeShareModal() {
+        const modal = document.getElementById('shareModal');
+        if (modal) {
+            modal.style.opacity = '0';
+            modal.style.pointerEvents = 'none';
+            // Ocultar overlay con opacidad
+            const overlay = document.getElementById('shareModalOverlay');
+            if (overlay) overlay.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+        document.body.classList.remove('modal-open');
+        // Rehabilitar el botón QR
+        const btn = document.getElementById('qrFloatBtn');
+        if (btn) btn.style.pointerEvents = 'auto';
+    }
+    // Listeners para cerrar modales QR y dominio, agrupados en DOMContentLoaded
+    window.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeShareModal();
+            if (e.key === 'Escape') closeDomainModal();
+        });
+        const shareModal = document.getElementById('shareModal');
+        if (shareModal) {
+            shareModal.addEventListener('click', function(e) {
+                if (e.target === this) closeShareModal();
+            });
+        }
+        const domainModal = document.getElementById('domainModal');
+        if (domainModal) {
+            domainModal.addEventListener('click', function(e) {
+                if (e.target === this) closeDomainModal();
+            });
+        }
+    });
+    </script>
+    <script>
+        // Modal logic
+        function openDomainModal() {
+            const modal = document.getElementById('domainModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    modal.style.pointerEvents = 'auto';
+                }, 10);
+                document.body.style.overflow = 'hidden';
+                document.body.style.touchAction = 'none';
+            }
+        }
+
+        function closeDomainModal() {
+            const modal = document.getElementById('domainModal');
+            if (modal) {
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+                document.body.style.overflow = '';
+                document.body.style.touchAction = '';
+                // Reset form and success message
+                const form = document.getElementById('domainRequestForm');
+                if (form) form.reset();
+                const successMsg = document.getElementById('domainModalSuccess');
+                if (successMsg) successMsg.classList.add('hidden');
+            }
+        }
+
+        // Lista de países en orden alfabético
+        const countries = [
+            "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"
+        ];
+
+        // Rellenar el selector de países al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            const countrySelect = document.getElementById('countrySelect');
+            if (countrySelect) {
+                countries.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country;
+                    countrySelect.appendChild(option);
+                });
+            }
+        });
+
+        function submitDomainRequest(event) {
+            event.preventDefault();
+            // Validación extra para teléfono internacional
+            const phoneInput = document.getElementById('phoneInput');
+            const phoneValue = phoneInput.value.trim();
+            const phonePattern = /^\+[1-9]\d{1,14}$/;
+            if (!phonePattern.test(phoneValue)) {
+                phoneInput.classList.add('ring-2', 'ring-red-500');
+                phoneInput.focus();
+                return;
+            } else {
+                phoneInput.classList.remove('ring-2', 'ring-red-500');
+            }
+            // Simulación de envío (puedes conectar con tu backend aquí)
+            setTimeout(() => {
+                const successMsg = document.getElementById('domainModalSuccess');
+                if (successMsg) successMsg.classList.remove('hidden');
+                event.target.reset();
+            }, 800);
+        }
+        // ...existing code...
+        
+       
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add viewport height fix for mobile browsers
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setVH();
+        window.addEventListener('resize', setVH);
+        window.addEventListener('orientationchange', setVH);
+        
+        // Intersection Observer for animation on scroll
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            document.querySelectorAll('.bg-gradient-to-br').forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(element);
+            });
+        }
+        
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }        
+        
+        // Touch gestures for better mobile interaction
+        let touchStartY = 0;
+        let touchEndY = 0;
+        
+        document.addEventListener('touchstart', e => {
+            // Don't interfere with places slider touches
+            if (!e.target.closest('#firstRow') && !e.target.closest('#secondRow')) {
+                touchStartY = e.changedTouches[0].screenY;
+            }
+        }, { passive: true });
+        
+        document.addEventListener('touchend', e => {
+            // Don't interfere with places slider touches
+            if (!e.target.closest('#firstRow') && !e.target.closest('#secondRow')) {
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 100;
+            const diff = touchStartY - touchEndY;
+            
+            // Swipe up to scroll to next section
+            if (diff > swipeThreshold) {
+                const currentSection = getCurrentSection();
+                const nextSection = currentSection?.nextElementSibling;
+                if (nextSection && nextSection.tagName === 'SECTION') {
+                    nextSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            // Swipe down to scroll to previous section
+            else if (diff < -swipeThreshold) {
+                const currentSection = getCurrentSection();
+                const prevSection = currentSection?.previousElementSibling;
+                if (prevSection && prevSection.tagName === 'SECTION') {
+                    prevSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+        
+        function getCurrentSection() {
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+            
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                const sectionTop = rect.top + window.scrollY;
+                const sectionBottom = sectionTop + rect.height;
+                
+                if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                    return section;
+                }
+            }
+            return sections[0];
+        }
+        
+        // Preload critical images
+        const criticalImages = [
+            'img/logos/placenet_dark.png'
+        ];
+        
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+        
+        // Performance: Lazy load non-critical resources
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                console.log('Loading non-critical resources...');
+            });
+        }
+        
+        // Analytics simulation (replace with real analytics)
+        function trackEvent(eventName, properties = {}) {
+            console.log(`Event: ${eventName}`, properties);
+        }
+        
+        // Track page view
+        trackEvent('page_view', {
+            page: 'barcelona_landing',
+            timestamp: new Date().toISOString()
+        });
+        
+        // Track button clicks
+        document.querySelectorAll('a[href^="mailto"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                trackEvent('button_click', {
+                    button_text: e.target.textContent.trim(),
+                    button_href: e.target.href || null
+                });
+            });
+        });
+        
+        
+        
+        // Touch controls for places sliders - Infinite manual sliding
+        const firstRow = document.getElementById('firstRow');
+        const secondRow = document.getElementById('secondRow');
+        const firstSlider = document.getElementById('firstSlider');
+        const secondSlider = document.getElementById('secondSlider');
+        
+        let isDragging = false;
+        let startX = 0;
+        let currentX = 0;
+        let initialTransform = 0;
+        let activeSlider = null;
+
+        function getSliderWidth(slider) {
+            if (!slider) return 0;
+            const items = slider.children;
+            const halfItems = Math.floor(items.length / 2);
+            let width = 0;
+            for (let i = 0; i < halfItems; i++) {
+                width += items[i].offsetWidth + 16;
+            }
+            return width;
+        }
+
+        function disableAutoAnimations(slider) {
+            if (slider) {
+                slider.style.animationPlayState = 'paused';
+                const currentTransform = getComputedStyle(slider).transform;
+                if (currentTransform !== 'none') {
+                    slider.style.animation = 'none';
+                    slider.style.transform = currentTransform;
+                }
+            }
+        }
+
+        function enableAutoAnimations(slider, animationName, duration) {
+            if (slider) {
+                slider.style.transform = '';
+                slider.style.animation = `${animationName} ${duration} linear infinite`;
+                slider.style.animationPlayState = 'running';
+            }
+        }
+
+        function normalizePosition(position, sliderWidth) {
+            const halfWidth = sliderWidth / 2;
+            while (position > halfWidth) {
+                position -= sliderWidth;
+            }
+            while (position < -halfWidth) {
+                position += sliderWidth;
+            }
+            return position;
+        }
+
+        function handleDragStart(e, slider) {
+            isDragging = true;
+            activeSlider = slider;
+            startX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+            const transform = getComputedStyle(slider).transform;
+            if (transform !== 'none') {
+                const matrix = new DOMMatrix(transform);
+                initialTransform = matrix.e;
+            } else {
+                initialTransform = 0;
+            }
+            disableAutoAnimations(slider);
+            slider.parentElement.style.opacity = '0.8';
+        }
+
+        function handleDragMove(e) {
+            if (!isDragging || !activeSlider) return;
+            e.preventDefault();
+            const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+            const deltaX = clientX - startX;
+            const sliderWidth = getSliderWidth(activeSlider);
+            let newPosition = initialTransform + deltaX;
+            newPosition = normalizePosition(newPosition, sliderWidth);
+            activeSlider.style.transform = `translateX(${newPosition}px)`;
+            currentX = newPosition;
+        }
+
+        function handleDragEnd(e, animationName, duration) {
+            if (!isDragging || !activeSlider) return;
+            isDragging = false;
+            activeSlider.parentElement.style.opacity = '1';
+            setTimeout(() => {
+                activeSlider.style.transition = 'none';
+                enableAutoAnimations(activeSlider, animationName, duration);
+                activeSlider = null;
+            }, 100);
+        }
+
+        // Add listeners for both mouse and touch
+        if (firstSlider && firstRow) {
+            firstRow.addEventListener('mousedown', (e) => handleDragStart(e, firstSlider));
+            firstRow.addEventListener('touchstart', (e) => handleDragStart(e, firstSlider), { passive: false });
+            window.addEventListener('mousemove', handleDragMove);
+            window.addEventListener('touchmove', handleDragMove, { passive: false });
+            window.addEventListener('mouseup', (e) => handleDragEnd(e, 'slide-right', '20s'));
+            window.addEventListener('touchend', (e) => handleDragEnd(e, 'slide-right', '20s'));
+        }
+        if (secondSlider && secondRow) {
+            secondRow.addEventListener('mousedown', (e) => handleDragStart(e, secondSlider));
+            secondRow.addEventListener('touchstart', (e) => handleDragStart(e, secondSlider), { passive: false });
+            window.addEventListener('mousemove', handleDragMove);
+            window.addEventListener('touchmove', handleDragMove, { passive: false });
+            window.addEventListener('mouseup', (e) => handleDragEnd(e, 'slide-left', '25s'));
+            window.addEventListener('touchend', (e) => handleDragEnd(e, 'slide-left', '25s'));
+        }
+    </script>
+
+<!-- Botón QR flotante (absolute first child in body) -->
+<button id="qrFloatBtn" onclick="openShareModal()" class="fixed bottom-3 right-3 z-[9999] bg-white rounded-2xl border border-gray-200 shadow-2xl p-3" aria-label="Mostrar QR Placenet" style="position:fixed;bottom:0.75rem;right:0.75rem;z-index:9999;">
+    <img src="img/app/qr.png" alt="QR Placenet" class="w-10 h-10 block">
+</button>
+
+    <!-- Modal QR -->
+    <div id="shareModal" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <!-- Overlay semitransparente -->
+        <div id="shareModalOverlay" class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"></div>
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center z-10" tabindex="0">
+            <button onclick="closeShareModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h2 class="text-3xl font-bold mb-2 text-placenet-dark">Join the chat</h2>
+            <p class="text-sm text-gray-600 mb-4 text-center">Share this QR code to let others join the domain.</p>
+            <img src="img/app/qr.png" alt="QR Placenet" class="w-80 h-80 mb-4 rounded-xl border border-gray-200 shadow-md">
+        </div>
+    </div>
+    <!-- Modal de solicitud de dominio -->
+    <div id="domainModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none" style="display:none;">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 relative flex flex-col items-center" tabindex="0">
+            <button onclick="closeDomainModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h2 class="text-xl font-bold mb-2 text-placenet-dark">Request a Domain</h2>
+            <p class="text-sm text-gray-600 mb-4 text-center">Suggest a new domain for Placenet.</p>
+            <form id="domainRequestForm" class="w-full flex flex-col gap-3" onsubmit="submitDomainRequest(event)">
+                <input type="text" name="domain" placeholder="Domain name" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="text" name="city" placeholder="City or town" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <select name="country" id="countrySelect" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                    <option value="">Select country</option>
+                </select>
+                <input type="tel" name="phone" id="phoneInput" placeholder="Phone number (e.g. +34 600123456)" required pattern="^\+[1-9]\d{1,14}$" class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <input type="email" name="email" placeholder="Your email" required class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-placenet-accent">
+                <button type="submit" class="bg-gradient-to-r from-placenet-dark to-gray-900 text-white font-semibold rounded-xl px-4 py-2 mt-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">Send Request</button>
+            </form>
+            <div id="domainModalSuccess" class="hidden text-green-600 font-semibold mt-4">Thank you! Your request has been sent.</div>
+        </div>
+    </div>
+</body>
+<script>
+// Handler para enviar el formulario de solicitud de dominio por email (igual que app-bcn.html)
+document.addEventListener('DOMContentLoaded', function() {
+    const domainForm = document.getElementById('domainRequestForm');
+    console.log('[Placenet] Formulario encontrado en el DOM (app-domain):', !!domainForm);
+    if (domainForm) {
+        domainForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('[Placenet] Formulario modal enviado (app-domain)');
+            const formData = new FormData(domainForm);
+            const params = new URLSearchParams();
+            for (const pair of formData.entries()) {
+                params.append(pair[0], pair[1]);
+            }
+            // Endpoint de Google Apps Script
+            const endpoint = 'https://script.google.com/macros/s/AKfycbwQ3oxuIr0Bnmc-XsDEKaAOHeHNrRRsBGuHZuCBw-zXlkU6z68Uv6vyjJ9PtcYMQmtrmA/exec';
+            console.log('[Placenet] Enviando fetch a:', endpoint);
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params.toString()
+            })
+            .then(response => {
+                console.log('[Placenet] Respuesta fetch:', response);
+                return response.ok ? response.text() : Promise.reject(response);
+            })
+            .then((text) => {
+                console.log('[Placenet] Éxito:', text);
+                domainForm.reset();
+                const successMsg = document.getElementById('domainModalSuccess');
+                if (successMsg) successMsg.classList.remove('hidden');
+            })
+            .catch((err) => {
+                console.error('[Placenet] Error en fetch:', err);
+                alert('There was an error sending your request. Please try again later.');
+            });
+        });
+    }
+});
+</script>
+</html>

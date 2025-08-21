@@ -1,0 +1,21 @@
+{
+    "name": "Placenet, Internet of Places",
+    "short_name": "Placenet",
+    "description": "Conectamos digitalmente personas y lugares físicos",
+    "icons": [
+        {
+            "src": "img/logos/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "img/logos/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#000122",
+    "background_color": "#EFE5D7",
+    "display": "standalone",
+    "start_url": "/"
+}
