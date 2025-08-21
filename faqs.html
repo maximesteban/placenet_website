@@ -13,10 +13,10 @@
                         'rethink': ['Rethink Sans', 'sans-serif']
                     },
                     colors: {
-                        'background-first': '#EFE5D7',
+                        'background-first': '#F9F3EB',
                         'background-third': '#000122',
                         'dark-color': '#000122',
-                        'light-color': '#EFE5D7',
+                        'light-color': '#F9F3EB',
                     }
                 }
             }
@@ -109,16 +109,73 @@
 
     <!-- Main Content -->
     <main class="pt-36">
-        <section class="py-20 bg-background-first">
-            <div class="max-w-7xl mx-auto px-4 text-center">
-                <h1 class="text-6xl font-black text-dark-color leading-none mb-6">
-                    Preguntas Frecuentes
-                </h1>
-                <p class="text-2xl font-normal text-dark-color leading-7 mb-12">
-                    Encuentra respuestas a todas tus dudas sobre Placenet
-                </p>
+        <section class="py-20 bg-orange-50 min-h-screen">
+            <div class="max-w-6xl mx-auto px-4">
+                <h1 class="text-5xl md:text-6xl font-black text-slate-950 mb-8 text-left">Frequently asked questions</h1>
+                <!-- Tabs -->
+                <div class="flex flex-wrap gap-4 mb-12">
+                    <button class="px-8 py-3 rounded-full text-2xl font-medium font-rethink bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" id="tab-topics">Topics</button>
+                    <button class="px-8 py-3 rounded-full text-2xl font-medium font-rethink bg-indigo-500 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" id="tab-general">General</button>
+                    <button class="px-8 py-3 rounded-full text-2xl font-medium font-rethink bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" id="tab-smartcity">Smart city</button>
+                    <button class="px-8 py-3 rounded-full text-2xl font-medium font-rethink bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" id="tab-travel">Travel</button>
+                    <button class="px-8 py-3 rounded-full text-2xl font-medium font-rethink bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" id="tab-events">Events</button>
+                    <button class="px-8 py-3 rounded-full text-2xl font-medium font-rethink bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" id="tab-buildings">Smart buildings</button>
+                </div>
+                <!-- Accordion -->
+                <div class="bg-white rounded-3xl shadow-lg divide-y divide-slate-200">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item">
+                        <button class="w-full flex justify-between items-center px-8 py-6 text-left text-2xl font-medium text-slate-950 focus:outline-none group" onclick="toggleFaq(this)">
+                            <span>What is Placenet and how does it work?</span>
+                            <span class="ml-4 flex items-center justify-center w-10 h-10 rounded-full border-2 border-slate-950 transition-transform group-[.open]:rotate-180">
+                                <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </span>
+                        </button>
+                        <div class="faq-content px-8 pb-6 text-slate-700 text-lg hidden">
+                            Placenet is a platform that connects people in real time based on their location and interests. You can join conversations, ask questions, and meet new people nearby.
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item">
+                        <button class="w-full flex justify-between items-center px-8 py-6 text-left text-2xl font-medium text-slate-950 focus:outline-none group" onclick="toggleFaq(this)">
+                            <span>Is Placenet free to use?</span>
+                            <span class="ml-4 flex items-center justify-center w-10 h-10 rounded-full border-2 border-slate-950 transition-transform group-[.open]:rotate-180">
+                                <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </span>
+                        </button>
+                        <div class="faq-content px-8 pb-6 text-slate-700 text-lg hidden">
+                            Yes, Placenet offers a free version with core features. Premium features may be available with a subscription.
+                        </div>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item">
+                        <button class="w-full flex justify-between items-center px-8 py-6 text-left text-2xl font-medium text-slate-950 focus:outline-none group" onclick="toggleFaq(this)">
+                            <span>How do I ensure my privacy on Placenet?</span>
+                            <span class="ml-4 flex items-center justify-center w-10 h-10 rounded-full border-2 border-slate-950 transition-transform group-[.open]:rotate-180">
+                                <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </span>
+                        </button>
+                        <div class="faq-content px-8 pb-6 text-slate-700 text-lg hidden">
+                            Placenet is designed with privacy in mind. You control what information you share and can manage your privacy settings at any time.
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+        <script>
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const content = item.querySelector('.faq-content');
+            const isOpen = content.classList.contains('block');
+            document.querySelectorAll('.faq-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+            if (!isOpen) {
+                content.classList.remove('hidden');
+                content.classList.add('block');
+                item.classList.add('open');
+            }
+        }
+        </script>
     </main>
 
     <!-- Footer -->
