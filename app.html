@@ -257,282 +257,7 @@
     
     </section>
 
-    <!-- Real People Section -->
-    <section class="py-20 bg-background-first">
-        <div class="max-w-7xl mx-auto px-4">
-            <!-- Section Header -->
-            <div class="text-center mb-16">
-                <div class="flex flex-wrap justify-center items-center gap-20 md:gap-20 mb-8 mt-8">
-                    <h2 class="text-5xl font-black text-dark-color tracking-wider"><span style="background:rgba(99,95,229,0.7); border-radius:2px; padding:0 1rem; padding-top:0; padding-bottom:0; line-height:1;">Real people.</span></h2>
-                    <h2 class="text-5xl font-black text-dark-color tracking-wider"><span style="background:rgba(239,192,65,0.7); border-radius:2px; padding:0 1rem; padding-top:0; padding-bottom:0; line-height:1;">Real here.</span></h2>
-                    <h2 class="text-5xl font-black text-dark-color tracking-wider"><span style="background:rgba(195,137,255,0.7); border-radius:2px; padding:0 1rem; padding-top:0; padding-bottom:0; line-height:1;">Right now.</span></h2>
-                </div>
-            </div>
-            
-            <!-- Phone Mockup with Features -->
-            <div class="relative flex justify-center items-center mb-10">
-                <!-- Central Phone -->
-                <div class="relative z-10">
-                    <div class="w-80 h-[640px] bg-dark-color rounded-[3rem] p-2 shadow-2xl" style="box-shadow: 0 20px 60px 0 rgba(0,0,0,0.55), 0 2px 16px 0 rgba(0,0,0,0.25);">
-                        <div class="w-full h-full bg-background-first rounded-[2.5rem] overflow-hidden relative">
-                            <div id="phone-sync-chat" class=" opacity-30 background-third inset-0 w-full h-full flex items-stretch justify-stretch transition-opacity duration-700" style="z-index:1;">
-                                <div id="chat-content" class="w-full h-full background-third transition-opacity duration-300 flex flex-col relative" style="background: url('img/app/chat-bg.png') center center / cover no-repeat;">
-                                    <div  style="position:absolute; inset:0; pointer-events:none; z-index:1;"></div>
-                                    <div  style="position:relative; z-index:2; width:100%; height:100%; display:flex; flex-direction:column;">
-                                        <!-- Dynamic chat content will be injected here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Swiper Floating Images -->
-                <div id="floating-swiper" class="absolute inset-0 pointer-events-none select-none">
-                    <div class="swiper-img absolute left-[2%] bottom-[25%] transform translate-y-1/2 -rotate-[40deg] z-10 transition-opacity duration-700 shadow-3xl cursor-pointer hover:scale-105 hover:z-30 hover:shadow-4xl" style="opacity:1;">
-                        <img src="img/app/sagrada-familia.jpg" class="w-56 h-56 rounded-2xl shadow-3xl object-cover transition-transform duration-200" alt="Parks & Gardens" style="box-shadow: 0 16px 48px 0 rgba(0,0,0,0.65), 0 2px 20px 0 rgba(0,0,0,0.30);" />
-                    </div>
-                    <div class="swiper-img absolute left-[20%] bottom-[46%] transform translate-y-1/2 -rotate-[20deg] z-10 transition-opacity duration-700 shadow-3xl cursor-pointer hover:scale-105 hover:z-30 hover:shadow-4xl" style="opacity:1;">
-                        <img src="img/app/mercat.jpg" class="w-56 h-56 rounded-2xl shadow-3xl object-cover transition-transform duration-200" alt="Tourist Spots" style="box-shadow: 0 16px 48px 0 rgba(0,0,0,0.65), 0 2px 20px 0 rgba(0,0,0,0.30);" />
-                    </div>
-                    <div class="swiper-img absolute left-1/2 bottom-[54%] transform -translate-x-1/2 translate-y-1/2 z-20 transition-opacity duration-700 shadow-3xl cursor-pointer hover:scale-105 hover:z-30 hover:shadow-4xl" style="opacity:1;">
-                        <img src="img/app/playa.jpg" class="w-56 h-56 rounded-2xl shadow-3xl object-cover transition-transform duration-200" alt="Stadiums" style="box-shadow: 0 20px 60px 0 rgba(0,0,0,0.75), 0 2px 24px 0 rgba(0,0,0,0.35);" />
-                    </div>
-                    <div class="swiper-img absolute right-[20%] bottom-[46%] transform translate-y-1/2 rotate-[20deg] z-10 transition-opacity duration-700 shadow-3xl cursor-pointer hover:scale-105 hover:z-30 hover:shadow-4xl" style="opacity:1;">
-                        <img src="img/app/club.jpg" class="w-56 h-56 rounded-2xl shadow-3xl object-cover transition-transform duration-200" alt="Universities" style="box-shadow: 0 16px 48px 0 rgba(0,0,0,0.65), 0 2px 20px 0 rgba(0,0,0,0.30);" />
-                    </div>
-                    <div class="swiper-img absolute right-[2%] bottom-[25%] transform translate-y-1/2 rotate-[40deg] z-10 transition-opacity duration-700 shadow-3xl cursor-pointer hover:scale-105 hover:z-30 hover:shadow-4xl" style="opacity:1;">
-                        <img src="img/app/barca.jpg" class="w-56 h-56 rounded-2xl shadow-3xl object-cover transition-transform duration-200" alt="Tourist Spots" style="box-shadow: 0 16px 48px 0 rgba(0,0,0,0.65), 0 2px 20px 0 rgba(0,0,0,0.30);" />
-                    </div>
-                </div>
-                </div>
-<script>
-// Swiper para floating images - Solo rota el contenido con transición de opacidad, posiciones fijas
-document.addEventListener('DOMContentLoaded', function() {
-    let swiperImgs = document.querySelectorAll('#floating-swiper .swiper-img');
-    let imgData = Array.from(swiperImgs).map(img => {
-        const el = img.querySelector('img');
-        return {
-            src: el.getAttribute('src'),
-            alt: el.getAttribute('alt') || ''
-        };
-    });
-    let start = 0;
-    let intervalId = null;
-    let paused = false;
-
-    function startAuto() {
-        if (intervalId) clearInterval(intervalId);
-        intervalId = setInterval(() => {
-            if (!paused) {
-                start = (start + 1) % imgData.length;
-                updateImages();
-                setClickEvents();
-            }
-        }, 2500);
-    }
-
-    // Añadir click y hover para controlar el carrusel
-    function setClickEvents() {
-        swiperImgs.forEach((img, i) => {
-            img.style.pointerEvents = 'auto';
-            img.onmouseenter = function() {
-                paused = true;
-            };
-            img.onmouseleave = function() {
-                paused = false;
-            };
-            img.onclick = function() {
-                // Calcular el índice real de la imagen clicada en el array rotado
-                let realIndex = (i + start) % imgData.length;
-                // Para centrar, la imagen clicada debe quedar en el índice 2
-                start = (imgData.length + realIndex - 2) % imgData.length;
-                updateImages();
-                setClickEvents();
-                paused = false;
-            };
-        });
-    }
-    // Contenidos de chat para cada lugar
-    const chatTemplates = [
-        // Sagrada Familia
-        `<div class='flex flex-col h-full'>
-            <div class="flex flex-col h-full relative z-10">
-                <div class="p-4 bg-white border-b border-gray-200 flex items-center min-h-[56px] rounded-t-2xl">
-                    <div class="flex items-center w-10 justify-start">
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center"><svg class="w-4 h-4" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-                    </div>
-                    <div class="flex items-center justify-center flex-1 text-center">
-                        <div class="text-[#8E7D67] text-lg font-semibold">Sagrada Familia</div>
-                    </div>
-                    <div class="flex items-center gap-1 w-16 justify-end">
-                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop&crop=face" alt="Avatar" class="w-full h-full rounded-full object-cover" /></div>
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center relative ml-1"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></div></button>
-                    </div>
-                </div>
-                <div class="flex-grow overflow-y-auto p-1.5 flex flex-col gap-1.5">
-                    <div class="text-center my-1"><span class="bg-gray-200 px-1.5 py-0.5 rounded-md text-xs text-gray-600">Today</span></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-pink-400 to-pink-600" style="background-image: url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Sophie</span><span class="text-xs text-gray-500 ml-1">9:15</span></div><div class="text-xs mt-0.5 leading-tight">Is anyone else here for the architecture tour? The details on the facade are amazing!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-purple-600" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">9:17</span></div><div class="text-xs mt-0.5 leading-tight">Yes! I just arrived. The line is long but worth it. Anyone wants to join for coffee after?</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-green-400 to-green-600" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Liam</span><span class="text-xs text-gray-500 ml-1">9:18</span></div><div class="text-xs mt-0.5 leading-tight">Count me in! I recommend the guided tour, it's really informative.</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-yellow-400 to-yellow-600" style="background-image: url('https://randomuser.me/api/portraits/women/44.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">9:19</span></div><div class="text-xs mt-0.5 leading-tight">Thanks, Liam! I'll get tickets for the 12:00 tour. See you all at the entrance?</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-purple-400 to-purple-600" style="background-image: url('https://randomuser.me/api/portraits/men/55.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">David</span><span class="text-xs text-gray-500 ml-1">9:21</span></div><div class="text-xs mt-0.5 leading-tight">Don’t forget to look up inside, the ceiling is incredible!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-pink-400 to-pink-600" style="background-image: url('https://randomuser.me/api/portraits/women/66.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">9:22</span></div><div class="text-xs mt-0.5 leading-tight">Absolutely! I’ll take lots of photos. Anyone wants to join for lunch after?</div></div></div>
-                </div>
-            </div>
-        </div>`,
-        // Market
-        `<div class='flex flex-col h-full'>
-            <div class="flex flex-col h-full relative z-10">
-                <div class="p-4 bg-white border-b border-gray-200 flex items-center min-h-[56px] rounded-t-2xl">
-                    <div class="flex items-center w-10 justify-start">
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center"><svg class="w-4 h-4" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-                    </div>
-                    <div class="flex items-center justify-center flex-1 text-center">
-                        <div class="text-[#8E7D67] text-lg font-semibold">Market</div>
-                    </div>
-                    <div class="flex items-center gap-1 w-16 justify-end">
-                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop&crop=face" alt="Avatar" class="w-full h-full rounded-full object-cover" /></div>
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center relative ml-1"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></div></button>
-                    </div>
-                </div>
-                <div class="flex-grow overflow-y-auto p-1.5 flex flex-col gap-1.5">
-                    <div class="text-center my-1"><span class="bg-gray-200 px-1.5 py-0.5 rounded-md text-xs text-gray-600">Today</span></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-pink-400 to-pink-600" style="background-image: url('https://randomuser.me/api/portraits/women/65.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Marta</span><span class="text-xs text-gray-500 ml-1">10:05</span></div><div class="text-xs mt-0.5 leading-tight">Where can I find the best cheese in this market? I'm visiting from France and want to try something local!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-purple-600" style="background-image: url('https://randomuser.me/api/portraits/men/12.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">10:07</span></div><div class="text-xs mt-0.5 leading-tight">Try the stand near the north entrance, they have amazing goat cheese and local specialties. Also, don't miss the fresh fruit juices!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-orange-400 to-orange-600" style="background-image: url('https://randomuser.me/api/portraits/men/45.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Carlos</span><span class="text-xs text-gray-500 ml-1">10:09</span></div><div class="text-xs mt-0.5 leading-tight">If you want to try jamón, go to "La Ibérica" stand. Best in town!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-green-400 to-green-600" style="background-image: url('https://randomuser.me/api/portraits/women/22.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">10:10</span></div><div class="text-xs mt-0.5 leading-tight">Thanks, Carlos! Marta, let us know what you think. Anyone up for a coffee after shopping?</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-blue-600" style="background-image: url('https://randomuser.me/api/portraits/men/36.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Tom</span><span class="text-xs text-gray-500 ml-1">10:12</span></div><div class="text-xs mt-0.5 leading-tight">I’m heading to the bakery next to the market after. Best croissants in town!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-orange-400 to-orange-600" style="background-image: url('https://randomuser.me/api/portraits/women/53.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">10:13</span></div><div class="text-xs mt-0.5 leading-tight">Save me one! I’ll join you there in 10 minutes.</div></div></div>
-                </div>
-            </div>
-        </div>`,
-        // Beach
-        `<div class='flex flex-col h-full'>
-            <div class="flex flex-col h-full relative z-10">
-                <div class="p-4 bg-white border-b border-gray-200 flex items-center min-h-[56px] rounded-t-2xl">
-                    <div class="flex items-center w-10 justify-start">
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center"><svg class="w-4 h-4" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-                    </div>
-                    <div class="flex items-center justify-center flex-1 text-center">
-                        <div class="text-[#8E7D67] text-lg font-semibold">Beach</div>
-                    </div>
-                    <div class="flex items-center gap-1 w-16 justify-end">
-                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden"><img src="https://randomuser.me/api/portraits/men/77.jpg" alt="Avatar" class="w-full h-full rounded-full object-cover" /></div>
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center relative ml-1"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></div></button>
-                    </div>
-                </div>
-                <div class="flex-grow overflow-y-auto p-1.5 flex flex-col gap-1.5">
-                    <div class="text-center my-1"><span class="bg-gray-200 px-1.5 py-0.5 rounded-md text-xs text-gray-600">Today</span></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-pink-400 to-pink-600" style="background-image: url('https://randomuser.me/api/portraits/women/33.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Emily</span><span class="text-xs text-gray-500 ml-1">11:00</span></div><div class="text-xs mt-0.5 leading-tight">The water is so warm today! Who's up for a swim or maybe some beach volleyball?</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-purple-600" style="background-image: url('https://randomuser.me/api/portraits/men/88.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">11:02</span></div><div class="text-xs mt-0.5 leading-tight">I'm in for volleyball! Also, does anyone have sunscreen? I forgot mine 😅</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-blue-600" style="background-image: url('https://randomuser.me/api/portraits/men/23.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Lucas</span><span class="text-xs text-gray-500 ml-1">11:05</span></div><div class="text-xs mt-0.5 leading-tight">I've got extra! Meet near the lifeguard tower?</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-pink-400 to-pink-600" style="background-image: url('https://randomuser.me/api/portraits/women/55.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">11:06</span></div><div class="text-xs mt-0.5 leading-tight">Perfect! See you there. Anyone bringing snacks?</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-green-400 to-green-600" style="background-image: url('https://randomuser.me/api/portraits/men/90.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Ben</span><span class="text-xs text-gray-500 ml-1">11:08</span></div><div class="text-xs mt-0.5 leading-tight">I’ve got chips and soda! See you all soon.</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-blue-600" style="background-image: url('https://randomuser.me/api/portraits/women/60.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">11:09</span></div><div class="text-xs mt-0.5 leading-tight">Awesome! Let’s grab a spot near the volleyball net.</div></div></div>
-                </div>
-            </div>
-        </div>`,
-        // Club
-        `<div class='flex flex-col h-full'>
-            <div class="flex flex-col h-full relative z-10">
-                <div class="p-4 bg-white border-b border-gray-200 flex items-center min-h-[56px] rounded-t-2xl">
-                    <div class="flex items-center w-10 justify-start">
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center"><svg class="w-4 h-4" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-                    </div>
-                    <div class="flex items-center justify-center flex-1 text-center">
-                        <div class="text-[#8E7D67] text-lg font-semibold">Club</div>
-                    </div>
-                    <div class="flex items-center gap-1 w-16 justify-end">
-                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden"><img src="https://randomuser.me/api/portraits/men/99.jpg" alt="Avatar" class="w-full h-full rounded-full object-cover" /></div>
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center relative ml-1"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></div></button>
-                    </div>
-                </div>
-                <div class="flex-grow overflow-y-auto p-1.5 flex flex-col gap-1.5">
-                    <div class="text-center my-1"><span class="bg-gray-200 px-1.5 py-0.5 rounded-md text-xs text-gray-600">Today</span></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-pink-400 to-pink-600" style="background-image: url('https://randomuser.me/api/portraits/women/81.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Nina</span><span class="text-xs text-gray-500 ml-1">01:00</span></div><div class="text-xs mt-0.5 leading-tight">Who's DJing tonight? I heard it's going to be a special set!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-purple-600" style="background-image: url('https://randomuser.me/api/portraits/men/54.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">01:05</span></div><div class="text-xs mt-0.5 leading-tight">DJ Marta, from 1:00 AM. She always brings the best vibes!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-blue-600" style="background-image: url('https://randomuser.me/api/portraits/men/41.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Oscar</span><span class="text-xs text-gray-500 ml-1">01:08</span></div><div class="text-xs mt-0.5 leading-tight">Who's up for a dance battle later? 😎</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-green-400 to-green-600" style="background-image: url('https://randomuser.me/api/portraits/women/19.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">01:10</span></div><div class="text-xs mt-0.5 leading-tight">Challenge accepted! Let's meet by the bar after the first set.</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-yellow-400 to-yellow-600" style="background-image: url('https://randomuser.me/api/portraits/men/61.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Leo</span><span class="text-xs text-gray-500 ml-1">01:12</span></div><div class="text-xs mt-0.5 leading-tight">Don’t forget to try the club’s signature cocktail. It’s amazing!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-orange-400 to-orange-600" style="background-image: url('https://randomuser.me/api/portraits/women/73.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">01:13</span></div><div class="text-xs mt-0.5 leading-tight">On it! Let’s get a group photo later tonight.</div></div></div>
-                </div>
-            </div>
-        </div>`,
-        // Barça
-        `<div class='flex flex-col h-full'>
-            <div class="flex flex-col h-full relative z-10">
-                <div class="p-4 bg-white border-b border-gray-200 flex items-center min-h-[56px] rounded-t-2xl">
-                    <div class="flex items-center w-10 justify-start">
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center"><svg class="w-4 h-4" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-                    </div>
-                    <div class="flex items-center justify-center flex-1 text-center">
-                        <div class="text-[#8E7D67] text-lg font-semibold">Barça</div>
-                    </div>
-                    <div class="flex items-center gap-1 w-16 justify-end">
-                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden"><img src="https://randomuser.me/api/portraits/men/7.jpg" alt="Avatar" class="w-full h-full rounded-full object-cover" /></div>
-                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center relative ml-1"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></div></button>
-                    </div>
-                </div>
-                <div class="flex-grow overflow-y-auto p-1.5 flex flex-col gap-1.5">
-                    <div class="text-center my-1"><span class="bg-gray-200 px-1.5 py-0.5 rounded-md text-xs text-gray-600">Today</span></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-pink-400 to-pink-600" style="background-image: url('https://randomuser.me/api/portraits/women/2.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Anna</span><span class="text-xs text-gray-500 ml-1">20:00</span></div><div class="text-xs mt-0.5 leading-tight">Is the stadium already full? I'm on my way and hope to catch the anthem!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-purple-600" style="background-image: url('https://randomuser.me/api/portraits/men/8.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">20:05</span></div><div class="text-xs mt-0.5 leading-tight">Yes! The stands are packed and the atmosphere is electric. Bring your scarf!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-blue-600" style="background-image: url('https://randomuser.me/api/portraits/men/9.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Marc</span><span class="text-xs text-gray-500 ml-1">20:07</span></div><div class="text-xs mt-0.5 leading-tight">Predictions? I say 3-1 for Barça tonight!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-green-400 to-green-600" style="background-image: url('https://randomuser.me/api/portraits/women/10.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">20:09</span></div><div class="text-xs mt-0.5 leading-tight">I hope so! Let's meet at gate 12 after the match for a photo!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-blue-600" style="background-image: url('https://randomuser.me/api/portraits/men/11.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">Jordi</span><span class="text-xs text-gray-500 ml-1">20:11</span></div><div class="text-xs mt-0.5 leading-tight">Anyone else bringing a flag? Let’s make some noise for the team!</div></div></div>
-                    <div class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start"><div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-pink-400 to-pink-600" style="background-image: url('https://randomuser.me/api/portraits/women/12.jpg'); background-size: cover; background-position: center;"></div><div class="flex-1 min-w-0"><div><span class="font-medium text-[#000122] text-xs">You</span><span class="text-xs text-gray-500 ml-1">20:12</span></div><div class="text-xs mt-0.5 leading-tight">Already packed mine! Can’t wait for kickoff.</div></div></div>
-                </div>
-            </div>
-        </div>`
-    ];
-
-    function updateImages() {
-        swiperImgs.forEach((img, i) => {
-            const el = img.querySelector('img');
-            // Transición de opacidad
-            el.style.transition = 'opacity 0.7s cubic-bezier(0.4,0,0.2,1)';
-            el.style.opacity = 0;
-            setTimeout(() => {
-                const data = imgData[(i + start) % imgData.length];
-                el.setAttribute('src', data.src);
-                el.setAttribute('alt', data.alt);
-                // La imagen central (índice 2) tiene opacidad 1, el resto 0.85
-                if (i === 2) {
-                    el.style.opacity = 1;
-                    // Sincroniza el chat del móvil
-                    const chatDiv = document.getElementById('chat-content');
-                    if (chatDiv) {
-                        chatDiv.style.opacity = 0;
-                        setTimeout(() => {
-                            chatDiv.innerHTML = chatTemplates[(i + start) % chatTemplates.length];
-                            chatDiv.style.opacity = 1;
-                        }, 200);
-                    }
-                } else {
-                    el.style.opacity = 1;
-                }
-            }, 350);
-        });
-    }
-    if (swiperImgs.length === imgData.length) {
-    updateImages();
-    setClickEvents();
-    startAuto();
-    }
-});
-</script>
-            <div class="w-max-5xl space-y-6 justify-center">
-                <div class="space-y-6 text-center">
-                    <p class="text-5xl font-bold text-dark-color leading-7 max-w-5xl mx-auto mb-10">
-                        Because you are always in a <strong>place</strong>.
-                    </p>
-                    <p class="text-2xl font-normal text-dark-color opacity-25 leading-7 text-justify line-clamp-4" style="position: relative; left: 50%; transform: translateX(-50%); width: 100vw; margin: 0; padding: 0; display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
-                        At the bar, at an event, in the park, at the airport, at the beach, at the stadium, at the university, at the coworking, at the gym, at the library, at the museum, at the shopping mall, at the concert, at the festival, at the coworking space, at the office, at the hotel, at the restaurant, at the hospital, at the bus stop, at the train station, at the mountain, at the campsite, at the hub, at the area, at the lounge, at the zone, at the floor, at the building, at the center, at the plaza, at the terrace, at the rooftop, at the café, at the club, at the studio, at the gallery, at the park, at the garden, At the bar, at an event, in the park, at the airport, at the beach, at the stadium, at the university, at the coworking, at the gym, at the library, at the museum, at the shopping mall, at the concert, at the festival, at the coworking space, at the office, at the hotel, at the restaurant, at the hospital, at the bus stop, at the train station, at the mountain, at the campsite, at the hub, at the area, at the lounge, at the zone, at the floor, at the building, at the center, at the plaza, at the terrace, at the rooftop, at the café, at the club, at the studio, at the gallery, at the park, at the garden, At the bar, at an event, in the park, at the airport, at the beach, at the stadium, at the university, at the coworking, at the gym, at the library, at the museum, at the shopping mall, at the concert, at the festival, at the coworking space, at the office, at the hotel, at the restaurant, at the hospital, at the bus stop, at the train station, at the mountain, at the campsite, at the hub, at the area, at the lounge, at the zone, at the floor, at the building, at the center, at the plaza, at the terrace, at the rooftop, at the café, at the club, at the studio, at the gallery, at the park, at the garden, At the bar, at an event, in the park, at the airport, at the beach, at the stadium, at the university, at the coworking, at the gym, at the library, at the museum, at the shopping mall, at the concert, at the festival, at the coworking space, at the office, at the hotel, at the restaurant, at the hospital, at the bus stop, at the train station, at the mountain, at the campsite, at the hub, at the area, at the lounge, at the zone, at the floor, at the building, at the center, at the plaza, at the terrace, at the rooftop, at the café, at the club, at the studio, at the gallery, at the park, at the garden
-                    </p>
-                </div>
-          </div>
-        </div>
-    </section>
+    
 
     <!-- Digital Domains Section -->
     <section class="bg-dark-color text-white relative">
@@ -579,128 +304,197 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="w-full h-full rounded-2xl overflow-hidden relative" style="height: 512px; width: 256px; background-image: url('img/app/chat-bg.png'); background-size: cover; background-position: center;">
                                     <!-- Background overlay for opacity -->
                                     <div class="absolute inset-0 bg-white bg-opacity-80 rounded-2xl"></div>
-                                    <!-- Chat Interface -->
-                                    <div class="flex flex-col h-full relative z-10">
-                                        <!-- Header del Chat -->
-                                        <div class="p-2 bg-white border-b border-gray-200 flex items-center min-h-[32px]">
-                                            <!-- Lado izquierdo - Flecha atrás -->
-                                            <div class="flex items-center w-6 justify-start">
-                                                <button class="w-5 h-5 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center">
-                                                    <svg class="w-2.5 h-2.5" viewBox="0 0 24 24">
-                                                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
+                                    <!-- Chat Interface dinámico -->
+                                    <div id="digitalDomainChat" class="flex flex-col h-full relative z-10"></div>
+                                    <script>
+                                    // Animación avanzada de chats con efecto escribiendo y sin scroll
+                                    (function() {
+                                        // Datos de los chats: cada chat es un array de mensajes
+                                        const chats = [
+                                            {
+                                                title: 'Sagrada Familia',
+                                                avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop&crop=face',
+                                                messages: [
+                                                    {user: 'Sophie', time: '9:15', text: 'Is anyone else here for the architecture tour? The details on the facade are amazing!', avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face', self: false},
+                                                    {user: 'You', time: '9:17', text: 'Yes! I just arrived. The line is long but worth it. Anyone wants to join for coffee after?', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face', self: true},
+                                                    {user: 'Liam', time: '9:18', text: 
+                                                        `Count me in! I recommend the guided tour, it's really informative.`, avatar: 'https://randomuser.me/api/portraits/men/32.jpg', self: false},
+                                                    {user: 'You', time: '9:19', text: 'Thanks, Liam! I\'ll get tickets for the 12:00 tour. See you all at the entrance?', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', self: true},
+                                                    {user: 'David', time: '9:21', text: 'Don’t forget to look up inside, the ceiling is incredible!', avatar: 'https://randomuser.me/api/portraits/men/55.jpg', self: false},
+                                                    {user: 'You', time: '9:22', text: 'Absolutely! I’ll take lots of photos. Anyone wants to join for lunch after?', avatar: 'https://randomuser.me/api/portraits/women/66.jpg', self: true}
+                                                ]
+                                            },
+                                            {
+                                                title: 'Market',
+                                                avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop&crop=face',
+                                                messages: [
+                                                    {user: 'Marta', time: '10:05', text: `Where can I find the best cheese in this market? I'm visiting from France and want to try something local!`, avatar: 'https://randomuser.me/api/portraits/women/65.jpg', self: false},
+                                                    {user: 'You', time: '10:07', text: `Try the stand near the north entrance, they have amazing goat cheese and local specialties. Also, don't miss the fresh fruit juices!`, avatar: 'https://randomuser.me/api/portraits/men/12.jpg', self: true},
+                                                    {user: 'Carlos', time: '10:09', text: `If you want to try jamón, go to "La Ibérica" stand. Best in town!`, avatar: 'https://randomuser.me/api/portraits/men/45.jpg', self: false},
+                                                    {user: 'You', time: '10:10', text: `Thanks, Carlos! Marta, let us know what you think. Anyone up for a coffee after shopping?`, avatar: 'https://randomuser.me/api/portraits/women/22.jpg', self: true},
+                                                    {user: 'Tom', time: '10:12', text: `I’m heading to the bakery next to the market after. Best croissants in town!`, avatar: 'https://randomuser.me/api/portraits/men/36.jpg', self: false},
+                                                    {user: 'You', time: '10:13', text: `Save me one! I’ll join you there in 10 minutes.`, avatar: 'https://randomuser.me/api/portraits/women/53.jpg', self: true}
+                                                ]
+                                            },
+                                            {
+                                                title: 'Beach',
+                                                avatar: 'https://randomuser.me/api/portraits/men/77.jpg',
+                                                messages: [
+                                                    {user: 'Lucas', time: '11:00', text: `The water is perfect today! Anyone up for a volleyball match?`, avatar: 'https://randomuser.me/api/portraits/men/77.jpg', self: false},
+                                                    {user: 'You', time: '11:02', text: `Count me in! I brought a ball. Where do we meet?`, avatar: 'https://randomuser.me/api/portraits/women/88.jpg', self: true},
+                                                    {user: 'Pablo', time: '11:03', text: `Near the lifeguard tower. See you there!`, avatar: 'https://randomuser.me/api/portraits/men/23.jpg', self: false},
+                                                    {user: 'You', time: '11:04', text: `Perfect! I'll bring some drinks.`, avatar: 'https://randomuser.me/api/portraits/women/99.jpg', self: true}
+                                                ]
+                                            }
+                                        ];
 
-                                            <!-- Centro - Título -->
-                                            <div class="flex items-center justify-center flex-1 text-center">
-                                                <div class="text-[#8E7D67] text-xs font-normal">Sagrada Familia</div>
-                                            </div>
+                                        const chatDiv = document.getElementById('digitalDomainChat');
+                                        if (!chatDiv) return;
 
-                                            <!-- Lado derecho - Avatar y notificaciones -->
-                                            <div class="flex items-center gap-0.5 w-10 justify-end">
-                                                <!-- Avatar pequeño -->
-                                                <div class="w-5 h-5 rounded-full bg-white flex items-center justify-center overflow-hidden">
-                                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face" alt="Avatar" class="w-full h-full rounded-full object-cover" />
-                                                </div>
-                                                
-                                                <!-- Campana de notificaciones -->
-                                                <button class="w-5 h-5 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center relative ml-0.5">
-                                                    <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                                                    </svg>
-                                                    <!-- Punto rojo de notificaciones -->
-                                                    <div class="absolute top-0.5 right-0.5 w-1.5 h-1.5 bg-red-500 rounded-full border border-white"></div>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex-grow overflow-y-auto p-1.5 flex flex-col gap-1.5">
-                                            <!-- Date Divider -->
-                                            <div class="text-center my-1">
-                                                <span class="bg-gray-200 px-1.5 py-0.5 rounded-md text-xs text-gray-600">Today</span>
-                                            </div>
-
-                                            <!-- Message 1 - Other user -->
-                                            <div id="msg1" class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start">
-                                                <div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-pink-400 to-pink-600" style="background-image: url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face'); background-size: cover; background-position: center;"></div>
-                                                <div class="flex-1 min-w-0">
-                                                    <div>
-                                                        <span class="font-medium text-[#000122] text-xs">Jessica</span>
-                                                        <span class="text-xs text-gray-500 ml-1">9:15</span>
+                                        function renderChatHeader(chat) {
+                                            return `
+                                                <div class="p-4 bg-white border-b border-gray-200 flex items-center min-h-[56px] rounded-t-2xl">
+                                                    <div class="flex items-center w-10 justify-start">
+                                                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center"><svg class="w-4 h-4" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
                                                     </div>
-                                                    <div class="text-xs mt-0.5 leading-tight">Hey everyone! Anyone else on the queue? 😊</div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Message 2 - My message -->
-                                            <div id="msg2" class="p-1.5 rounded-lg bg-[#e2e1fd] max-w-[85%] self-end shadow-sm flex gap-1.5 items-start opacity-0 transform translate-y-2">
-                                                <div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-purple-600" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face'); background-size: cover; background-position: center;"></div>
-                                                <div class="flex-1 min-w-0">
-                                                    <div>
-                                                        <span class="font-medium text-[#000122] text-xs">You</span>
-                                                        <span class="text-xs text-gray-500 ml-1">9:17</span>
+                                                    <div class="flex items-center justify-center flex-1 text-center">
+                                                        <div class="text-[#8E7D67] text-lg font-semibold">${chat.title}</div>
                                                     </div>
-                                                    <div class="text-xs mt-0.5 leading-tight">Yes, I'll be entering in 20 minutes.</div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Message 3 - Other user -->
-                                            <div id="msg3" class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start opacity-0 transform translate-y-2">
-                                                <div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-blue-400 to-blue-600" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face'); background-size: cover; background-position: center;"></div>
-                                                <div class="flex-1 min-w-0">
-                                                    <div>
-                                                        <span class="font-medium text-[#000122] text-xs">Alex</span>
-                                                        <span class="text-xs text-gray-500 ml-1">9:20</span>
+                                                    <div class="flex items-center gap-1 w-16 justify-end">
+                                                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden"><img src="${chat.avatar}" alt="Avatar" class="w-full h-full rounded-full object-cover" /></div>
+                                                        <button class="w-8 h-8 border-none bg-[#F9F3EB] rounded-full flex items-center justify-center relative ml-1"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></div></button>
                                                     </div>
-                                                    <div class="text-xs mt-0.5 leading-tight">The Nativity entrance is the most beautiful!</div>
                                                 </div>
-                                            </div>
+                                            `;
+                                        }
 
-                                            <!-- Message 4 - Other user -->
-                                            <div id="msg4" class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-start opacity-0 transform translate-y-2">
-                                                <div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 bg-gradient-to-r from-green-400 to-green-600" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face'); background-size: cover; background-position: center;"></div>
-                                                <div class="flex-1 min-w-0">
-                                                    <div>
-                                                        <span class="font-medium text-[#000122] text-xs">Maria</span>
-                                                        <span class="text-xs text-gray-500 ml-1">9:25</span>
-                                                    </div>
-                                                    <div class="text-xs mt-0.5 leading-tight">Is there a long queue today?</div>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Typing Indicator -->
-                                            <div id="typingIndicator" class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-center opacity-0 transform translate-y-2" style="transition: opacity 0.3s ease, transform 0.3s ease;">
-                                                <div class="w-5 h-5 rounded-full bg-gray-300 flex-shrink-0"></div>
-                                                <div class="flex-1 min-w-0">
-                                                    <div class="flex items-center gap-1">
-                                                        <span class="text-xs text-gray-500">Someone is typing</span>
-                                                        <div class="flex gap-0.5 ml-1">
-                                                            <div class="w-1 h-1 bg-gray-400 rounded-full typing-dot"></div>
-                                                            <div class="w-1 h-1 bg-gray-400 rounded-full typing-dot"></div>
-                                                            <div class="w-1 h-1 bg-gray-400 rounded-full typing-dot"></div>
+                                        function renderTypingIndicator() {
+                                            return `
+                                                <div class="p-1.5 rounded-lg bg-white max-w-[85%] self-start shadow-sm flex gap-1.5 items-center typing-indicator" style="transition: opacity 0.3s ease, transform 0.3s ease; opacity:0; transform:translateY(8px);">
+                                                    <div class="w-5 h-5 rounded-full bg-gray-300 flex-shrink-0"></div>
+                                                    <div class="flex-1 min-w-0">
+                                                        <div class="flex items-center gap-1">
+                                                            <span class="text-xs text-gray-500">Someone is typing</span>
+                                                            <div class="flex gap-0.5 ml-1">
+                                                                <div class="w-1 h-1 bg-gray-400 rounded-full typing-dot"></div>
+                                                                <div class="w-1 h-1 bg-gray-400 rounded-full typing-dot"></div>
+                                                                <div class="w-1 h-1 bg-gray-400 rounded-full typing-dot"></div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            `;
+                                        }
 
-                                        <!-- Message Input Form -->
-                                        <div class="flex items-center p-1.5 border-t border-gray-200 bg-gray-100">
-                                            <input
-                                                type="text"
-                                                placeholder="Type a message..."
-                                                class="flex-grow border border-gray-300 rounded-full px-2 py-0.5 mr-1 text-xs bg-white outline-none"
-                                                value=""
-                                            />
-                                            <button class="border-none bg-[#000122] text-white rounded-full w-6 h-6 flex items-center justify-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="10" height="10" fill="white">
-                                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
+                                        function renderMessage(msg, idx, chatAvatar) {
+                                            // Si es 'You', usa el avatar de cabecera
+                                            const avatarUrl = msg.self ? chatAvatar : msg.avatar;
+                                            return `
+                                                <div class="p-1.5 rounded-lg ${msg.self ? 'bg-[#e2e1fd] self-end' : 'bg-white self-start'} max-w-[85%] shadow-sm flex gap-1 items-start chat-msg" style="opacity:0; transform:translateY(8px); transition: opacity 0.6s, transform 0.6s; margin-bottom:0; margin-top:0; line-height:1.2;" data-msg-idx="${idx}">
+                                                    <div class="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs flex-shrink-0 ${msg.self ? 'bg-gradient-to-r from-blue-400 to-purple-600' : 'bg-gradient-to-r from-pink-400 to-pink-600'}" style="background-image: url('${avatarUrl}'); background-size: cover; background-position: center;"></div>
+                                                    <div class="flex-1 min-w-0">
+                                                        <div>
+                                                            <span class="font-medium text-[#000122] text-xs">${msg.user}</span>
+                                                            <span class="text-xs text-gray-500 ml-1">${msg.time}</span>
+                                                        </div>
+                                                        <div class="text-xs mt-0.5 leading-tight">${msg.text}</div>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        }
+
+                                        function renderChat(chat) {
+                                            return `
+                                                ${renderChatHeader(chat)}
+                                                <div class="relative h-full flex flex-col" style="min-height:340px;">
+                                                    <div class="flex flex-col gap-0 px-0 py-0 flex-1" id="chatMessages" style="margin-bottom:56px;">
+                                                        <style>#digitalDomainChat .chat-msg + .chat-msg { margin-top: 0 !important; }</style>
+                                                        <div class="text-center my-1">
+                                                            <span class="bg-gray-200 px-1.5 py-0.5 rounded-md text-xs text-gray-600">Today</span>
+                                                        </div>
+                                                        <!-- Mensajes y typing se insertan aquí -->
+                                                    </div>
+                                                    <div class="flex items-center p-1.5 border-t border-gray-200 bg-gray-100 absolute left-0 right-0 bottom-0" style="height:56px;">
+                                                        <input type="text" placeholder="Type a message..." class="flex-grow border border-gray-300 rounded-full px-2 py-0.5 mr-1 text-xs bg-white outline-none" value="" disabled />
+                                                        <button class="border-none bg-[#000122] text-white rounded-full w-6 h-6 flex items-center justify-center" disabled>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="10" height="10" fill="white">
+                                                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        }
+
+                                        // Animación secuencial de mensajes con typing
+                                        let chatIdx = 0;
+                                        function showChat(idx) {
+                                            const chat = chats[idx];
+                                            chatDiv.innerHTML = renderChat(chat);
+                                            const messages = chat.messages;
+                                            const chatMessages = chatDiv.querySelector('#chatMessages');
+                                            let msgIdx = 0;
+
+                                            function showNextMessage() {
+                                                if (msgIdx < messages.length) {
+                                                    // Mostrar typing
+                                                    chatMessages.insertAdjacentHTML('beforeend', renderTypingIndicator());
+                                                    const typing = chatMessages.querySelector('.typing-indicator:last-child');
+                                                    setTimeout(() => {
+                                                        // Ocultar typing
+                                                        if (typing) {
+                                                            typing.style.opacity = 0;
+                                                            typing.style.transform = 'translateY(8px)';
+                                                        }
+                                                        // Mostrar mensaje
+                                                        setTimeout(() => {
+                                                            chatMessages.insertAdjacentHTML('beforeend', renderMessage(messages[msgIdx], msgIdx, chat.avatar));
+                                                            const msgEl = chatMessages.querySelector(`.chat-msg[data-msg-idx="${msgIdx}"]`);
+                                                            if (msgEl) {
+                                                                setTimeout(() => {
+                                                                    msgEl.style.opacity = 1;
+                                                                    msgEl.style.transform = 'translateY(0)';
+                                                                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                                                                }, 30);
+                                                            }
+                                                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                                                            msgIdx++;
+                                                            setTimeout(showNextMessage, 900);
+                                                        }, 150);
+                                                    }, 600);
+                                                } else {
+                                                    setTimeout(() => {
+                                                        chatIdx = (chatIdx + 1) % chats.length;
+                                                        showChat(chatIdx);
+                                                    }, 1200);
+                                                }
+                                            }
+                                            showNextMessage();
+                                        }
+                                        showChat(chatIdx);
+                                    })();
+                                    </script>
+                                    <style>
+                                    /* Eliminar scroll y ajustar altura */
+                                    #digitalDomainChat .flex-col.gap-1\.5 {
+                                        overflow: hidden !important;
+                                        max-height: 340px;
+                                    }
+                                    /* Animación de los puntos de typing */
+                                    .typing-dot {
+                                        animation: typingBlink 1.2s infinite both;
+                                    }
+                                    .typing-dot:nth-child(2) {
+                                        animation-delay: 0.2s;
+                                    }
+                                    .typing-dot:nth-child(3) {
+                                        animation-delay: 0.4s;
+                                    }
+                                    @keyframes typingBlink {
+                                        0%, 80%, 100% { opacity: 0.3; }
+                                        40% { opacity: 1; }
+                                    }
+                                    </style>
                                 </div>
                             </div>
                         </div>
