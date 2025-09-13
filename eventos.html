@@ -138,10 +138,10 @@
     </style>
 </head>
 
-<body class="font-rethink">
+<body class="font-rethink w-screen max-w-full overflow-x-hidden">
     <!-- Navigation Header -->
-    <header id="header" class="w-full h-20 md:h-36 bg-background-first fixed top-0 z-50 transform transition-transform duration-300 ease-in-out">
-    <div class="w-full mx-auto px-3 sm:px-4 h-full flex items-center justify-between md:max-w-7xl">
+    <header id="header" class="xl:w-full lg:w-full bg-background-first fixed pt-10 pb-10 z-50 transform transition-transform duration-300 ease-in-out hidden md:block">
+    <div class="w-full mx-auto px-3 sm:px-4 h-full flex items-center justify-between max-w-7xl ">
             <a href="home.html" class="flex items-center z-50">
                 <img class="w-28 h-7 sm:w-32 sm:h-8" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
             </a>
@@ -218,59 +218,37 @@
                     Iniciar sesión
                 </button>
             </div>
-            <!-- Hamburger Button Mobile -->
-            <button id="mobileMenuBtn" class="block md:hidden w-10 max-w-xs h-10 flex items-center justify-center z-50" aria-label="Abrir menú">
-                <svg class="w-7 h-7 text-dark-color" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
         </div>
-        <!-- Mobile Menu Overlay -->
-    <div id="mobileMenu" class="fixed inset-0 w-full bg-background-first/95 z-40 flex-col items-start px-5 pt-6 pb-8 space-y-6 transform -translate-x-full transition-transform duration-300 block md:hidden" style="display:none;">
-            <button id="closeMobileMenu" class="self-end mb-8 w-10 h-10 flex items-center justify-center">
-                <svg class="w-7 h-7 text-dark-color" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <a href="home.html" class="mb-8 flex items-center">
-                <img class="w-28 h-7 sm:w-32 sm:h-8" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
-            </a>
-            <a href="eventos.html" class="text-dark-color text-lg font-bold py-2">Eventos</a>
-            <a href="buildings.html" class="text-dark-color text-lg font-bold py-2">Smart Buildings</a>
-            <a href="fincas.html" class="text-dark-color text-lg font-bold py-2">Administración de fincas</a>
-            <a href="turismo.html" class="text-dark-color text-lg font-bold py-2">Travel y turismo</a>
-            <a href="cities.html" class="text-dark-color text-lg font-bold py-2">Smart Cities</a>
-            <a href="comunidades.html" class="text-dark-color text-lg font-bold py-2">Comunidades Digitales</a>
-            <a href="tutoriales.html" class="text-dark-color text-lg font-bold py-2">Tutoriales</a>
-            <a href="blog.html" class="text-dark-color text-lg font-bold py-2">Blog</a>
-            <a href="casos.html" class="text-dark-color text-lg font-bold py-2">Casos de éxito</a>
-            <a href="faqs.html" class="text-dark-color text-lg font-bold py-2">FAQS</a>
-            <a href="partner-find.html" class="text-dark-color text-lg font-bold py-2">Buscar un partner</a>
-            <a href="partner-be.html" class="text-dark-color text-lg font-bold py-2">Convertirme en partner</a>
-            <a href="pricing.html" class="text-dark-color text-lg font-bold py-2">Precios</a>
-            <a href="app.html" class="text-dark-color text-lg font-bold py-2">Placenet App</a>
-            <div class="flex flex-col gap-4 mt-8 w-full">
-                <button class="demo-btn border border-2 border-background-third px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300 w-full">¡Lo quiero!</button>
-                <button class="bg-background-third text-white px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300 w-full">Iniciar sesión</button>
-            </div>
-        </div>
-        <script>
-        // Mobile menu toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const closeBtn = document.getElementById('closeMobileMenu');
-            menuBtn.addEventListener('click', () => {
-                mobileMenu.style.display = 'flex';
-                setTimeout(() => mobileMenu.classList.remove('-translate-x-full'), 10);
-            });
-            closeBtn.addEventListener('click', () => {
-                mobileMenu.classList.add('-translate-x-full');
-                setTimeout(() => mobileMenu.style.display = 'none', 300);
-            });
-        });
-        </script>
-        </div>
+    </header>
+    <!-- Header móvil/tableta -->
+    <header id="mobile-header" class="bg-background-first fixed top-0 left-0 w-screen pt-6 pb-6 z-50 block md:hidden shadow-sm">
+    <div class="w-full px-4 flex items-center justify-between">
+        <a href="home.html" class="flex items-center">
+            <img class="w-32" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
+        </a>
+        <button id="mobile-menu-btn" class="text-dark-color focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+    <!-- Menú móvil oculto por defecto -->
+    <nav id="mobile-menu" class="absolute top-full left-0 w-full bg-background-first shadow-lg py-6 px-4 flex flex-col gap-4 text-lg font-bold text-dark-color transition-all duration-300 opacity-0 invisible">
+        <a href="eventos.html" class="py-2">Eventos</a>
+        <a href="comunidades.html" class="py-2">Comunidades Digitales</a>
+        <a href="buildings.html" class="py-2">Smart Buildings</a>
+        <a href="turismo.html" class="py-2">Travel y turismo</a>
+        <a href="fincas.html" class="py-2">Administración de fincas</a>
+        <a href="cities.html" class="py-2">Smart Cities</a>
+        <a href="tutoriales.html" class="py-2">Tutoriales</a>
+        <a href="blog.html" class="py-2">Blog</a>
+        <a href="casos.html" class="py-2">Casos de éxito</a>
+        <a href="faqs.html" class="py-2">FAQs</a>
+        <a href="partner-find.html" class="py-2">Partners</a>
+        <a href="pricing.html" class="py-2">Precios</a>
+        <a href="app.html" class="py-2">Placenet App</a>
+        <a href="#contactModal" class="py-2">Contacto</a>
+    </nav>
     </header>
 
     <!-- Hero Section -->
@@ -325,23 +303,9 @@
                 <!-- Right Side - Content -->
                 <div class="space-y-10">
                     <div class="space-y-6">
-                        <h2 class="text-5xl font-medium text-dark-color leading-tight ">
-                            <span class="text-dark-color">Cada asistente </span>
-                            <span class="text-blue-600">recibe información personalizada </span>
-                            <span class="text-dark-color">según su ubicación, intereses y agenda en tiempo real.</span>
+                        <h2 class="text-4xl font-medium text-dark-color leading-tight text-justify">
+                            <span class="text-dark-color">Personaliza la experiencia de cada evento a su publico  y consigue que sea inolvidable  con contenidos contextualizados en tiempo real,  journeys fluidos y networking inteligente.</span>
                         </h2>
-                    </div>
-                    
-                    <div class="space-y-6">
-                        <div class="text-xl font-normal text-dark-color leading-7 text-justify">
-                            <span class="text-dark-color">La experiencia del evento se adapta automáticamente: </span>
-                            <span class="text-blue-600">networking inteligente, recomendaciones de sesiones, navegación contextual</span>
-                            <span class="text-dark-color"> y interacciones fluidas.</span>
-                            <br /><br />
-                            <span class="text-dark-color">Desde </span>
-                            <span class="text-blue-600">control de acceso hasta análisis de engagement</span>
-                            <span class="text-dark-color">, todo funciona de manera invisible para los asistentes.</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -883,7 +847,7 @@
     <footer class="bg-background-third py-20">
         <div class="max-w-7xl mx-auto px-4">
             <!-- Main Footer Content -->
-            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-16">
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-16 hidden md:grid">
                 <!-- Company Info Column -->
                 <div class="lg:col-span-1">
                     <div class="mb-8">
@@ -980,8 +944,44 @@
                 </div>
             </div>
             
-           <!-- Footer Bottom -->
-            <!-- Footer Bottom Mobile -->
+        
+            <!-- Mobile: solo logo, texto, iconos sociales -->
+            <div class="mb-16 block md:hidden">
+                <div class="flex flex-col items-center gap-6">
+                    <img class="w-44 h-11 mb-2" src="img/logos/placenet_ligth.png" alt="Placenet Logo" />
+                    <p class="text-stone-300 text-lg font-normal leading-relaxed text-center">
+                        Conectamos digitalmente personas y lugares físicos para crear experiencias únicas.
+                    </p>
+                    <!-- Social Media -->
+                    <div class="flex space-x-4 mt-2">
+                        <a href="https://es.linkedin.com/company/placenetapp" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.youtube.com/@placenetapp" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/placenet.app" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.645.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@placenet.app" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/placenetapp" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="pt-8 border-t border-stone-700 block md:hidden">
                 <!-- Logotipos de subvenciones -->
                 <div class="flex flex-row flex-wrap justify-center gap-4 mb-4">
@@ -1040,7 +1040,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> 
 
     <!-- Contact Modal - Event Management -->
     <div id="contactModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 opacity-0 invisible transition-all duration-300">
