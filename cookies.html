@@ -74,12 +74,12 @@
 </head>
 <body class="font-rethink">
     <!-- Navigation Header -->
-    <header id="header" class="w-full h-36 bg-background-first fixed top-0 z-50 transform transition-transform duration-300 ease-in-out">
-        <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
-            <a href="home.html">
-                <img class="w-32 h-8" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
+    <header id="header" class="w-full h-20 md:h-36 bg-background-first fixed top-0 z-50 transform transition-transform duration-300 ease-in-out">
+    <div class="w-full mx-auto px-3 sm:px-4 h-full flex items-center justify-between md:max-w-7xl">
+            <a href="home.html" class="flex items-center z-50">
+                <img class="w-28 h-7 sm:w-32 sm:h-8" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
             </a>
-            
+            <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center space-x-10">
                 <!-- Soluciones -->
                 <div class="relative group">
@@ -91,10 +91,11 @@
                     </a>
                     <div class="absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                         <a href="eventos.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Eventos</a>
+                        <a href="comunidades.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Comunidades Digitales</a>
                         <a href="buildings.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Smart Buildings</a>
+                        <a href="turismo.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Travel y turismo</a>
                         <a href="fincas.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Administración de fincas</a>
                         <a href="cities.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Smart Cities</a>
-                        <a href="turismo.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Travel y turismo</a>
                     </div>
                 </div>
 
@@ -143,14 +144,66 @@
                 </div>
             </nav>
             
-            <div class="flex items-center space-x-4">
-                <button class="demo-btn bg-background-third text-white px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+            <div class="hidden md:flex items-center space-x-4">
+                <button class="demo-btn border border-2 border-background-third px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300">
                     ¡Lo quiero!
                 </button>
                 <button class="bg-background-third text-white px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300">
                     Iniciar sesión
                 </button>
             </div>
+            <!-- Hamburger Button Mobile -->
+            <button id="mobileMenuBtn" class="block md:hidden w-10 max-w-xs h-10 flex items-center justify-center z-50" aria-label="Abrir menú">
+                <svg class="w-7 h-7 text-dark-color" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" class="fixed inset-0 w-full bg-background-first/95 z-40 flex-col items-start px-5 pt-6 pb-8 space-y-6 transform -translate-x-full transition-transform duration-300 block md:hidden" style="display:none;">
+            <button id="closeMobileMenu" class="self-end mb-8 w-10 h-10 flex items-center justify-center">
+                <svg class="w-7 h-7 text-dark-color" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <a href="home.html" class="mb-8 flex items-center">
+                <img class="w-28 h-7 sm:w-32 sm:h-8" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
+            </a>
+            <a href="eventos.html" class="text-dark-color text-lg font-bold py-2">Eventos</a>
+            <a href="buildings.html" class="text-dark-color text-lg font-bold py-2">Smart Buildings</a>
+            <a href="fincas.html" class="text-dark-color text-lg font-bold py-2">Administración de fincas</a>
+            <a href="turismo.html" class="text-dark-color text-lg font-bold py-2">Travel y turismo</a>
+            <a href="cities.html" class="text-dark-color text-lg font-bold py-2">Smart Cities</a>
+            <a href="comunidades.html" class="text-dark-color text-lg font-bold py-2">Comunidades Digitales</a>
+            <a href="tutoriales.html" class="text-dark-color text-lg font-bold py-2">Tutoriales</a>
+            <a href="blog.html" class="text-dark-color text-lg font-bold py-2">Blog</a>
+            <a href="casos.html" class="text-dark-color text-lg font-bold py-2">Casos de éxito</a>
+            <a href="faqs.html" class="text-dark-color text-lg font-bold py-2">FAQS</a>
+            <a href="partner-find.html" class="text-dark-color text-lg font-bold py-2">Buscar un partner</a>
+            <a href="partner-be.html" class="text-dark-color text-lg font-bold py-2">Convertirme en partner</a>
+            <a href="pricing.html" class="text-dark-color text-lg font-bold py-2">Precios</a>
+            <a href="app.html" class="text-dark-color text-lg font-bold py-2">Placenet App</a>
+            <div class="flex flex-col gap-4 mt-8 w-full">
+                <button class="demo-btn border border-2 border-background-third px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300 w-full">¡Lo quiero!</button>
+                <button class="bg-background-third text-white px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300 w-full">Iniciar sesión</button>
+            </div>
+        </div>
+        <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeBtn = document.getElementById('closeMobileMenu');
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.style.display = 'flex';
+                setTimeout(() => mobileMenu.classList.remove('-translate-x-full'), 10);
+            });
+            closeBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('-translate-x-full');
+                setTimeout(() => mobileMenu.style.display = 'none', 300);
+            });
+        });
+        </script>
         </div>
     </header>
 
@@ -389,17 +442,57 @@
                 </div>
             </div>
             
-            <!-- Footer Bottom -->
-            <div class="pt-8 border-t border-stone-700">
+           <!-- Footer Bottom -->
+            <!-- Footer Bottom Mobile -->
+            <div class="pt-8 border-t border-stone-700 block md:hidden">
+                <!-- Logotipos de subvenciones -->
+                <div class="flex flex-row flex-wrap justify-center gap-4 mb-4">
+                   <div class="flex flex-row flex-wrap justify-center gap-4 w-full max-w-xs mx-auto">
+                        <div class="flex flex-row gap-2 flex-wrap">
+                            <img src="img/logos/mintur.png" alt="MINTUR" style="height:32px;" />
+                            <img src="img/logos/aei.png" alt="AEI" style="height:32px;" />
+                            <img src="img/logos/enisa.png" alt="ENISA" style="height:32px;" />
+                            <img src="img/logos/amt.png" alt="AMT" style="height:32px;" />
+                        </div>
+                        <div class="flex flex-row gap-2 flex-wrap ml-0 md:ml-10">
+                            <img src="img/logos/plan.png" alt="PLAN" style="height:32px;" />
+                            <img src="img/logos/eu.png" alt="EU" style="height:32px;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <p class="text-stone-400 text-sm font-normal text-center">
+                        © 2025 Placenet, Internet of Places S.L.<br> Todos los derechos reservados. 
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="privacidad.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Privacidad</a>
+                        <a href="cookies.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Cookies</a>
+                        <a href="terms.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Términos</a>
+                        <a href="legal.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Legal</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Bottom Desktop -->
+            <div class="pt-8 border-t border-stone-700 hidden md:block">
+                <!-- Logotipos de subvenciones -->
+                <div class="flex flex-row flex-wrap justify-center gap-4 mb-10">
+                    <div class="flex flex-row gap-4">
+                        <img src="img/logos/mintur.png" alt="MINTUR" style="height:60px;" />
+                        <img src="img/logos/aei.png" alt="AEI" style="height:60px;" />
+                        <img src="img/logos/enisa.png" alt="ENISA" style="height:60px;" />
+                        <img src="img/logos/amt.png" alt="AMT" style="height:60px;" />
+                    </div>
+                    <div class="flex flex-row gap-4 ml-16">
+                        <img src="img/logos/plan.png" alt="PLAN" style="height:60px;" />
+                        <img src="img/logos/eu.png" alt="EU" style="height:60px;" />
+                    </div>
+                </div>
                 <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <!-- Copyright -->
                     <div>
                         <p class="text-stone-400 text-sm font-normal">
-                            © 2023 Placenet, Internet of Places S.L. Todos los derechos reservados.
+                            © 2025 Placenet, Internet of Places S.L. Todos los derechos reservados. 
                         </p>
                     </div>
-                    
-                    <!-- Legal Links -->
                     <div class="flex flex-wrap justify-center md:justify-end gap-6">
                         <a href="privacidad.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Política de privacidad</a>
                         <a href="cookies.html" class="text-stone-400 text-sm font-normal hover:text-white transition-colors">Cookies</a>
