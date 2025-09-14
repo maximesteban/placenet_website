@@ -119,7 +119,7 @@
 </head>
 <body class="font-rethink w-screen max-w-full overflow-x-hidden">
     <!-- Navigation Header -->
-    <header id="header" class="xl:w-full lg:w-full bg-background-first fixed pt-10 pb-10 z-50 transform transition-transform duration-300 ease-in-out hidden md:block">
+    <header id="header" class="xl:w-full lg:w-full bg-background-first fixed pt-10 pb-10 z-50 transform transition-transform duration-300 ease-in-out hidden lg:block">
     <div class="w-full mx-auto px-3 sm:px-4 h-full flex items-center justify-between max-w-7xl ">
             <a href="home.html" class="flex items-center z-50">
                 <img class="w-28 h-7 sm:w-32 sm:h-8" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
@@ -200,7 +200,7 @@
         </div>
     </header>
     <!-- Header móvil/tableta -->
-    <header id="mobile-header" class="bg-background-first fixed top-0 left-0 w-screen pt-6 pb-6 z-50 block md:hidden shadow-sm">
+    <header id="mobile-header" class="bg-background-first fixed top-0 left-0 w-screen pt-6 pb-6 z-50 block lg:hidden shadow-sm">
     <div class="w-full px-4 flex items-center justify-between">
         <a href="home.html" class="flex items-center">
             <img class="w-32" src="img/logos/placenet_dark.png" alt="Placenet Logo" />
@@ -211,47 +211,93 @@
             </svg>
         </button>
     </div>
+    <!-- Overlay oscuro para fondo cuando el menú está abierto -->
+    <div id="mobile-menu-overlay" class="fixed top-0 left-0 w-full h-screen bg-black/60 opacity-0 invisible z-40 transition-all duration-300"></div>
     <!-- Menú móvil oculto por defecto -->
-    <nav id="mobile-menu" class="absolute top-full left-0 w-full bg-background-first shadow-lg py-6 px-4 flex flex-col gap-4 text-lg font-bold text-dark-color transition-all duration-300 opacity-0 invisible">
-        <a href="eventos.html" class="py-2">Eventos</a>
-        <a href="comunidades.html" class="py-2">Comunidades Digitales</a>
-        <a href="buildings.html" class="py-2">Smart Buildings</a>
-        <a href="turismo.html" class="py-2">Travel y turismo</a>
-        <a href="fincas.html" class="py-2">Administración de fincas</a>
-        <a href="cities.html" class="py-2">Smart Cities</a>
-        <a href="tutoriales.html" class="py-2">Tutoriales</a>
-        <a href="blog.html" class="py-2">Blog</a>
-        <a href="casos.html" class="py-2">Casos de éxito</a>
-        <a href="faqs.html" class="py-2">FAQs</a>
-        <a href="partner-find.html" class="py-2">Partners</a>
-        <a href="pricing.html" class="py-2">Precios</a>
-        <a href="app.html" class="py-2">Placenet App</a>
-        <a href="#contactModal" class="py-2">Contacto</a>
-    </nav>
+        <nav id="mobile-menu" class="fixed top-0 left-0 w-full h-screen bg-background-first/90 backdrop-blur-lg shadow-2xl px-6 pt-24 pb-8 flex flex-col gap-2 text-lg font-bold text-dark-color transition-all duration-300 opacity-0 invisible z-50 overflow-y-auto">
+            <div class="flex justify-center mb-8">
+                <img src="img/logos/placenet_dark.png" alt="Placenet Logo" class="w-32 h-auto">
+            </div>
+            <button id="close-menu" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-background-third text-white text-3xl focus:outline-none">&times;</button>
+            <!-- Accordion: Soluciones -->
+            <div class="mb-2">
+                <button class="w-full flex justify-between items-center py-3 border-b border-slate-300 text-background-third text-xl font-semibold focus:outline-none accordion-toggle">
+                    Soluciones
+                    <svg class="w-5 h-5 text-background-third transition-transform duration-300 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="accordion-content flex flex-col gap-1 max-h-0 overflow-hidden transition-all duration-300">
+                    <a href="eventos.html" class="py-2 px-2 hover:text-background-third transition-colors">Eventos</a>
+                    <a href="comunidades.html" class="py-2 px-2 hover:text-background-third transition-colors">Comunidades Digitales</a>
+                    <a href="buildings.html" class="py-2 px-2 hover:text-background-third transition-colors">Smart Buildings</a>
+                    <a href="turismo.html" class="py-2 px-2 hover:text-background-third transition-colors">Travel y turismo</a>
+                    <a href="fincas.html" class="py-2 px-2 hover:text-background-third transition-colors">Administración de fincas</a>
+                    <a href="cities.html" class="py-2 px-2 hover:text-background-third transition-colors">Smart Cities</a>
+                </div>
+            </div>
+            <!-- Accordion: Recursos -->
+            <div class="mb-2">
+                <button class="w-full flex justify-between items-center py-3 border-b border-slate-300 text-background-third text-xl font-semibold focus:outline-none accordion-toggle">
+                    Recursos
+                    <svg class="w-5 h-5 text-background-third transition-transform duration-300 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="accordion-content flex flex-col gap-1 max-h-0 overflow-hidden transition-all duration-300">
+                    <a href="tutoriales.html" class="py-2 px-2 hover:text-background-third transition-colors">Tutoriales</a>
+                    <a href="blog.html" class="py-2 px-2 hover:text-background-third transition-colors">Blog</a>
+                    <a href="casos.html" class="py-2 px-2 hover:text-background-third transition-colors">Casos de éxito</a>
+                    <a href="faqs.html" class="py-2 px-2 hover:text-background-third transition-colors">FAQs</a>
+                </div>
+            </div>
+            <!-- Accordion: Partners -->
+            <div class="mb-2">
+                <button class="w-full flex justify-between items-center py-3 border-b border-slate-300 text-background-third text-xl font-semibold focus:outline-none accordion-toggle">
+                    Partners
+                    <svg class="w-5 h-5 text-background-third transition-transform duration-300 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="accordion-content flex flex-col gap-1 max-h-0 overflow-hidden transition-all duration-300">
+                    <a href="partner-find.html" class="py-2 px-2 hover:text-background-third transition-colors">Buscar un partner</a>
+                </div>
+            </div>
+            <!-- Accordion: Precios y App -->
+            <div class="mb-2">
+                <a href="pricing.html" class="w-full block py-3 border-b border-slate-300 text-background-third text-xl font-semibold hover:text-background-third focus:outline-none">
+                    Precios
+                </a>
+            </div>
+            <!-- Accordion: Contacto -->
+            <div class="mb-2">
+                <a href="app.html" class="w-full block py-3 border-b border-slate-300 text-background-third text-xl font-semibold hover:text-background-third focus:outline-none">
+                    Placenet App
+                </a>
+            </div>
+            <!-- Botones extra -->
+            <div class="mt-8 flex flex-col gap-4">
+                <button class="demo-btn border border-2 border-background-third px-5 py-3 rounded-[30px] text-base font-medium text-background-third  hover:bg-slate-800 hover:text-white hover:scale-105 transition-all duration-300">¡Lo quiero!</button>
+                <button class="bg-background-third text-white px-5 py-3 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300">Iniciar sesión</button>
+            </div>
+        </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="min-h-screen bg-background-first pt-36 pb-4">
+    <section class="bg-background-first pt-36 pb-4 lg:min-h-screen">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid lg:grid-cols-3 gap-20 items-start">
+            <div class="grid lg:grid-cols-3 gap-6 lg:gap-20 items-start">
                 <!-- Left Side - Text Content -->
-                <div class="space-y-4 sm:space-y-8 lg:space-y-12 lg:pt-20 relative z-20 lg:col-span-2">
+                <div class="space-y-8 sm:space-y-8 lg:space-y-12 lg:pt-20 relative z-20 w-full lg:col-span-2 flex flex-col items-center justify-center text-center sm:items-center sm:justify-center sm:text-center lg:items-start lg:justify-start lg:text-left">
                     <h1 class="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-dark-color leading-none max-w-4xl">
                         Conectamos digitalmente lugares con personas.
                     </h1>
-                    <p class="text-xl sm:text-lg md:text-xl lg:text-4xl font-normal text-dark-color leading-7 max-w-md text-justify ">
+                    <p class="text-xl sm:text-lg md:text-xl lg:text-4xl font-normal text-dark-color leading-7 max-w-md lg:text-justify ">
                         Una nueva experiencia para los visitantes de un lugar.
                     </p>
                     <!-- <p class="text-base sm:text-lg md:text-xl lg:text-2xl font-normal text-dark-color leading-7 max-w-md ">
                         <b>TODO</b> lo que necesitan<br> <b>CUANDO</b> lo necesitan.</b><br><b>Solo por estar ahí.</b>
                     </p>-->
-                    <button class="demo-btn bg-background-third text-white px-6 py-3 sm:px-10 sm:py-4 md:px-14 md:py-4 lg:px-16 lg:py-4 rounded-[60px] text-base sm:text-lg md:text-xl lg:text-2xl font-medium hover:bg-background-third hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                    <button class="demo-btn bg-background-third text-white px-16 py-4 sm:px-10 sm:py-4 md:px-14 md:py-4 lg:px-16 lg:py-4 rounded-[60px] text-base sm:text-lg md:text-xl lg:text-2xl font-medium hover:bg-background-third hover:bg-slate-800 hover:scale-105 transition-all duration-300">
                         Saber más
                     </button>
                 </div>
-                
-                <!-- Right Side - Overlapping Mockups -->
-                <div class="relative h-[700px] lg:h-[800px] lg:mt-20 overflow-visible">
+                <!-- Right Side - Overlapping Mockups (solo visible en desktop) -->
+                <div class="hidden lg:block relative lg:h-[800px] lg:mt-20 overflow-visible">
                     <!-- Mobile/Phone User View - Foreground -->
                     <div class="absolute top-8 right-4 lg:top-12 lg:right-0 w-52 transform hover:scale-105 transition-transform duration-500 z-10">
                         <div class="relative bg-background-third rounded-3xl shadow-2xl p-2" style="width: 200px; height: 410px;">
@@ -265,7 +311,6 @@
                             <div class="absolute -left-0.5 top-16 w-0.5 h-3 bg-slate-700 rounded-r"></div>
                         </div>
                     </div>
-                    
                     <!-- Desktop/PC Platform Mockup - Background // FOTO LUGAR  -->
                     <a href="#how-it-works" class="absolute top-48 -left-96 w-full transform hover:scale-105 transition-transform duration-500 cursor-pointer" style="width: 200%;">
                         <div class="relative bg-background-third rounded-3xl shadow-2xl p-3">
@@ -303,100 +348,114 @@
     <!-- Platform Features Section -->
     <section class="py-20 bg-background-third">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl sm:text-4xl md:text-6xl lg:text-6xl max-w-5xl mx-auto font-medium text-white leading-tight mb-8">
+            <div class="text-center mb-16 px-4">
+                <h2 class="text-4xl sm:text-4xl md:text-5xl lg:text-6xl max-w-5xl mx-auto font-medium text-white leading-tight mb-8">
                     Conecta la experiencia de tus visitantes con el mundo real.
                 </h2>
-                <p class="text-lg sm:text-4xl md:text-6xl lg:text-2xl max-w-4xl mx-auto font-normal text-white leading-7 max-w-7xl mx-auto">
+                <p class="text-lg sm:text-4xl md:text-3xl lg:text-2xl max-w-4xl mx-auto font-normal text-white leading-7 max-w-7xl mx-auto">
                     Placenet es la nueva tecnología que hace posible acompañar al cliente en su experiencia en el mundo real pudiendo hablar con él, ofrecerle informacion de valor o funcionalidades útiles en el lugar en el que se encuentra. ¿Por qué? Porque las personas realizan cosas diferentes en función del lugar y el momento
                 </p>
             </div>
             
             <div class="grid lg:grid-cols-2 gap-8">
-                <!-- Placenet Platform Card // Propuesta: dominio, plataforma, funcionalidades placenet, app
-                dominio: Para conectar cualquier lugar real a internet y poder localizar a tus visitantes y conectar con ellos cuando estén allí. Con nuestra tecnología puedes tener todos los lugares que te interesen conectados.
-                -->
-                <div class="bg-background-first rounded-3xl shadow-lg p-8 space-y-12">
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-                        <h3 class="text-5xl font-medium text-dark-color leading-tight max-w-sm">
-                            Plataforma <span class="font-black text-dark-color tracking-tight">placenet</span>
-                        </h3>
-                        <p class="text-base font-normal text-dark-color leading-tight max-w-sm text-justify">
-                            Soluciones verticales completas para eventos, smart buildings, administración de fincas, smart cities y turismo. Gestiona todo desde una plataforma unificada.
-                        </p>
-                    </div>
-                    
-                    <button class="w-full bg-background-third rounded-[100px] px-6 py-5 flex items-center justify-between group hover:bg-slate-800 hover:scale-105 transition-all duration-300">
-                        <span class="text-white text-2xl font-medium">Ver soluciones</span>
-                        <div class="w-16 h-16 rounded-full border-2 border-white flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-                
-                <!-- Placenet Application Card -->
-                <div class="bg-background-first rounded-3xl shadow-lg p-8 space-y-12">
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
-                        <h3 class="text-5xl font-medium text-dark-color leading-tight max-w-sm">
-                            <span class="font-black text-dark-color tracking-tight">placenet</span> App
-                        </h3>
-                        <p class="text-base font-normal text-dark-color leading-tight max-w-sm text-justify">
-                            La app social que conecta a las personas con los lugares. Descubre eventos, servicios y comunidades locales de forma automática al llegar a cualquier espacio.
-                        </p>
-                    </div>
-                    
-                    <button class="w-full bg-background-third rounded-[100px] px-6 py-5 flex items-center justify-between group hover:bg-slate-800 hover:scale-105 transition-all duration-300">
-                        <span class="text-white text-2xl font-medium">Descargar</span>
-                        <div class="w-16 h-16 rounded-full border-2 border-white flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                    </button>
-                </div>
+
                 <!-- Placenet Platform Card -->
-                <div class="bg-background-first rounded-3xl shadow-lg p-8 space-y-12">
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-                        <h3 class="text-5xl font-medium text-dark-color leading-tight max-w-sm">
-                            Plataforma <span class="font-black text-dark-color tracking-tight">placenet</span>
-                        </h3>
-                        <p class="text-base font-normal text-dark-color leading-tight max-w-sm text-justify">
-                            Soluciones verticales completas para eventos, smart buildings, administración de fincas, smart cities y turismo. Gestiona todo desde una plataforma unificada.
-                        </p>
-                    </div>
-                    
-                    <button class="w-full bg-background-third rounded-[100px] px-6 py-5 flex items-center justify-between group hover:bg-slate-800 hover:scale-105 transition-all duration-300">
-                        <span class="text-white text-2xl font-medium">Ver soluciones</span>
-                        <div class="w-16 h-16 rounded-full border-2 border-white flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
+                <div class="bg-background-first rounded-3xl shadow-lg p-8 flex flex-col justify-between h-full" style="min-height: 420px;">
+                    <div>
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                            <h3 class="text-4xl sm:text-3xl md:text-5xl lg:text-5xl font-medium text-dark-color leading-tight w-full md:w-full md:text-center lg:max-w-sm lg:text-left">
+                                Plataforma <span class="font-black text-dark-color tracking-tight">placenet</span>
+                            </h3>
+                            <p class="text-lg sm:text-base md:text-xl lg:text-base font-normal text-dark-color leading-tight w-full md:w-full md:text-center lg:max-w-sm lg:text-left">
+                                Soluciones verticales completas para eventos, smart buildings, administración de fincas, smart cities y turismo. Gestiona todo desde una plataforma unificada.
+                            </p>
                         </div>
-                    </button>
-                </div>
-                
-                <!-- Placenet Application Card -->
-                <div class="bg-background-first rounded-3xl shadow-lg p-8 space-y-12">
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
-                        <h3 class="text-5xl font-medium text-dark-color leading-tight max-w-sm">
-                            <span class="font-black text-dark-color tracking-tight">placenet</span> App
-                        </h3>
-                        <p class="text-base font-normal text-dark-color leading-tight max-w-sm text-justify">
-                            La app social que conecta a las personas con los lugares. Descubre eventos, servicios y comunidades locales de forma automática al llegar a cualquier espacio.
-                        </p>
                     </div>
-                    
-                    <button class="w-full bg-background-third rounded-[100px] px-6 py-5 flex items-center justify-between group hover:bg-slate-800 hover:scale-105 transition-all duration-300">
-                        <span class="text-white text-2xl font-medium">Descargar</span>
-                        <div class="w-16 h-16 rounded-full border-2 border-white flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                    </button>
+                    <div class="mt-auto pt-8">
+                        <button class="w-full bg-background-third md:bg-background-third rounded-[100px] px-4 py-3 md:px-8 md:py-3 flex items-center justify-between group hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                            <span class="text-white text-lg md:text-2xl font-medium">Ver soluciones</span>
+                            <div class="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Placenet Platform Card -->
+                <div class="bg-background-first rounded-3xl shadow-lg p-8 flex flex-col justify-between h-full" style="min-height: 420px;">
+                    <div>
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                            <h3 class="text-4xl sm:text-3xl md:text-5xl lg:text-5xl font-medium text-dark-color leading-tight w-full md:w-full md:text-center lg:max-w-sm lg:text-left">
+                                Plataforma <span class="font-black text-dark-color tracking-tight">placenet</span>
+                            </h3>
+                            <p class="text-lg sm:text-base md:text-xl lg:text-base font-normal text-dark-color leading-tight w-full md:w-full md:text-center lg:max-w-sm lg:text-left">
+                                Soluciones verticales completas para eventos, smart buildings, administración de fincas, smart cities y turismo. Gestiona todo desde una plataforma unificada.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-auto pt-8">
+                        <button class="w-full bg-background-third md:bg-background-third rounded-[100px] px-4 py-3 md:px-8 md:py-3 flex items-center justify-between group hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                            <span class="text-white text-lg md:text-2xl font-medium">Ver soluciones</span>
+                            <div class="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Placenet Platform Card -->
+                <div class="bg-background-first rounded-3xl shadow-lg p-8 flex flex-col justify-between h-full" style="min-height: 420px;">
+                    <div>
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                            <h3 class="text-4xl sm:text-3xl md:text-5xl lg:text-5xl font-medium text-dark-color leading-tight w-full md:w-full md:text-center lg:max-w-sm lg:text-left">
+                                Plataforma <span class="font-black text-dark-color tracking-tight">placenet</span>
+                            </h3>
+                            <p class="text-lg sm:text-base md:text-xl lg:text-base font-normal text-dark-color leading-tight w-full md:w-full md:text-center lg:max-w-sm lg:text-left">
+                                Soluciones verticales completas para eventos, smart buildings, administración de fincas, smart cities y turismo. Gestiona todo desde una plataforma unificada.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-auto pt-8">
+                        <button class="w-full bg-background-third md:bg-background-third rounded-[100px] px-4 py-3 md:px-8 md:py-3 flex items-center justify-between group hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                            <span class="text-white text-lg md:text-2xl font-medium">Ver soluciones</span>
+                            <div class="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Placenet Platform Card -->
+                <div class="bg-background-first rounded-3xl shadow-lg p-8 flex flex-col justify-between h-full" style="min-height: 420px;">
+                    <div>
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                            <h3 class="text-4xl sm:text-3xl md:text-5xl lg:text-5xl font-medium text-dark-color leading-tight w-full md:w-full md:text-center lg:max-w-sm lg:text-left">
+                                Plataforma <span class="font-black text-dark-color tracking-tight">placenet</span>
+                            </h3>
+                            <p class="text-lg sm:text-base md:text-xl lg:text-base font-normal text-dark-color leading-tight w-full md:w-full md:text-center lg:max-w-sm lg:text-left">
+                                Soluciones verticales completas para eventos, smart buildings, administración de fincas, smart cities y turismo. Gestiona todo desde una plataforma unificada.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-auto pt-8">
+                        <button class="w-full bg-background-third md:bg-background-third rounded-[100px] px-4 py-3 md:px-8 md:py-3 flex items-center justify-between group hover:bg-slate-800 hover:scale-105 transition-all duration-300">
+                            <span class="text-white text-lg md:text-2xl font-medium">Ver soluciones</span>
+                            <div class="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </section>
@@ -414,7 +473,7 @@
             <!-- Company Logos Section -->  
             <!-- Logos Carousel Container -->
             <div class="overflow-hidden relative logo-fade-container">
-                <div class="logos-slide flex items-center gap-16" style="width: calc(200% + 4rem);">
+                <div class="logos-slide flex items-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 xl:gap-24" style="width: calc(200% + 4rem);">
                     <!-- First set of logos -->
                     <a href="casos.html" class="h-10 w-auto flex-shrink-0 cursor-pointer group">
                         <img class="h-full w-auto filter brightness-0 group-hover:filter-none transition-all duration-300" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" />
@@ -472,23 +531,23 @@
             <!-- Carousel Container -->
             <div class="relative h-[700px] perspective-1000">
                 <!-- Left Arrow -->
-                <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border-2 border-dark-color flex items-center justify-center hover:bg-dark-color hover:text-white hover:scale-110 transition-all duration-300 group">
+                <button id="prevBtn" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-dark-color flex items-center justify-center hover:bg-dark-color hover:text-white hover:scale-110 transition-all duration-300 group hidden md:flex">
                     <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg> 
                 </button>
                 
                 <!-- Right Arrow -->
-                <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border-2 border-dark-color flex items-center justify-center hover:bg-dark-color hover:text-white hover:scale-110 transition-all duration-300 group">
+                <button id="nextBtn" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-dark-color flex items-center justify-center hover:bg-dark-color hover:text-white hover:scale-110 transition-all duration-300 group hidden md:flex">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </button>
                 
                 <!-- Carousel Cards Container -->
-                <div class="relative w-full h-full flex items-center justify-center">
+                <div class="relative w-full h-full flex items-center justify-center" id="carousel-touch">
                     <!-- Card 1 - Left Side (Behind) -->
-                    <div id="card-0" class="carousel-card absolute w-80 h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(-300px) translateZ(-300px) rotateY(35deg); opacity: 0.3; z-index: 1; pointer-events: none;">
+                    <div id="card-0" class="carousel-card absolute w-40 h-[160px] sm:w-52 sm:h-[200px] md:w-72 md:h-[400px] lg:w-80 lg:h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(-300px) translateZ(-300px) rotateY(35deg); opacity: 0.3; z-index: 1; pointer-events: none;">
                         <a href="/casos-de-exito" class="block h-full">
                             <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
                                 <div class="relative h-full">
@@ -517,7 +576,7 @@
                     </div>
                     
                     <!-- Card 2 - Center (Front - Superpuesto) -->
-                    <div id="card-1" class="carousel-card absolute w-96 h-[600px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(0) translateZ(0) rotateY(0deg); opacity: 1; z-index: 20; pointer-events: auto;">
+                    <div id="card-1" class="carousel-card absolute w-44 h-[180px] sm:w-56 sm:h-[220px] md:w-80 md:h-[500px] lg:w-96 lg:h-[600px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(0) translateZ(0) rotateY(0deg); opacity: 1; z-index: 20; pointer-events: auto;">
                         <a href="/casos-de-exito" class="block h-full">
                             <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
                                 <div class="relative h-full">
@@ -546,7 +605,7 @@
                     </div>
                     
                     <!-- Card 3 - Right Side (Behind) -->
-                    <div id="card-2" class="carousel-card absolute w-80 h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(300px) translateZ(-300px) rotateY(-35deg); opacity: 0.3; z-index: 1; pointer-events: none;">
+                    <div id="card-2" class="carousel-card absolute w-40 h-[160px] sm:w-52 sm:h-[200px] md:w-72 md:h-[400px] lg:w-80 lg:h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(300px) translateZ(-300px) rotateY(-35deg); opacity: 0.3; z-index: 1; pointer-events: none;">
                         <a href="/casos-de-exito" class="block h-full">
                             <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
                                 <div class="relative h-full">
@@ -575,7 +634,7 @@
                     </div>
                     
                     <!-- Hidden Cards for rotation -->
-                    <div id="card-3" class="carousel-card absolute w-80 h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(700px) translateZ(-500px) rotateY(-80deg); opacity: 0; z-index: 0; pointer-events: none;">
+                    <div id="card-3" class="carousel-card absolute w-40 h-[160px] sm:w-52 sm:h-[200px] md:w-72 md:h-[400px] lg:w-80 lg:h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(700px) translateZ(-500px) rotateY(-80deg); opacity: 0; z-index: 0; pointer-events: none;">
                         <a href="/casos-de-exito" class="block h-full">
                             <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
                                 <div class="relative h-full">
@@ -603,7 +662,7 @@
                         </a>
                     </div>
                     
-                    <div id="card-4" class="carousel-card absolute w-80 h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(-700px) translateZ(-500px) rotateY(80deg); opacity: 0; z-index: 0; pointer-events: none;">
+                    <div id="card-4" class="carousel-card absolute w-40 h-[160px] sm:w-52 sm:h-[200px] md:w-72 md:h-[400px] lg:w-80 lg:h-[500px] transition-all duration-700 ease-in-out transform-gpu" style="transform: translateX(-700px) translateZ(-500px) rotateY(80deg); opacity: 0; z-index: 0; pointer-events: none;">
                         <a href="/casos-de-exito" class="block h-full">
                             <div class="bg-gradient-to-b from-background-third/50 to-background-third/80 rounded-3xl overflow-hidden h-full group hover:scale-105 transition-all duration-300 shadow-2xl">
                                 <div class="relative h-full">
@@ -662,7 +721,7 @@
                     <!-- FAQ 1 - Initially Open -->
                     <div class="faq-item bg-white rounded-3xl transition-all duration-300">
                         <button class="w-full p-4 text-left flex justify-between items-center gap-8 focus:outline-none faq-toggle" onclick="toggleFaq(this)">
-                            <h3 class="text-2xl font-medium text-dark-color leading-9 flex-1">
+                            <h3 class="text-xl sm:text-lg md:text-2xl font-medium text-dark-color leading-tight flex-1">
                                 ¿Cómo puede placenet mejorar la experiencia de eventos?
                             </h3>
                             <div class="w-12 h-12 rounded-full border-2 border-dark-color  flex items-center justify-center transition-transform duration-300 faq-icon">
@@ -681,7 +740,7 @@
                     <!-- FAQ 2 -->
                     <div class="faq-item bg-white rounded-3xl  transition-all duration-300 group">
                         <button class="w-full p-4 text-left flex justify-between items-center gap-8 focus:outline-none faq-toggle" onclick="toggleFaq(this)">
-                            <h3 class="text-2xl font-medium text-dark-color leading-9 flex-1">
+                            <h3 class="text-xl sm:text-lg md:text-2xl font-medium text-dark-color leading-tight flex-1">
                                 ¿Qué tipos de eventos se pueden gestionar con placenet?
                             </h3>
                             <div class="w-12 h-12 rounded-full border-2 border-dark-color flex items-center justify-center transition-transform duration-300 faq-icon">
@@ -700,7 +759,7 @@
                     <!-- FAQ 3-->
                     <div class="faq-item bg-white rounded-3xl   transition-all duration-300 group">
                         <button class="w-full p-4 text-left flex justify-between items-center gap-8 focus:outline-none faq-toggle" onclick="toggleFaq(this)">
-                            <h3 class="text-2xl font-medium text-dark-color leading-9 flex-1">
+                            <h3 class="text-xl sm:text-lg md:text-2xl font-medium text-dark-color leading-tight flex-1">
                                 ¿Qué infraestructura necesita mi evento?
                             </h3>
                             <div class="w-12 h-12 rounded-full border-2 border-dark-color flex items-center justify-center transition-transform duration-300 faq-icon">
@@ -719,7 +778,7 @@
                     <!-- FAQ 4-->
                     <div class="faq-item bg-white rounded-3xl  transition-all duration-300 group">
                         <button class="w-full p-4 text-left flex justify-between items-center gap-8 focus:outline-none faq-toggle" onclick="toggleFaq(this)">
-                            <h3 class="text-2xl font-medium text-dark-color  leading-9 flex-1">
+                            <h3 class="text-xl sm:text-lg md:text-2xl font-medium text-dark-color leading-tight flex-1">
                                 ¿Cuánto tiempo toma configurar placenet para un evento?
                             </h3>
                             <div class="w-12 h-12 rounded-full border-2 border-dark-color  flex items-center justify-center transition-transform duration-300 faq-icon">
@@ -740,9 +799,9 @@
     </section>
 
     <!-- Call to Action Section -->
-    <section class="py-20 bg-background-third">
+    <section class="py-8 sm:py-12 md:py-16 lg:py-20 bg-background-third">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-xl sm:text-4xl md:text-6xl lg:text-5xl font-medium text-white leading-tight mb-12 max-w-5xl mx-auto pb-8">
+            <h2 class="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-medium text-white leading-tight mb-12 max-w-5xl mx-auto pb-8 md:px-4">
                 Lo que necesitan tus visitantes en el momento y lugar en que lo necesitan.
             </h2>
             <div class="gap-12 flex justify-center">
@@ -758,7 +817,7 @@
     <footer class="bg-background-third py-20">
         <div class="max-w-7xl mx-auto px-4">
             <!-- Main Footer Content -->
-            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-16 hidden md:grid">
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-16 hidden lg:grid">
                 <!-- Company Info Column -->
                 <div class="lg:col-span-1">
                     <div class="mb-8">
@@ -857,7 +916,7 @@
             
         
             <!-- Mobile: solo logo, texto, iconos sociales -->
-            <div class="mb-16 block md:hidden">
+            <div class="mb-16 block lg:hidden">
                 <div class="flex flex-col items-center gap-6">
                     <img class="w-44 h-11 mb-2" src="img/logos/placenet_ligth.png" alt="Placenet Logo" />
                     <p class="text-stone-300 text-lg font-normal leading-relaxed text-center">
@@ -964,7 +1023,7 @@
     <!-- Contact Modal -->
     <div id="contactModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 opacity-0 invisible transition-all duration-300">
         <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full mx-auto transform scale-95 transition-transform duration-300" id="modalContent">
+            <div class="bg-white rounded-3xl shadow-2xl max-w-2xl md:max-w-4xl w-full mx-auto transform scale-95 transition-transform duration-300 max-h-[98vh] overflow-y-auto" id="modalContent">
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between p-8 border-b border-gray-100">
                     <div>
@@ -1091,6 +1150,57 @@
                         }
                     });
                 }
+
+                
+// Funcionalidad para el menú móvil, overlay y los desplegables (accordion)
+document.addEventListener('DOMContentLoaded', function () {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeBtn = document.getElementById('close-menu');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    // Abrir/cerrar menú móvil y overlay
+    function openMenu() {
+        mobileMenu.classList.remove('invisible', 'opacity-0');
+        mobileMenu.classList.add('visible', 'opacity-100');
+        overlay.classList.remove('invisible', 'opacity-0');
+        overlay.classList.add('visible', 'opacity-100');
+    }
+    function closeMenu() {
+        mobileMenu.classList.remove('visible', 'opacity-100');
+        mobileMenu.classList.add('invisible', 'opacity-0');
+        overlay.classList.remove('visible', 'opacity-100');
+        overlay.classList.add('invisible', 'opacity-0');
+    }
+    menuBtn?.addEventListener('click', openMenu);
+    closeBtn?.addEventListener('click', closeMenu);
+    overlay?.addEventListener('click', closeMenu);
+    // Accordion funcionalidad
+    const toggles = mobileMenu.querySelectorAll('.accordion-toggle');
+    toggles.forEach(toggle => {
+        toggle.addEventListener('click', function () {
+            const content = this.nextElementSibling;
+            const arrow = this.querySelector('.accordion-arrow');
+            const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+            // Cierra todos los demás
+            mobileMenu.querySelectorAll('.accordion-content').forEach(c => {
+                c.style.maxHeight = null;
+            });
+            mobileMenu.querySelectorAll('.accordion-arrow').forEach(a => {
+                a.style.transform = 'rotate(0deg)';
+            });
+            // Abre/cierra el actual
+            if (!isOpen) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                arrow.style.transform = 'rotate(90deg)';
+            } else {
+                content.style.maxHeight = null;
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        });
+    });
+    // Cierra menú al hacer clic en cualquier enlace
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+});
 
         // Scroll to top functionality
         scrollToTopBtn.addEventListener('click', function() {
@@ -1333,6 +1443,7 @@
 
         // FAQ Accordion functionality with hover
     </script>
+<script src="carousel-touch.js"></script>
 </body>
 <script>
 // FAQ toggle solo por tap en la flecha, alterna abierto/cerrado
@@ -1361,5 +1472,42 @@ function toggleFaq(btn) {
     content.style.paddingBottom = '1rem';
     if (icon) icon.style.transform = 'rotate(180deg)';
 }
+</script>
+<script>
+// Activar deslizamiento táctil para el carrusel en móvil/tablet
+// Este script asume que el carrusel tiene el id 'carousel-touch' y que las funciones next/prev existen
+
+document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.getElementById('carousel-touch');
+    if (!carousel) return;
+
+    let startX = 0;
+    let endX = 0;
+
+    carousel.addEventListener('touchstart', function (e) {
+        startX = e.touches[0].clientX;
+    });
+
+    carousel.addEventListener('touchmove', function (e) {
+        endX = e.touches[0].clientX;
+    });
+
+    carousel.addEventListener('touchend', function () {
+        if (startX && endX) {
+            const delta = endX - startX;
+            if (Math.abs(delta) > 50) {
+                if (delta < 0) {
+                    // Desliza a la izquierda: siguiente
+                    document.getElementById('nextBtn')?.click();
+                } else {
+                    // Desliza a la derecha: anterior
+                    document.getElementById('prevBtn')?.click();
+                }
+            }
+        }
+        startX = 0;
+        endX = 0;
+    });
+});
 </script>
 </html>
