@@ -1136,20 +1136,7 @@
                         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
                 });
 
-                // Mobile menu toggle
-                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (mobileMenuBtn && mobileMenu) {
-                    mobileMenuBtn.addEventListener('click', function() {
-                        if (mobileMenu.classList.contains('invisible')) {
-                            mobileMenu.classList.remove('invisible', 'opacity-0');
-                            mobileMenu.classList.add('visible', 'opacity-100');
-                        } else {
-                            mobileMenu.classList.remove('visible', 'opacity-100');
-                            mobileMenu.classList.add('invisible', 'opacity-0');
-                        }
-                    });
-                }
+                
 
                 
 // Funcionalidad para el menú móvil, overlay y los desplegables (accordion)
