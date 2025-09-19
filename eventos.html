@@ -62,7 +62,15 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        html, body { overflow-x: hidden !important; }
+                html, body { overflow-x: hidden !important; }
+                /* Oculta la barra de scroll horizontal en el slider */
+                .scrollbar-hide {
+                    -ms-overflow-style: none;  /* IE and Edge */
+                    scrollbar-width: none;     /* Firefox */
+                }
+                .scrollbar-hide::-webkit-scrollbar {
+                    display: none;             /* Chrome, Safari, Opera */
+                }
         @keyframes slide {
             0% {
                 transform: translateX(0);
@@ -335,7 +343,7 @@
                     <h1 class="text-5xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-dark-color leading-none mb-6">
                         Eventos
                     </h1>
-                    <p class="text-xl sm:text-lg md:text-xl lg:text-2xl font-normal text-dark-color leading-7 mb-12">
+                    <p class="text-xl sm:text-lg md:text-3xl lg:text-2xl font-normal text-dark-color leading-7 mb-12">
                         Eventos inteligentes que conectan automáticamente con cada asistente
                     </p>
                     <button class="demo-btn bg-background-third text-white px-16 py-4 sm:px-10 sm:py-4 md:px-14 md:py-4 lg:px-16 lg:py-4 rounded-[60px] text-base sm:text-lg md:text-xl lg:text-2xl font-medium hover:bg-background-third hover:bg-slate-800 hover:scale-105 transition-all duration-300">
@@ -373,7 +381,7 @@
                 <!-- Right Side - Content -->
                 <div class="space-y-10">
                     <div class="space-y-6">
-                        <h2 class="text-xl sm:text-2xl md:text-4xl lg:text-4xl font-medium text-dark-color leading-tight text-center md:text-justify lg:text-justify px-4 sm:px-0">
+                        <h2 class="text-xl sm:text-2xl md:text-2xl lg:text-4xl font-medium text-dark-color leading-tight text-center md:text-justify lg:text-justify px-4 sm:px-0 md:px-8">
                             <span class="text-dark-color">Personaliza la experiencia de cada evento a su publico  y consigue que sea inolvidable  con contenidos contextualizados en tiempo real,  journeys fluidos y networking inteligente.</span>
                         </h2>
                     </div>
@@ -394,10 +402,11 @@
                 </p>
             </div>
             
+            
             <!-- Features Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="flex flex-row gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-x-visible md:flex-none">
                 <!-- Feature 1 -->
-                <div class="feature-card h-80">
+                <div class="feature-card h-80 min-w-[80vw] max-w-xs snap-center md:min-w-0 md:max-w-none">
                     <div class="card-inner relative w-full h-full">
                         <!-- Front Side -->
                         <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
@@ -406,26 +415,31 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
                                 </svg>
                             </div>
-                            <h3 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-dark-color mb-4">Control de Acceso Inteligente</h3>
+                            <h3 class="text-xl sm:text-xl md:text-2xl lg:text-2xl font-bold text-dark-color mb-4">Control de Acceso Inteligente</h3>
+                            <div class="mt-2">
+                                <span class="inline-flex items-center gap-2 text-xs sm:text-sm md:text-base text-white bg-background-third rounded-full px-3 py-1 shadow-md">
+                                    ver más
+                                </span>
+                            </div>
                         </div>
                         
                         <!-- Back Side -->
                         <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
                             <h3 class="text-xl font-bold mb-4 text-dark-color">Control de Acceso Inteligente</h3>
-                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                            <p class="text-md sm:text-sm md:text-base leading-relaxed mb-4 text-gray-600">
                                 Gestión automática de entradas, verificación de identidad y seguimiento de aforo en tiempo real con tecnología contactless.
                             </p>
-                            <ul class="text-xs space-y-1 text-gray-500">
-                                <li>• Check-in sin contacto</li>
-                                <li>• Verificación automática</li>
-                                <li>• Control de aforo</li>
+                            <ul class="text-md space-y-1 text-gray-500">
+                                <li class="text-md sm:text-sm md:text-base">• Check-in sin contacto</li>
+                                <li class="text-md sm:text-sm md:text-base">• Verificación automática</li>
+                                <li class="text-md sm:text-sm md:text-base">• Control de aforo</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="feature-card h-80">
+                <div class="feature-card h-80 min-w-[80vw] max-w-xs snap-center md:min-w-0 md:max-w-none">
                     <div class="card-inner relative w-full h-full">
                         <!-- Front Side -->
                         <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
@@ -434,26 +448,32 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-dark-color mb-4">Networking Inteligente</h3>
+                            <h3 class="text-xl sm:text-xl md:text-2xl lg:text-2xl font-bold text-dark-color mb-4">Networking Inteligente</h3>
+                            <div class="mt-2">
+
+                                <span class="inline-flex items-center gap-2 text-xs sm:text-sm md:text-base text-white bg-background-third rounded-full px-3 py-1 shadow-md">
+                                    ver más
+                                </span>
+                            </div>
                         </div>
                         
                         <!-- Back Side -->
                         <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
                             <h3 class="text-xl font-bold mb-4 text-dark-color">Networking Inteligente</h3>
-                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                            <p class="text-md sm:text-sm md:text-base leading-relaxed mb-4 text-gray-600">
                                 Conecta automáticamente asistentes con intereses similares, facilita encuentros programados y sugiere contactos relevantes.
                             </p>
-                            <ul class="text-xs space-y-1 text-gray-500">
-                                <li>• Matching por intereses</li>
-                                <li>• Encuentros sugeridos</li>
-                                <li>• Intercambio de contactos</li>
+                            <ul class="text-md space-y-1 text-gray-500">
+                                <li class="text-md sm:text-sm md:text-base">• Matching por intereses</li>
+                                <li class="text-md sm:text-sm md:text-base">• Encuentros sugeridos</li>
+                                <li class="text-md sm:text-sm md:text-base">• Intercambio de contactos</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="feature-card h-80">
+                <div class="feature-card h-80 min-w-[80vw] max-w-xs snap-center md:min-w-0 md:max-w-none">
                     <div class="card-inner relative w-full h-full">
                         <!-- Front Side -->
                         <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
@@ -462,25 +482,31 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-dark-color mb-4">Analytics en Tiempo Real</h3>
+                            <h3 class="text-xl sm:text-xl md:text-2xl lg:text-2xl font-bold text-dark-color mb-4">Analytics en Tiempo Real</h3>
+                            <div class="mt-2">
+
+                                <span class="inline-flex items-center gap-2 text-xs sm:text-sm md:text-base text-white bg-background-third rounded-full px-3 py-1 shadow-md">
+                                    ver más
+                                </span>
+                            </div>
                         </div>
                         
                         <!-- Back Side -->
                         <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
                             <h3 class="text-xl font-bold mb-4 text-dark-color">Analytics en Tiempo Real</h3>
-                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                            <p class="text-md sm:text-sm md:text-base leading-relaxed mb-4 text-gray-600">
                                 Métricas instantáneas de participación, flujos de asistentes, engagement por sesión y feedback inmediato.
                             </p>
-                            <ul class="text-xs space-y-1 text-gray-500">
-                                <li>• Participación en directo</li>
-                                <li>• Flujos de movimiento</li>
-                                <li>• Métricas de engagement</li>
+                            <ul class="text-md space-y-1 text-gray-500">
+                                <li class="text-md sm:text-sm md:text-base">• Participación en directo</li>
+                                <li class="text-md sm:text-sm md:text-base">• Flujos de movimiento</li>
+                                <li class="text-md sm:text-sm md:text-base">• Métricas de engagement</li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- Feature 4 -->
-                <div class="feature-card h-80">
+                <div class="feature-card h-80 min-w-[80vw] max-w-xs snap-center md:min-w-0 md:max-w-none">
                     <div class="card-inner relative w-full h-full">
                         <!-- Front Side -->
                         <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
@@ -489,26 +515,32 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-dark-color mb-4">Agenda Personalizada</h3>
+                            <h3 class="text-xl sm:text-xl md:text-2xl lg:text-2xl font-bold text-dark-color mb-4">Agenda Personalizada</h3>
+                            <div class="mt-2">
+
+                                <span class="inline-flex items-center gap-2 text-xs sm:text-sm md:text-base text-white bg-background-third rounded-full px-3 py-1 shadow-md">
+                                    ver más
+                                </span>
+                            </div>
                         </div>
                         
                         <!-- Back Side -->
                         <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
                             <h3 class="text-xl font-bold mb-4 text-dark-color">Agenda Personalizada</h3>
-                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                            <p class="text-md sm:text-sm md:text-base leading-relaxed mb-4 text-gray-600">
                                 Recomendaciones automáticas de sesiones, recordatorios inteligentes y optimización de rutas entre actividades.
                             </p>
-                            <ul class="text-xs space-y-1 text-gray-500">
-                                <li>• Sesiones recomendadas</li>
-                                <li>• Recordatorios automáticos</li>
-                                <li>• Rutas optimizadas</li>
+                            <ul class="text-md space-y-1 text-gray-500">
+                                <li class="text-md sm:text-sm md:text-base">• Sesiones recomendadas</li>
+                                <li class="text-md sm:text-sm md:text-base">• Recordatorios automáticos</li>
+                                <li class="text-md sm:text-sm md:text-base">• Rutas optimizadas</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <!-- Feature 5 -->
-                <div class="feature-card h-80">
+                <div class="feature-card h-80 min-w-[80vw] max-w-xs snap-center md:min-w-0 md:max-w-none">
                     <div class="card-inner relative w-full h-full">
                         <!-- Front Side -->
                         <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
@@ -518,26 +550,32 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-dark-color mb-4">Gestión de Recursos</h3>
+                            <h3 class="text-xl sm:text-xl md:text-2xl lg:text-2xl font-bold text-dark-color mb-4">Gestión de Recursos</h3>
+                            <div class="mt-2">
+
+                                <span class="inline-flex items-center gap-2 text-xs sm:text-sm md:text-base text-white bg-background-third rounded-full px-3 py-1 shadow-md">
+                                    ver más
+                                </span>
+                            </div>
                         </div>
                         
                         <!-- Back Side -->
                         <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
                             <h3 class="text-xl font-bold mb-4 text-dark-color">Gestión de Recursos</h3>
-                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                            <p class="text-md sm:text-sm md:text-base leading-relaxed mb-4 text-gray-600">
                                 Optimización automática de espacios, equipamiento y personal basada en demanda y patrones de uso en tiempo real.
                             </p>
-                            <ul class="text-xs space-y-1 text-gray-500">
-                                <li>• Optimización de espacios</li>
-                                <li>• Gestión de equipos</li>
-                                <li>• Asignación de personal</li>
+                            <ul class="text-md space-y-1 text-gray-500">
+                                <li class="text-md sm:text-sm md:text-base">• Optimización de espacios</li>
+                                <li class="text-md sm:text-sm md:text-base">• Gestión de equipos</li>
+                                <li class="text-md sm:text-sm md:text-base">• Asignación de personal</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <!-- Feature 6 -->
-                <div class="feature-card h-80">
+                <div class="feature-card h-80 min-w-[80vw] max-w-xs snap-center md:min-w-0 md:max-w-none">
                     <div class="card-inner relative w-full h-full">
                         <!-- Front Side -->
                         <div class="card-front bg-background-first rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg">
@@ -546,23 +584,39 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-dark-color mb-4">Feedback Instantáneo</h3>
+                            <h3 class="text-xl sm:text-xl md:text-2xl lg:text-2xl font-bold text-dark-color mb-4">Feedback Instantáneo</h3>
+                            <div class="mt-2">
+
+                                <span class="inline-flex items-center gap-2 text-xs sm:text-sm md:text-base text-white bg-background-third rounded-full px-3 py-1 shadow-md">
+                                    ver más
+                                </span>
+                            </div>
                         </div>
                         
                         <!-- Back Side -->
                         <div class="card-back bg-background-first rounded-2xl p-8 flex flex-col justify-center shadow-xl">
                             <h3 class="text-xl font-bold mb-4 text-dark-color">Feedback Instantáneo</h3>
-                            <p class="text-sm leading-relaxed mb-4 text-gray-600">
+                            <p class="text-md sm:text-sm md:text-base leading-relaxed mb-4 text-gray-600">
                                 Recolección automática de valoraciones, encuestas contextuales y análisis de satisfacción en tiempo real.
                             </p>
-                            <ul class="text-xs space-y-1 text-gray-500">
-                                <li>• Valoraciones automáticas</li>
-                                <li>• Encuestas contextuales</li>
-                                <li>• Análisis de satisfacción</li>
+                            <ul class="text-md space-y-1 text-gray-500">
+                                <li class="text-md sm:text-sm md:text-base">• Valoraciones automáticas</li>
+                                <li class="text-md sm:text-sm md:text-base">• Encuestas contextuales</li>
+                                <li class="text-md sm:text-sm md:text-base">• Análisis de satisfacción</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Indicador de slider solo móvil -->
+            <div class="flex items-center justify-center mt-8 md:hidden">
+                <span class="flex items-center gap-2 text-background-first text-base font-semibold animate-bounce">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                    Desliza para ver más
+                </span>
             </div>
         </div>
     </section>
@@ -571,7 +625,7 @@
     <section class="py-20  bg-background-first">
         <div class="max-w-7xl mx-auto px-4">
           <div class="text-center">
-                <h2 class="mb-16 text-5xl sm:text-4xl md:text-6xl lg:text-6xl font-medium text-dark-color leading-tight">
+                <h2 class="mb-16 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-dark-color leading-tight">
                     Ya viven experiencias <span class="font-black text-dark-color tracking-tight">placenet</span>
                 </h2>
             </div>
@@ -907,7 +961,7 @@
     <!-- Call to Action Section -->
     <section class="py-20 bg-background-third">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-5xl font-medium text-white leading-tight mb-12 max-w-6xl mx-auto pb-8">
+            <h2 class="text-2xl sm:text-5xl md:text-4xl lg:text-5xl font-medium text-white leading-tight mb-12 max-w-6xl mx-auto pb-8 px-4">
                 Lo que necesitan los asistentes en el momento y lugar en que lo necesitan.
             </h2>
             <div class="gap-12 flex justify-center">
@@ -1590,31 +1644,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // FAQ Accordion functionality with hover
         function initFAQs() {
-            document.querySelectorAll('.faq-item').forEach(faqItem => {
-                const content = faqItem.querySelector('.faq-content');
-                const icon = faqItem.querySelector('.faq-icon svg');
-                
-                // Hover to open
-                faqItem.addEventListener('mouseenter', () => {
-                    // Close all other FAQs first
-                    document.querySelectorAll('.faq-item').forEach(item => {
-                        if (item !== faqItem) {
-                            const otherContent = item.querySelector('.faq-content');
-                            const otherIcon = item.querySelector('.faq-icon svg');
-                            otherContent.style.maxHeight = '0px';
-                            otherIcon.style.transform = 'rotate(0deg)';
-                        }
+            document.querySelectorAll('.faq-toggle').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const faqItem = btn.closest('.faq-item');
+                    const content = faqItem.querySelector('.faq-content');
+                    const icon = btn.querySelector('.faq-icon svg');
+                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                    // Si está abierta, ciérrala
+                    if (isOpen) {
+                        content.style.maxHeight = '0px';
+                        content.style.paddingBottom = '0';
+                        if (icon) icon.style.transform = '';
+                        return;
+                    }
+                    // Cerrar todas las FAQs
+                    document.querySelectorAll('.faq-content').forEach(el => {
+                        el.style.maxHeight = '0px';
+                        el.style.paddingBottom = '0';
                     });
-                    
-                    // Open current FAQ
+                    document.querySelectorAll('.faq-icon svg').forEach(svg => {
+                        svg.style.transform = '';
+                    });
+                    // Abrir la seleccionada
                     content.style.maxHeight = content.scrollHeight + 'px';
-                    icon.style.transform = 'rotate(180deg)';
-                });
-                
-                // Mouse leave to close
-                faqItem.addEventListener('mouseleave', () => {
-                    content.style.maxHeight = '0px';
-                    icon.style.transform = 'rotate(0deg)';
+                    content.style.paddingBottom = '1rem';
+                    if (icon) icon.style.transform = 'rotate(180deg)';
                 });
             });
         }
