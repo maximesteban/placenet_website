@@ -26,25 +26,70 @@
     <style>
         body { font-family: 'Rethink Sans', system-ui, sans-serif; }
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'rethink': ['Rethink Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        'background-first': '#F9F3EB',
+                        'background-third': '#000122',
+                        'dark-color': '#000122',
+                        'light-color': '#F9F3EB',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="font-rethink min-h-screen overflow-x-hidden bg-gradient-to-br from-placenet-light via-white to-placenet-light flex flex-col justify-center items-center">
-    <div class="w-full max-w-md mx-auto mt-16 mb-8 p-6 bg-white/80 rounded-3xl shadow-2xl border border-gray-200 flex flex-col items-center">
-        <img src="img/logos/placenet_dark.png" alt="Placenet" class="h-12 mb-4 drop-shadow-md">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-placenet-dark mb-2 text-center">Download Placenet</h1>
-        <p class="text-gray-700 text-center mb-6">Get the Placenet app for your device:</p>
-        <div class="flex flex-col gap-4 w-full">
-            <a href="https://apps.apple.com/es/app/placenet-iop/id6504680197" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-black text-white rounded-xl px-4 py-3 font-semibold hover:bg-placenet-accent transition text-base shadow-md">
-                <img src="img/logos/apple-touch-icon.png" alt="App Store" class="h-6 w-6"> App Store (iOS)
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=app.placenet.iop&hl=es" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-green-600 text-white rounded-xl px-4 py-3 font-semibold hover:bg-placenet-accent transition text-base shadow-md">
-                <img src="img/logos/android-chrome-192x192.png" alt="Google Play" class="h-6 w-6"> Google Play (Android)
-            </a>
-        </div>
-        <div class="mt-8 text-center text-gray-500 text-sm">
-            <p>Or scan the QR code below:</p>
-            <img src="img/app/qr.png" alt="Placenet QR" class="w-32 h-32 mx-auto mt-2 rounded-lg border border-gray-200 shadow-sm bg-white" style="object-fit: contain;" />
-        </div>
+<script>
+  window.onload = function () {
+    var ua = navigator.userAgent || navigator.vendor || window.opera;
+
+    var isAndroid = /android/i.test(ua);
+    var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    var isEmbedded = /FBAN|FBAV|Instagram|Line|Twitter|Messenger/i.test(ua);
+
+    var androidUrl = "https://play.google.com/store/apps/details?id=app.placenet.iop";
+    var iosUrl = "https://apps.apple.com/es/app/placenet-iop/id6504680197";
+
+    function openInBrowser(url) {
+      // Fuerza abrir en el navegador por defecto
+      window.location = "googlechrome://" + url.replace(/^https?:\/\//, "");
+      setTimeout(function () {
+        // Si no funciona el intento anterior, abre en una nueva pestaña como fallback
+        window.open(url, '_blank');
+      }, 500);
+    }
+
+    if (isEmbedded) {
+      // Navegador embebido → forzar abrir en navegador externo
+      if (isAndroid) openInBrowser(androidUrl);
+      else if (isIOS) openInBrowser(iosUrl);
+      else document.getElementById("manual").style.display = "block";
+    } else {
+      // Navegador normal → redirige directamente
+      if (isAndroid) window.location.href = androidUrl;
+      else if (isIOS) window.location.href = iosUrl;
+      else document.getElementById("manual").style.display = "block";
+    }
+  };
+</script>
+
+<body class="bg-background-first min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-md mx-auto bg-background-first  p-8 flex flex-col items-center justify-center gap-6 mt-20 mb-20">
+    <img src="img/logos/placenet_dark.png" alt="Placenet Logo" class="w-32 mb-2">
+    <h1 class="text-2xl sm:text-3xl font-bold text-dark-color mb-2 text-center">Downloading Placenet</h1>
+    <p class="text-base sm:text-lg text-dark-color text-center mb-4">Redirecting you to your app store...</p>
+  <div id="manual" style="display: block;" class="w-full flex flex-col items-center gap-6 mt-2">
+      <p class="text-sm text-dark-color mb-6">If the redirection doesn't work automatically, use the buttons below:</p>
+  <button onclick="window.open('https://apps.apple.com/es/app/placenet-iop/id6504680197', '_blank')" class="bg-background-third text-white border border-2 border-background-third px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300 w-full mb-2">Open in App Store (iOS)</button>
+  <button onclick="window.open('https://play.google.com/store/apps/details?id=app.placenet.iop', '_blank')" class="bg-background-third text-white border border-2 border-background-third px-5 py-2.5 rounded-[30px] text-base font-medium hover:bg-slate-800 hover:scale-105 transition-all duration-300 w-full">Open in Google Play (Android)</button>
     </div>
-    <footer class="w-full text-center text-xs text-gray-400 pb-4">&copy; 2025 Placenet</footer>
+  </div>
 </body>
+
 </html>
