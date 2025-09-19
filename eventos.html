@@ -140,7 +140,7 @@
 </head>
 
 <body class="font-rethink bg-background-first w-screen max-w-full overflow-x-hidden">
-     <!-- Navigation Header -->
+      <!-- Navigation Header -->
     <header id="header" class="xl:w-full lg:w-full bg-background-first fixed pt-10 pb-10 z-50 transform transition-transform duration-300 ease-in-out hidden lg:block">
     <div class="w-full mx-auto px-3 sm:px-4 h-full flex items-center justify-between max-w-7xl ">
             <a href="home.html" class="flex items-center z-50">
@@ -158,13 +158,25 @@
                     </a>
                     <div class="absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                         <a href="eventos.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Eventos</a>
-                        <a href="comunidades.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Comunidades Digitales</a>
-                        <a href="buildings.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Smart Buildings</a>
-                        <a href="turismo.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Travel y turismo</a>
+                        <a href="turismo.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Turismo</a>
                         <a href="fincas.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Administración de fincas</a>
-                        <a href="cities.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Smart Cities</a>
+                        <a href="cities.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Ciudades</a>
+                        <div class="relative group/comunidades">
+                            <a href="#" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors flex items-center">
+                                Comunidades
+                                <svg class="ml-1 w-4 h-4 transition-transform group-hover/comunidades:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <div class="absolute top-0 left-full w-56 bg-white shadow-lg rounded-lg py-2 opacity-0 invisible group-hover/comunidades:opacity-100 group-hover/comunidades:visible transition-all duration-300 z-50">
+                                <a href="comunidades.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Universidades</a>
+                                <a href="buildings.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Coworkings</a>
+                                <a href="sports-centers.html" class="block px-6 py-3 text-slate-700 hover:bg-background-third hover:text-white transition-colors">Centros deportivos</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                    
 
                 <!-- Recursos -->
                 <div class="relative group">
@@ -248,12 +260,21 @@
                     <svg class="w-5 h-5 text-background-third transition-transform duration-300 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <div class="accordion-content flex flex-col gap-1 max-h-0 overflow-hidden transition-all duration-300">
-                    <a href="eventos.html" class="py-2 px-2 hover:text-background-third transition-colors">Eventos</a>
-                    <a href="comunidades.html" class="py-2 px-2 hover:text-background-third transition-colors">Comunidades Digitales</a>
-                    <a href="buildings.html" class="py-2 px-2 hover:text-background-third transition-colors">Smart Buildings</a>
-                    <a href="turismo.html" class="py-2 px-2 hover:text-background-third transition-colors">Travel y turismo</a>
-                    <a href="fincas.html" class="py-2 px-2 hover:text-background-third transition-colors">Administración de fincas</a>
-                    <a href="cities.html" class="py-2 px-2 hover:text-background-third transition-colors">Smart Cities</a>
+                    <a href="eventos.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Eventos</a>
+                    <div class="mb-1">
+                        <button class="w-full flex justify-between items-center py-2 px-2 text-left hover:text-background-third transition-colors font-normal text-lg accordion-toggle-comunidades">
+                            Comunidades
+                            <svg class="w-4 h-4 text-background-third transition-transform duration-300 accordion-arrow-comunidades" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                        <div class="accordion-content-comunidades flex flex-col gap-1 max-h-0 overflow-hidden transition-all duration-300 pl-4">
+                            <a href="comunidades.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Universidades</a>
+                            <a href="buildings.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Cooworkings</a>
+                            <a href="buildings.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Centros deportivos</a>
+                        </div>
+                    </div>
+                    <a href="turismo.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Travel y turismo</a>
+                    <a href="fincas.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Administración de fincas</a>
+                    <a href="cities.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Smart Cities</a>
                 </div>
             </div>
             <!-- Accordion: Recursos -->
@@ -263,10 +284,10 @@
                     <svg class="w-5 h-5 text-background-third transition-transform duration-300 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <div class="accordion-content flex flex-col gap-1 max-h-0 overflow-hidden transition-all duration-300">
-                    <a href="tutoriales.html" class="py-2 px-2 hover:text-background-third transition-colors">Tutoriales</a>
-                    <a href="blog.html" class="py-2 px-2 hover:text-background-third transition-colors">Blog</a>
-                    <a href="casos.html" class="py-2 px-2 hover:text-background-third transition-colors">Casos de éxito</a>
-                    <a href="faqs.html" class="py-2 px-2 hover:text-background-third transition-colors">FAQs</a>
+                    <a href="tutoriales.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Tutoriales</a>
+                    <a href="blog.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Blog</a>
+                    <a href="casos.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Casos de éxito</a>
+                    <a href="faqs.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">FAQs</a>
                 </div>
             </div>
             <!-- Accordion: Partners -->
@@ -276,7 +297,8 @@
                     <svg class="w-5 h-5 text-background-third transition-transform duration-300 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <div class="accordion-content flex flex-col gap-1 max-h-0 overflow-hidden transition-all duration-300">
-                    <a href="partner-find.html" class="py-2 px-2 hover:text-background-third transition-colors">Buscar un partner</a>
+                    <a href="partner-find.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Buscar un partner</a>
+                    <a href="partner-be.html" class="py-2 px-2 hover:text-background-third transition-colors font-normal">Convertirme  partner</a>
                 </div>
             </div>
             <!-- Accordion: Precios y App -->
