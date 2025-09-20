@@ -809,9 +809,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <!-- Fondo de imagen con opacidad baja, detrás del contenido -->
     <div class="w-full h-full absolute inset-0 z-0 pointer-events-none" style="background: url('img/app/bg.png') center center / cover no-repeat; opacity: 0.08;"></div>
     <div class="w-full mx-auto px-4 relative z-10">
-            <div class="max-w-7xl mx-auto md:grid md:grid-cols-3 gap-4 md:gap-8 items-center h-auto md:h-[600px] md:flex-none md:overflow-visible md:snap-x md:snap-mandatory md:space-x-4 pb-4 md:pb-0">
+            <div class="max-w-7xl mx-auto flex flex-col gap-4 h-auto pb-4 md:pb-0 md:grid md:grid-cols-3 md:gap-16 md:h-[600px]">
                 <!-- Left Dynamic Review -->
-                <div class="hidden md:flex items-center justify-center h-full md:h-[600px] md:items-center md:justify-center">
+                <div class="hidden md:flex items-center md:justify-center h-full md:h-[600px] md:items-center flex-shrink-0 md:mx-auto md:max-w-xs md:justify-self-center">
                     <div id="leftCard" class="w-[85vw] sm:w-[340px] md:w-80 h-[400px] sm:h-[522px] rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-all duration-500 flex flex-col relative bg-black/60 snap-center flex-shrink-0">
                         <div class="relative w-full h-full">
                             <img id="leftCardImg" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=600&fit=crop&crop=face" class="w-full h-full object-cover transition-opacity duration-500 absolute inset-0 z-0" alt="User" />
@@ -837,8 +837,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <!-- Center 2x2 Grid of Four Reviews -->
                 <!-- Center Static Review Cards -->
-                <div class="flex flex-col md:flex-row items-center justify-center self-center h-full md:h-[600px] md:items-center md:justify-center flex-grow">
-                    <div class="flex overflow-x-hidden snap-x snap-mandatory space-x-4 pb-4 w-full lg:grid lg:grid-cols-2 lg:grid-rows-2 lg:gap-12 lg:pb-0 lg:overflow-visible lg:snap-none lg:space-x-0">
+                <div class="flex flex-col md:flex-row items-center justify-center self-center h-full md:h-[600px] md:items-center md:justify-center flex-shrink-0 w-full">
+                    <div class="flex overflow-x-auto snap-x snap-mandatory space-x-4 pb-4 w-full scrollbar-hide md:grid md:grid-cols-2 md:grid-rows-2 md:gap-12 md:pb-0 md:overflow-visible md:snap-none md:space-x-0 md:w-auto md:flex-none relative">
                         <!-- Card 1 - Blue - Capucine FR -->
                         <div id="floatingCard2" class="w-[85vw] md:w-52 h-60 bg-[#8ACAF2] rounded-3xl p-4 md:p-6 flex flex-col justify-between border border-white/20 backdrop-blur-sm hover:scale-105 transition-transform duration-300 z-20 mx-auto snap-center flex-shrink-0">
                             <div class="flex justify-between items-start">
@@ -946,11 +946,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 <!-- Mensaje solo móvil debajo del slider -->
-                <div class="block md:hidden w-full text-center mt-2 text-base text-background-third font-semibold select-none">
-                    Swipe para ver más reseñas
+                <div class="block sm:hidden md:hidden w-full text-center mt-2 text-base text-background-third font-semibold select-none flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5 text-background-third animate-bounce-x" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span>Swipe for more reviews</span>
+                    <svg class="w-5 h-5 text-background-third animate-bounce-x" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                    <style>
+                        @keyframes bounceX { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-8px); } }
+                        .animate-bounce-x { animation: bounceX 1.2s infinite; }
+                    </style>
                 </div>
                 <!-- Right Dynamic Review -->
-                <div class="hidden md:flex items-center justify-center h-full md:h-[600px] md:items-center md:justify-center">
+                <div class="hidden md:flex items-center md:justify-center h-full md:h-[600px] md:items-center flex-shrink-0 md:mx-auto md:max-w-xs md:justify-self-center">
                     <div id="rightCard" class="w-[85vw] sm:w-[340px] md:w-80 h-[400px] sm:h-[522px] rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-all duration-500 flex flex-col relative bg-black/60 snap-center flex-shrink-0">
                         <div class="relative w-full h-full">
                             <img id="rightCardImg" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&crop=face" class="w-full h-full object-cover transition-opacity duration-500 absolute inset-0 z-0" alt="User" />
@@ -1165,7 +1175,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         </div>
-    </footer>
+        </footer>
+        <!-- Estilos específicos para tablet (768px - 1024px) -->
+            <style>
+                                                @media (min-width: 768px) and (max-width: 1024px) {
+                                                    /* Oculta el slider central en tablet */
+                                                    .md\:grid.md\:grid-cols-2.md\:grid-rows-2.md\:gap-12,
+                                                    .flex.flex-col.md\:flex-row.items-center.justify-center.self-center.h-full.md\:h-\[600px\].md\:items-center.md\:justify-center.flex-shrink-0.w-full {
+                                                        display: none !important;
+                                                    }
+                                                    /* Alinea las tarjetas dinámicas una al lado de la otra */
+                                                    .md\:grid.md\:grid-cols-3.md\:gap-16.md\:h-\[600px\] {
+                                                        display: flex !important;
+                                                        flex-direction: row !important;
+                                                        justify-content: center !important;
+                                                        align-items: center !important;
+                                                        gap: 32px;
+                                                        height: 540px;
+                                                    }
+                                                    #leftCard, #rightCard {
+                                                        width: 340px !important;
+                                                        height: 440px !important;
+                                                        margin-left: 0 !important;
+                                                        margin-right: 0 !important;
+                                                        display: block !important;
+                                                    }
+                                                    /* Padding y fuente para legibilidad */
+                                                    .md\:p-6 {
+                                                        padding: 1.3rem !important;
+                                                    }
+                                                    #leftCardName, #rightCardName {
+                                                        font-size: 2.4rem !important;
+                                                    }
+                                                    .text-lg {
+                                                        font-size: 1.15rem !important;
+                                                    }
+                                                    .text-m {
+                                                        font-size: 1rem !important;
+                                                    }
+                                                }
+            </style>
 
     <!-- Scroll to Top Button -->
     <button id="scrollToTop" class="fixed bottom-8 right-8 w-14 h-14 bg-background-third text-white rounded-full shadow-lg hover:bg-slate-800 transition-all duration-300 opacity-0 invisible hover:scale-110 z-40">
